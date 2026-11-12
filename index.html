@@ -1,232 +1,273 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seif Eddine Denkir — Développeur & Designer Web</title>
     <meta name="description" content="Portfolio de Seif Eddine Denkir, développeur et designer web senior à Tunis : e-commerce Sylius/Symfony, plateformes e-learning WordPress, SEO technique et identité visuelle.">
+    <script>document.documentElement.className = 'js';</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/portfolio.css">
 </head>
 <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-arrow" viewBox="0 0 48 12"><path d="M0 6h46M40 1l6 5-6 5" fill="none" stroke="currentColor" stroke-width="1.2"/></symbol>
+        <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+        <symbol id="i-screen" viewBox="0 0 24 24"><path d="M3 5h18v11H3zM9 20h6M12 16v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="i-devices" viewBox="0 0 24 24"><path d="M3 5h12v10H3zM6 19h6M15 9h6v11h-6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="i-speed" viewBox="0 0 24 24"><path d="M4 17a8 8 0 1 1 16 0M12 17l4-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 7 9-7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+        <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+        <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.800 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="9.500" r="2.300" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+    </svg>
+
+    <div class="progress" aria-hidden="true"></div>
     <a class="skip" href="#projets">Aller aux projets</a>
 
-    <header class="nav">
-        <a class="nav-brand" href="#top">Seif Eddine Denkir</a>
-        <nav aria-label="Navigation principale">
+    <header class="top">
+        <a class="top-brand" href="#top">
+            <svg class="star" aria-hidden="true"><use href="#i-star"/></svg>
+            <span>Développeur & designer web</span>
+        </a>
+        <nav class="top-nav" aria-label="Navigation principale">
             <a href="#projets">Projets</a>
             <a href="#expertise">Expertise</a>
             <a href="#parcours">Parcours</a>
             <a href="cv.html">CV</a>
-            <a class="nav-cta" href="#contact">Me contacter</a>
         </nav>
+        <a class="top-cta" href="#contact">Me contacter <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </header>
 
     <main id="top">
+        <!-- Hero -->
         <section class="hero">
-            <div class="hero-text">
-                <h1>Je dessine des interfaces et je les développe jusqu'en production.</h1>
-                <p class="lead">Seif Eddine Denkir, développeur & designer web senior à Tunis. Depuis plus de 8 ans, je construis des boutiques e-commerce, des plateformes e-learning et des identités visuelles, du premier croquis au déploiement Docker.</p>
-                <div class="hero-actions">
-                    <a class="btn btn-primary" href="mailto:denkirseifeddine@gmail.com">Écrire un e-mail</a>
-                    <a class="btn btn-ghost" href="#projets">Voir les projets</a>
-                </div>
-                <p class="status"><span class="dot" aria-hidden="true"></span>Lead développeur & designer chez Kwantic depuis janvier 2025</p>
-            </div>
+            <p class="side side-l" aria-hidden="true">Développement web <i></i> UI / UX design</p>
+            <p class="side side-r" aria-hidden="true">Branding <i></i> Expériences digitales</p>
 
-            <figure class="duo" aria-label="Carte de visite affichée en mode design ou en mode code">
-                <div class="duo-switch" role="tablist" aria-label="Mode d'affichage">
-                    <button role="tab" id="tab-design" aria-controls="panel-design" aria-selected="true">Design</button>
-                    <button role="tab" id="tab-code" aria-controls="panel-code" aria-selected="false" tabindex="-1">Code</button>
-                </div>
+            <p class="giant" aria-hidden="true" data-speed="-0.06"><span>P</span><span>O</span><span>R</span><span>T</span><span>F</span><span>O</span><span>L</span><span>I</span><span>O</span></p>
 
-                <div class="duo-panel duo-design" id="panel-design" role="tabpanel" aria-labelledby="tab-design">
-                    <div class="card-render">
-                        <p class="card-kicker">Tunis, Tunisie</p>
-                        <p class="card-name">Seif Eddine<br>Denkir</p>
-                        <p class="card-role">Développeur & Designer Web</p>
-                        <ul class="card-stack">
-                            <li>Symfony</li><li>Sylius</li><li>WordPress</li><li>LearnDash</li><li>Docker</li>
-                        </ul>
+            <div class="hero-grid">
+                <div class="hero-intro">
+                    <p class="hello">Bonjour, je suis</p>
+                    <h1><span class="mask"><span>Seif Eddine</span></span><span class="mask"><span>Denkir</span></span></h1>
+                    <p class="role">Développeur & designer web senior</p>
+                    <p class="pitch">Je conçois et développe des sites clairs, modernes et rapides : boutiques e-commerce, plateformes e-learning et identités visuelles, depuis plus de 8 ans.</p>
+                    <div class="actions">
+                        <a class="btn btn-solid" href="mailto:denkirseifeddine@gmail.com">Écrire un e-mail</a>
+                        <a class="link-arrow" href="#projets">Voir les projets <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
                     </div>
                 </div>
 
-                <div class="duo-panel duo-code" id="panel-code" role="tabpanel" aria-labelledby="tab-code" hidden>
-<pre><code><span class="t">&lt;article</span> <span class="a">class</span>=<span class="s">"card"</span><span class="t">&gt;</span>
-  <span class="t">&lt;p</span> <span class="a">class</span>=<span class="s">"kicker"</span><span class="t">&gt;</span>Tunis, Tunisie<span class="t">&lt;/p&gt;</span>
-  <span class="t">&lt;h1&gt;</span>Seif Eddine Denkir<span class="t">&lt;/h1&gt;</span>
-  <span class="t">&lt;p&gt;</span>Développeur &amp;amp; Designer Web<span class="t">&lt;/p&gt;</span>
-  <span class="t">&lt;ul</span> <span class="a">class</span>=<span class="s">"stack"</span><span class="t">&gt;</span>
-    <span class="t">&lt;li&gt;</span>Symfony<span class="t">&lt;/li&gt;</span>
-    <span class="t">&lt;li&gt;</span>Sylius<span class="t">&lt;/li&gt;</span>
-    <span class="t">&lt;li&gt;</span>WordPress<span class="t">&lt;/li&gt;</span>
-    <span class="t">&lt;li&gt;</span>LearnDash<span class="t">&lt;/li&gt;</span>
-    <span class="t">&lt;li&gt;</span>Docker<span class="t">&lt;/li&gt;</span>
-  <span class="t">&lt;/ul&gt;</span>
-<span class="t">&lt;/article&gt;</span>
-
-<span class="c">/* 8+ ans, même exigence des deux côtés */</span></code></pre>
-                </div>
-                <figcaption>Basculez entre la maquette et son code : c'est le même travail, vu des deux côtés.</figcaption>
-            </figure>
-        </section>
-
-        <section class="projects" id="projets" aria-labelledby="projets-title">
-            <div class="section-head">
-                <h2 id="projets-title">Projets choisis</h2>
-                <p>Quelques missions récentes, en agence et en indépendant.</p>
-            </div>
-
-            <ul class="project-list" role="list">
-                <li class="project">
-                    <div class="project-meta">
-                        <span class="project-client">Kwantic</span>
-                        <span>2025</span>
+                <div class="hero-art" aria-hidden="true">
+                    <div class="disc" data-speed="0.08"><span class="monogram">SD</span></div>
+                    <div class="badge" data-speed="0.16">
+                        <svg viewBox="0 0 200 200" class="badge-ring">
+                            <defs><path id="ring" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs>
+                            <text><textPath href="#ring" textLength="486">DESIGN • DÉVELOPPEMENT • E-COMMERCE • SEO •</textPath></text>
+                        </svg>
+                        <span class="badge-core">8+ ans<br>d'expérience</span>
                     </div>
-                    <div class="project-body">
-                        <h3>Rybsen, refonte d'une marque Greentech</h3>
-                        <p>Direction technique et graphique de la refonte complète du site : nouvelle interface, intégration et mise en production.</p>
-                    </div>
-                    <ul class="project-tags" role="list"><li>Direction artistique</li><li>UI/UX</li><li>Intégration</li></ul>
-                </li>
-                <li class="project">
-                    <div class="project-meta">
-                        <span class="project-client">Kwantic</span>
-                        <span>2025</span>
-                    </div>
-                    <div class="project-body">
-                        <h3>E-commerce haut de gamme sous Sylius</h3>
-                        <p>Développement de boutiques sur mesure avec Sylius et Symfony, et débogage des environnements Docker de l'équipe.</p>
-                    </div>
-                    <ul class="project-tags" role="list"><li>Sylius</li><li>Symfony</li><li>Docker</li></ul>
-                </li>
-                <li class="project">
-                    <div class="project-meta">
-                        <span class="project-client">Kwantic</span>
-                        <span>2025</span>
-                    </div>
-                    <div class="project-body">
-                        <h3>Audit SEO et maillage interne</h3>
-                        <p>Audit technique approfondi et correction des anomalies de maillage, avec plus de 400 redirections remises en ordre.</p>
-                    </div>
-                    <ul class="project-tags" role="list"><li>SEO technique</li><li>Redirections</li></ul>
-                </li>
-                <li class="project">
-                    <div class="project-meta">
-                        <span class="project-client">Indépendant</span>
-                        <span>2023–2024</span>
-                    </div>
-                    <div class="project-body">
-                        <h3>ESVS Library, plateforme e-learning</h3>
-                        <p>Conception d'un LMS sur WordPress avec LearnDash et des Custom Post Types pour organiser cours et ressources.</p>
-                    </div>
-                    <ul class="project-tags" role="list"><li>LearnDash</li><li>Custom Post Types</li><li>WordPress</li></ul>
-                </li>
-                <li class="project">
-                    <div class="project-meta">
-                        <span class="project-client">Indépendant</span>
-                        <span>2023–2024</span>
-                    </div>
-                    <div class="project-body">
-                        <h3>Musée de l'Île d'Oléron</h3>
-                        <p>Maintenance technique du site et développement de fonctionnalités sur mesure pour le musée.</p>
-                    </div>
-                    <ul class="project-tags" role="list"><li>Maintenance</li><li>Développement sur mesure</li></ul>
-                </li>
-                <li class="project">
-                    <div class="project-meta">
-                        <span class="project-client">Indépendant</span>
-                        <span>2023–2024</span>
-                    </div>
-                    <div class="project-body">
-                        <h3>OrbitAI et TSI, identités visuelles</h3>
-                        <p>Création et modernisation de logos et d'identités pour deux entreprises du secteur IT.</p>
-                    </div>
-                    <ul class="project-tags" role="list"><li>Illustrator</li><li>Photoshop</li><li>Branding</li></ul>
-                </li>
-            </ul>
-        </section>
-
-        <section class="expertise" id="expertise" aria-labelledby="expertise-title">
-            <div class="section-head">
-                <h2 id="expertise-title">Ce que je fais</h2>
-                <p>Un seul interlocuteur pour la maquette, le code et la mise en ligne.</p>
-            </div>
-            <div class="skill-grid">
-                <div class="skill">
-                    <h3>CMS & e-learning</h3>
-                    <p>Sites WordPress sur mesure, boutiques PrestaShop et plateformes de formation.</p>
-                    <p class="skill-tools">WordPress, Elementor Pro, ACF Pro, LearnDash, PrestaShop</p>
-                </div>
-                <div class="skill">
-                    <h3>Développement</h3>
-                    <p>E-commerce et applications sur Symfony et Sylius, intégrations d'API.</p>
-                    <p class="skill-tools">PHP, Symfony, Sylius, JavaScript/jQuery, API REST</p>
-                </div>
-                <div class="skill">
-                    <h3>DevOps & SEO</h3>
-                    <p>Environnements Docker, bases de données et audits SEO techniques.</p>
-                    <p class="skill-tools">Docker, bases de données, audits SEO</p>
-                </div>
-                <div class="skill">
-                    <h3>Design UI/UX</h3>
-                    <p>Interfaces, logos et identités visuelles pensés pour être développés.</p>
-                    <p class="skill-tools">Photoshop, Illustrator, UI/UX</p>
                 </div>
             </div>
         </section>
 
-        <section class="journey" id="parcours" aria-labelledby="parcours-title">
-            <div class="section-head">
-                <h2 id="parcours-title">Parcours</h2>
-                <p><a href="cv.html">Voir le CV complet</a></p>
+        <!-- Bandeau défilant -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-track">
+                <span>WordPress</span><span>Symfony</span><span>Sylius</span><span>LearnDash</span><span>PrestaShop</span><span>Docker</span><span>UI / UX</span><span>SEO</span>
+                <span>WordPress</span><span>Symfony</span><span>Sylius</span><span>LearnDash</span><span>PrestaShop</span><span>Docker</span><span>UI / UX</span><span>SEO</span>
             </div>
-            <ol class="timeline" role="list">
-                <li>
-                    <span class="when">2025 – aujourd'hui</span>
-                    <div>
-                        <h3>Développeur & Designer Web Lead, Kwantic</h3>
-                        <p>Refontes web, e-commerce Sylius/Symfony, SEO technique.</p>
+        </div>
+
+        <!-- Projets -->
+        <section class="section" id="projets" aria-labelledby="projets-title">
+            <div class="head" data-stagger>
+                <h2 id="projets-title" data-reveal><span>Projets</span> <em>choisis</em></h2>
+                <p data-reveal>Une sélection de réalisations récentes : design, développement et résolution de problèmes.</p>
+                <a class="link-arrow" href="#contact" data-reveal>Discuter d'un projet <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+
+            <div class="featured" data-stagger>
+                <article class="feat" data-reveal>
+                    <div class="mock mock-dark" data-tilt>
+                        <div class="browser">
+                            <div class="bar"><i></i><i></i><i></i><span>ATTDS</span></div>
+                            <div class="screen">
+                                <!-- Remplacer ce bloc par : <img src="assets/projets/attds-desktop.jpg" alt="Page d'accueil du site ATTDS"> -->
+                                <div class="sk"><b class="sk-nav"></b><b class="sk-hero"></b><b class="sk-line"></b><b class="sk-line short"></b><div class="sk-cards"><b></b><b></b><b></b></div></div>
+                                <span class="soon">Capture d'écran à venir</span>
+                            </div>
+                        </div>
+                        <div class="phone">
+                            <div class="screen">
+                                <!-- Remplacer par : <img src="assets/projets/attds-mobile.jpg" alt=""> -->
+                                <div class="sk"><b class="sk-nav"></b><b class="sk-hero"></b><b class="sk-line"></b><b class="sk-line short"></b><b class="sk-block"></b></div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="feat-meta">
+                        <span class="num">01</span>
+                        <div><h3>ATTDS</h3><p>Site web</p></div>
+                    </div>
+                </article>
+
+                <article class="feat" data-reveal>
+                    <div class="mock mock-sand" data-tilt>
+                        <div class="browser">
+                            <div class="bar"><i></i><i></i><i></i><span>Meuble Chabbouc</span></div>
+                            <div class="screen">
+                                <!-- Remplacer ce bloc par : <img src="assets/projets/chabbouc-desktop.jpg" alt="Page d'accueil du site Meuble Chabbouc"> -->
+                                <div class="sk"><b class="sk-nav"></b><b class="sk-hero"></b><b class="sk-line"></b><b class="sk-line short"></b><div class="sk-cards"><b></b><b></b><b></b></div></div>
+                                <span class="soon">Capture d'écran à venir</span>
+                            </div>
+                        </div>
+                        <div class="phone">
+                            <div class="screen">
+                                <!-- Remplacer par : <img src="assets/projets/chabbouc-mobile.jpg" alt=""> -->
+                                <div class="sk"><b class="sk-nav"></b><b class="sk-hero"></b><b class="sk-line"></b><b class="sk-line short"></b><b class="sk-block"></b></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feat-meta">
+                        <span class="num">02</span>
+                        <div><h3>Meuble Chabbouc</h3><p>Site web</p></div>
+                    </div>
+                </article>
+            </div>
+
+            <ol class="rows" data-stagger>
+                <li class="row" data-reveal>
+                    <span class="num">03</span>
+                    <div class="row-title"><h3>Rybsen</h3><p>Refonte d'une marque Greentech</p></div>
+                    <p class="row-text">Direction technique et graphique de la refonte complète du site, de l'interface à la mise en production.</p>
+                    <span class="row-meta">Kwantic, 2025</span>
                 </li>
-                <li>
-                    <span class="when">2023 – 2024</span>
-                    <div>
-                        <h3>Consultant & Développeur Web Indépendant</h3>
-                        <p>Plateformes LMS, identités visuelles, maintenance sur mesure.</p>
-                    </div>
+                <li class="row" data-reveal>
+                    <span class="num">04</span>
+                    <div class="row-title"><h3>Boutiques Sylius</h3><p>E-commerce haut de gamme</p></div>
+                    <p class="row-text">Développement de boutiques sur mesure avec Sylius et Symfony, et débogage des environnements Docker.</p>
+                    <span class="row-meta">Kwantic, 2025</span>
                 </li>
-                <li>
-                    <span class="when">2018 – 2023</span>
-                    <div>
-                        <h3>Développeur Web & Intégrateur, chef de projet, CODE EPIC</h3>
-                        <p>Pilotage d'équipes sur des sites WordPress et PrestaShop, identités visuelles et stratégies SEO.</p>
-                    </div>
+                <li class="row" data-reveal>
+                    <span class="num">05</span>
+                    <div class="row-title"><h3>Audit SEO</h3><p>Maillage interne et redirections</p></div>
+                    <p class="row-text">Audit technique approfondi et correction des anomalies de maillage, avec plus de 400 redirections remises en ordre.</p>
+                    <span class="row-meta">Kwantic, 2025</span>
                 </li>
-                <li>
-                    <span class="when">2009 – 2013</span>
-                    <div>
-                        <h3>Licence en Informatique de Gestion, ISG Tunis</h3>
-                        <p>Après un baccalauréat section informatique au Lycée Essaada, La Marsa.</p>
-                    </div>
+                <li class="row" data-reveal>
+                    <span class="num">06</span>
+                    <div class="row-title"><h3>ESVS Library</h3><p>Plateforme e-learning</p></div>
+                    <p class="row-text">Conception d'un LMS sur WordPress avec LearnDash et des Custom Post Types pour organiser cours et ressources.</p>
+                    <span class="row-meta">Indépendant, 2023–2024</span>
+                </li>
+                <li class="row" data-reveal>
+                    <span class="num">07</span>
+                    <div class="row-title"><h3>Musée de l'Île d'Oléron</h3><p>Maintenance et sur-mesure</p></div>
+                    <p class="row-text">Maintenance technique du site et développement de fonctionnalités sur mesure pour le musée.</p>
+                    <span class="row-meta">Indépendant, 2023–2024</span>
+                </li>
+                <li class="row" data-reveal>
+                    <span class="num">08</span>
+                    <div class="row-title"><h3>OrbitAI et TSI</h3><p>Identités visuelles</p></div>
+                    <p class="row-text">Création et modernisation de logos et d'identités pour deux entreprises du secteur IT.</p>
+                    <span class="row-meta">Indépendant, 2023–2024</span>
                 </li>
             </ol>
         </section>
 
-        <section class="contact" id="contact" aria-labelledby="contact-title">
-            <h2 id="contact-title">Un projet de site, de boutique ou de plateforme&nbsp;?</h2>
-            <p>Décrivez-le en quelques lignes, je vous réponds avec une première approche.</p>
-            <div class="contact-links">
-                <a class="contact-big" href="mailto:denkirseifeddine@gmail.com">denkirseifeddine@gmail.com</a>
-                <a href="tel:+21621327315">+216 21 327 315</a>
+        <!-- Expertise -->
+        <section class="section" id="expertise" aria-labelledby="expertise-title">
+            <div class="expertise">
+                <div class="skills" data-stagger>
+                    <h2 id="expertise-title" data-reveal><span>Compétences</span> <em>& expertise</em></h2>
+                    <dl>
+                        <div class="skill" data-reveal><dt>CMS & e-learning</dt><dd>WordPress, Elementor Pro, ACF Pro, LearnDash, PrestaShop</dd></div>
+                        <div class="skill" data-reveal><dt>Développement</dt><dd>PHP, Symfony, Sylius, JavaScript / jQuery, API REST</dd></div>
+                        <div class="skill" data-reveal><dt>DevOps & SEO</dt><dd>Docker, bases de données, audits SEO</dd></div>
+                        <div class="skill" data-reveal><dt>Design</dt><dd>UI / UX, Photoshop, Illustrator</dd></div>
+                    </dl>
+                </div>
+
+                <blockquote class="quote" data-reveal>
+                    <span class="quote-mark" aria-hidden="true">“</span>
+                    <p>Je conçois et développe des expériences web qui ne sont pas seulement belles, mais aussi rapides, intuitives et utiles.</p>
+                </blockquote>
+
+                <ul class="points" role="list" data-stagger>
+                    <li data-reveal>
+                        <span class="ico"><svg aria-hidden="true"><use href="#i-screen"/></svg></span>
+                        <div><h3>Design centré utilisateur</h3><p>Des interfaces claires, pensées pour ceux qui les utilisent.</p></div>
+                    </li>
+                    <li data-reveal>
+                        <span class="ico"><svg aria-hidden="true"><use href="#i-code"/></svg></span>
+                        <div><h3>Code propre et sur mesure</h3><p>Symfony, Sylius et WordPress, adaptés à chaque projet.</p></div>
+                    </li>
+                    <li data-reveal>
+                        <span class="ico"><svg aria-hidden="true"><use href="#i-devices"/></svg></span>
+                        <div><h3>100 % responsive</h3><p>Des sites qui s'affichent bien sur tous les écrans.</p></div>
+                    </li>
+                    <li data-reveal>
+                        <span class="ico"><svg aria-hidden="true"><use href="#i-speed"/></svg></span>
+                        <div><h3>Performance & SEO</h3><p>Audits techniques, vitesse et bonnes pratiques.</p></div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Parcours -->
+        <section class="section" id="parcours" aria-labelledby="parcours-title">
+            <div class="head" data-stagger>
+                <h2 id="parcours-title" data-reveal><span>Mon</span> <em>parcours</em></h2>
+                <p data-reveal>Plus de huit ans d'expérience, en agence et en indépendant.</p>
+                <a class="link-arrow" href="cv.html" data-reveal>Voir le CV complet <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <ol class="cards" data-stagger>
+                <li class="card" data-reveal>
+                    <span class="card-date">2025 – aujourd'hui</span>
+                    <h3>Développeur & designer web lead</h3>
+                    <p>Refontes web majeures, e-commerce Sylius et Symfony, audits SEO techniques.</p>
+                    <span class="card-org">Kwantic</span>
+                </li>
+                <li class="card" data-reveal>
+                    <span class="card-date">2023 – 2024</span>
+                    <h3>Consultant & développeur web</h3>
+                    <p>Plateformes LMS, identités visuelles et fonctionnalités sur mesure.</p>
+                    <span class="card-org">Indépendant</span>
+                </li>
+                <li class="card" data-reveal>
+                    <span class="card-date">2018 – 2023</span>
+                    <h3>Développeur web & chef de projet</h3>
+                    <p>Pilotage d'équipes sur des sites WordPress et PrestaShop, identités visuelles et SEO.</p>
+                    <span class="card-org">CODE EPIC</span>
+                </li>
+            </ol>
+            <p class="edu" data-reveal>Formation : licence fondamentale en informatique de gestion, ISG Tunis (2009 – 2013).</p>
+        </section>
+
+        <!-- Contact -->
+        <section class="section contact" id="contact" aria-labelledby="contact-title">
+            <div class="contact-grid" data-stagger>
+                <div data-reveal>
+                    <h2 id="contact-title"><span>Parlons de</span> <em>votre projet</em></h2>
+                    <p>Un site, une boutique ou une plateforme en tête ? Décrivez-le en quelques lignes.</p>
+                </div>
+                <div class="contact-cta" data-reveal>
+                    <a class="btn btn-solid" href="mailto:denkirseifeddine@gmail.com">Écrire un e-mail</a>
+                </div>
+                <ul class="contact-list" role="list" data-reveal>
+                    <li><svg aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:denkirseifeddine@gmail.com">denkirseifeddine@gmail.com</a></li>
+                    <li><svg aria-hidden="true"><use href="#i-phone"/></svg><a href="tel:+21621327315">+216 21 327 315</a></li>
+                    <li><svg aria-hidden="true"><use href="#i-pin"/></svg><span>Tunis, Tunisie</span></li>
+                </ul>
             </div>
         </section>
     </main>
 
     <footer class="footer">
-        <p>© <span id="year">2026</span> Seif Eddine Denkir, Tunis</p>
+        <p>© <span id="year">2026</span> Seif Eddine Denkir</p>
         <a href="#top">Revenir en haut</a>
     </footer>
 
