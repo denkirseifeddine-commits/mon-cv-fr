@@ -58,7 +58,9 @@ Formulaires et questionnaire (`assets/css/forms.css`) :
 Catalogue (`assets/css/catalog.css`) :
 - Badge de statut, dont « Exemple, non commercialisé »
 - Filtres par catégorie et recherche
+- Bandeau d'avertissement du catalogue (`.catalog-notice`) : rappelle que les fiches sont des exemples, avec un lien vers le devis
 - Carte solution
+- Fiche solution (`.fiche-*`) : en-tête avec badge et mention d'exemple, colonne récapitulatif (prix, délai, démonstration, demande de devis), blocs numérotés (`.fiche-block`), options, captures, état « fiche introuvable » (`.fiche-missing`)
 - Résultat de recommandation
 - État vide (aucune solution adaptée)
 

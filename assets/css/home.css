@@ -64,7 +64,7 @@
 .offer-en { margin-top: clamp(24px, 3vw, 40px); color: var(--muted); }
 .offer h3 { font-family: var(--serif); font-size: clamp(1.750rem, 2.400vw, 2.250rem); font-weight: 500; line-height: 1.08; margin-top: 6px; }
 .offer-text { margin-top: 14px; color: var(--muted); max-width: 36ch; }
-.offer-foot { margin-top: auto; padding-top: 28px; }
+.offer-foot { margin-top: auto; padding-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; }
 .offer-foot .link-arrow { min-height: 44px; }
 /* Mention « Catalogue en préparation » : un tampon, pas un lien */
 .offer-status {

@@ -8,7 +8,10 @@
       "en": "Websites",
       "ar": "مواقع الويب"
     },
-    "status": "draft"
+    "status": "draft",
+    "description": {
+      "fr": "Concevoir et mettre en ligne des sites vitrines et institutionnels, faciles à mettre à jour."
+    }
   },
   {
     "id": "ecommerce",
@@ -19,7 +22,10 @@
       "en": "E-commerce",
       "ar": "التجارة الإلكترونية"
     },
-    "status": "draft"
+    "status": "draft",
+    "description": {
+      "fr": "Créer des boutiques en ligne : catalogue, panier, commandes et gestion au quotidien."
+    }
   },
   {
     "id": "crm",
@@ -30,7 +36,10 @@
       "en": "CRM",
       "ar": "إدارة العملاء"
     },
-    "status": "draft"
+    "status": "draft",
+    "description": {
+      "fr": "Gérer ses contacts, ses prospects et le suivi commercial dans un outil dédié."
+    }
   },
   {
     "id": "marketing-automation",
@@ -41,7 +50,10 @@
       "en": "Marketing automation",
       "ar": "أتمتة التسويق"
     },
-    "status": "draft"
+    "status": "draft",
+    "description": {
+      "fr": "Automatiser les e-mails, les relances et les messages adressés à ses clients ou prospects."
+    }
   },
   {
     "id": "ai-assistants",
@@ -52,7 +64,10 @@
       "en": "AI assistants",
       "ar": "مساعدات الذكاء الاصطناعي"
     },
-    "status": "draft"
+    "status": "draft",
+    "description": {
+      "fr": "Mettre en place des assistants qui répondent aux questions fréquentes à partir de vos contenus."
+    }
   },
   {
     "id": "mini-saas",
@@ -63,7 +78,10 @@
       "en": "Mini-SaaS",
       "ar": "تطبيقات SaaS مصغّرة"
     },
-    "status": "draft"
+    "status": "draft",
+    "description": {
+      "fr": "Proposer de petits outils en ligne, utilisables par plusieurs clients, pour un usage précis."
+    }
   },
   {
     "id": "business-tools",
@@ -74,7 +92,10 @@
       "en": "Business tools",
       "ar": "أدوات الأعمال"
     },
-    "status": "draft"
+    "status": "draft",
+    "description": {
+      "fr": "Regrouper les indicateurs et les tableaux de bord pour suivre l'activité de l'entreprise."
+    }
   },
   {
     "id": "custom-applications",
@@ -85,6 +106,9 @@
       "en": "Custom applications",
       "ar": "تطبيقات مخصصة"
     },
-    "status": "draft"
+    "status": "draft",
+    "description": {
+      "fr": "Développer des applications métier adaptées aux processus propres à une entreprise."
+    }
   }
 ]

@@ -10,6 +10,7 @@ export const NAV = [
     { id: 'accueil', label: 'Accueil', href: 'index.html' },
     { id: 'portfolio', label: 'Portfolio', href: 'portfolio/' },
     { id: 'services', label: 'Services', href: 'services/' },
+    { id: 'solutions', label: 'Solutions', href: 'solutions/' },
     { id: 'automatisations', label: 'Automatisations', href: 'automatisations/' },
     { id: 'cv', label: 'CV', href: 'cv.html' },
 ];
