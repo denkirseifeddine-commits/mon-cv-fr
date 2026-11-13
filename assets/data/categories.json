@@ -1,0 +1,90 @@
+[
+  {
+    "id": "websites",
+    "slug": "websites",
+    "order": 1,
+    "label": {
+      "fr": "Sites web",
+      "en": "Websites",
+      "ar": "مواقع الويب"
+    },
+    "status": "draft"
+  },
+  {
+    "id": "ecommerce",
+    "slug": "ecommerce",
+    "order": 2,
+    "label": {
+      "fr": "E-commerce",
+      "en": "E-commerce",
+      "ar": "التجارة الإلكترونية"
+    },
+    "status": "draft"
+  },
+  {
+    "id": "crm",
+    "slug": "crm",
+    "order": 3,
+    "label": {
+      "fr": "CRM",
+      "en": "CRM",
+      "ar": "إدارة العملاء"
+    },
+    "status": "draft"
+  },
+  {
+    "id": "marketing-automation",
+    "slug": "marketing-automation",
+    "order": 4,
+    "label": {
+      "fr": "Automatisation marketing",
+      "en": "Marketing automation",
+      "ar": "أتمتة التسويق"
+    },
+    "status": "draft"
+  },
+  {
+    "id": "ai-assistants",
+    "slug": "ai-assistants",
+    "order": 5,
+    "label": {
+      "fr": "Assistants IA",
+      "en": "AI assistants",
+      "ar": "مساعدات الذكاء الاصطناعي"
+    },
+    "status": "draft"
+  },
+  {
+    "id": "mini-saas",
+    "slug": "mini-saas",
+    "order": 6,
+    "label": {
+      "fr": "Mini-SaaS",
+      "en": "Mini-SaaS",
+      "ar": "تطبيقات SaaS مصغّرة"
+    },
+    "status": "draft"
+  },
+  {
+    "id": "business-tools",
+    "slug": "business-tools",
+    "order": 7,
+    "label": {
+      "fr": "Outils métier",
+      "en": "Business tools",
+      "ar": "أدوات الأعمال"
+    },
+    "status": "draft"
+  },
+  {
+    "id": "custom-applications",
+    "slug": "custom-applications",
+    "order": 8,
+    "label": {
+      "fr": "Applications sur mesure",
+      "en": "Custom applications",
+      "ar": "تطبيقات مخصصة"
+    },
+    "status": "draft"
+  }
+]

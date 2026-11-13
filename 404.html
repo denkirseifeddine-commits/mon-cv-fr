@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page introuvable — Seif Eddine Denkir</title>
+    <meta name="robots" content="noindex">
+    <script>
+        // GitHub Pages sert le site sous /mon-cv-fr/ ; Vercel le sert à la racine.
+        window.SITE_ROOT = location.pathname.indexOf('/mon-cv-fr/') === 0 ? '/mon-cv-fr/' : '/';
+        var icon = document.createElement('link');
+        icon.rel = 'icon'; icon.type = 'image/svg+xml'; icon.href = window.SITE_ROOT + 'favicon.svg';
+        document.head.appendChild(icon);
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:wght@400;500&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Page autonome : servie à n'importe quelle profondeur d'URL, elle ne charge aucune feuille locale. */
+        *, *::before, *::after { box-sizing: border-box; }
+        * { margin: 0; }
+        html, body { height: 100%; }
+        body {
+            min-height: 100%;
+            display: grid;
+            place-items: center;
+            padding: 48px clamp(16px, 4vw, 56px);
+            background: #F4EFE6;
+            color: #171512;
+            font-family: 'Montserrat', system-ui, sans-serif;
+            font-size: 0.9375rem;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            text-align: center;
+        }
+        main { width: 100%; max-width: 640px; }
+        .code {
+            font-family: 'Anton', 'Arial Narrow', sans-serif;
+            font-weight: 400;
+            font-size: clamp(7rem, 34vw, 15rem);
+            line-height: 0.9;
+            color: #C5512E;
+            margin-top: 12px;
+        }
+        h1 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(2.125rem, 7vw, 3rem);
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -0.005em;
+            margin-top: 20px;
+        }
+        p.text { margin: 18px auto 0; max-width: 40ch; color: #675F54; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            margin-top: 32px;
+            padding: 16px 28px;
+            background: #171512; color: #F4EFE6;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.6875rem;
+            font-weight: 600;
+        }
+        .btn:hover { background: #A3401F; }
+        :focus-visible { outline: 2px solid #A3401F; outline-offset: 4px; }
+    </style>
+</head>
+<body>
+    <main>
+        <p class="code" aria-hidden="true">404</p>
+        <h1>Page introuvable</h1>
+        <p class="text">Cette page n'existe pas ou a été déplacée.</p>
+        <a class="btn" id="home" href="/">Revenir à l'accueil</a>
+    </main>
+    <script>document.getElementById('home').setAttribute('href', window.SITE_ROOT || '/');</script>
+</body>
+</html>

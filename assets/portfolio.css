@@ -1,21 +1,3 @@
-:root {
-    --bg: #F4EFE6;
-    --card: #FAF6EE;
-    --ink: #171512;
-    --muted: #675F54;
-    --line: #D6CCBB;
-    --accent: #C5512E;
-    --accent-deep: #A3401F;
-
-    --display: 'Anton', 'Arial Narrow', sans-serif;
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --sans: 'Montserrat', system-ui, sans-serif;
-
-    --gutter: clamp(16px, 4vw, 56px);
-    --max: 1280px;
-    --ease: cubic-bezier(.16, 1, .3, 1);
-}
-
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 

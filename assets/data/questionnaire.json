@@ -1,0 +1,95 @@
+[
+  {
+    "id": "need",
+    "type": "single",
+    "required": true,
+    "weight": 10,
+    "options": [
+      "website",
+      "ecommerce",
+      "automation",
+      "crm",
+      "application",
+      "ai",
+      "unsure"
+    ]
+  },
+  {
+    "id": "industry",
+    "type": "single",
+    "required": true,
+    "weight": 5,
+    "options": [
+      "commerce",
+      "restaurant",
+      "association",
+      "consultant",
+      "agency",
+      "startup",
+      "other"
+    ]
+  },
+  {
+    "id": "goal",
+    "type": "multiple",
+    "required": true,
+    "weight": 10,
+    "options": [
+      "showcase",
+      "leads",
+      "sell",
+      "manage-customers",
+      "automate",
+      "centralize"
+    ]
+  },
+  {
+    "id": "complexity",
+    "type": "single",
+    "required": true,
+    "weight": 4,
+    "options": [
+      "simple",
+      "intermediate",
+      "advanced",
+      "unsure"
+    ]
+  },
+  {
+    "id": "budget",
+    "type": "single",
+    "required": true,
+    "weight": 5,
+    "options": [
+      "under-500",
+      "500-1000",
+      "1000-2500",
+      "2500-5000",
+      "over-5000",
+      "undefined"
+    ]
+  },
+  {
+    "id": "deadline",
+    "type": "single",
+    "required": true,
+    "weight": 3,
+    "options": [
+      "urgent",
+      "1-2-weeks",
+      "1-month",
+      "flexible"
+    ]
+  },
+  {
+    "id": "customization",
+    "type": "single",
+    "required": true,
+    "weight": 4,
+    "options": [
+      "ready",
+      "some-changes",
+      "custom"
+    ]
+  }
+]

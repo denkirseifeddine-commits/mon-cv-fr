@@ -1,0 +1,34 @@
+[
+  {
+    "id": "example-website-starter",
+    "slug": "website-starter",
+    "categoryId": "websites",
+    "status": "exemple",
+    "name": {
+      "fr": "Site vitrine Starter",
+      "en": "Website Starter",
+      "ar": "موقع تعريفي أساسي"
+    },
+    "shortDescription": {
+      "fr": "Exemple de fiche à compléter après validation de l'offre.",
+      "en": "Example listing to complete after the offer is validated.",
+      "ar": "مثال على منتج يُستكمل بعد اعتماد العرض."
+    },
+    "price": null,
+    "currency": "EUR",
+    "license": {
+      "name": null,
+      "url": null,
+      "verified": false
+    },
+    "features": [],
+    "technologies": [],
+    "demoUrl": null,
+    "screenshots": [],
+    "notice": {
+      "fr": "Exemple, non commercialisé",
+      "en": "Example, not for sale",
+      "ar": "مثال، غير متاح للبيع"
+    }
+  }
+]
