@@ -26,6 +26,7 @@ Pages :
 - `services/`, `automatisations/`, `contact/` : pages intérieures (`assets/css/pages.css`)
 - `solutions/` : catalogue des solutions (`assets/js/pages/catalog.js`), en `noindex` tant qu'aucune solution n'est publiée
 - `solutions/fiche/?s=<slug>` : fiche d'une solution, remplie en JavaScript (`assets/js/pages/solution.js`), en `noindex`
+- `trouver-ma-solution/` : questionnaire « Trouver ma solution » et résultats (`assets/js/pages/finder.js`), indexable et présent dans `sitemap.xml`
 - `cv.html`, `mon-cv-fr.css` : CV autonome
 - `design-system/` : démonstration des composants (non indexée, hors navigation)
 - `404.html` : page d'erreur autonome
@@ -64,9 +65,23 @@ En place depuis le lot 4 « Catalogue » :
 - `assets/js/pages/solution.js` : fiche d'une solution. Slug absent ou inconnu : message et lien vers le catalogue.
 - `scripts/test-catalog.mjs` : tests unitaires des fonctions du service, sous Node, sans dépendance.
 
+En place depuis le lot 5 « Questionnaire » :
+- `trouver-ma-solution/` : page du questionnaire (sept questions, une par étape) et des résultats. Aucune donnée n'est stockée dans le navigateur (pas de `localStorage`) ni envoyée ; seuls les JSON locaux sont lus.
+- `assets/js/engine/recommendation-engine.js` : moteur de recommandation, fonctions pures sans DOM ni réseau :
+  - `recommend(answers, solutions, questionnaire, options)` : au plus `options.max` solutions (3 par défaut) dont le pourcentage atteint `options.threshold` (50 par défaut), triées, avec l'avis sur une demande sur mesure (`customQuote`) ;
+  - `scoreSolution(answers, solution, questionnaire)` : score, pourcentage, raisons, exclusion par le besoin ;
+  - `validateAnswers(answers, questionnaire)` : identifiants des questions obligatoires sans réponse valide.
+- `assets/js/services/questionnaire-service.js` : lecture de `assets/data/questionnaire.json` (`getQuestionnaire`, gardé en cache le temps de la visite) et libellés (`findQuestion`, `questionTitle`, `questionHelp`, `optionLabel`, `answerLabel`). Un libellé absent renvoie le code.
+- `assets/js/pages/finder.js` : script de la page `trouver-ma-solution/` (étapes, progression, Précédent / Suivant, résultats, liens vers la fiche et le devis).
+- `scripts/test-recommendation.mjs` : tests unitaires du moteur, sous Node, sans dépendance. Lancé par l'intégration continue, comme `test-catalog.mjs`.
+
+Paramètres de la page Contact (lot 5, lus dans `assets/js/pages/contact.js`) :
+- `contact/?besoin=<need>&delai=<deadline>&budget=<budget>` : le type de besoin et le délai sont choisis dans leur liste, le budget est écrit en toutes lettres (libellé de `questionnaire.json`). La carte « Demande sur mesure » transmet ces trois paramètres.
+- Le résultat d'une solution transmet `contact/?solution=<slug>&delai=<deadline>&budget=<budget>`.
+- Un code inconnu est ignoré. Un champ déjà rempli n'est jamais remplacé.
+
 À créer dans les lots suivants :
 - `assets/js/services/` : préférences
-- `assets/js/engine/` : moteur de recommandation
 - `assets/js/components/` : sélecteur de langue
 - `assets/i18n/` : traductions
 
@@ -74,6 +89,8 @@ En place depuis le lot 4 « Catalogue » :
 Chaque nouvelle page vit dans un dossier (`solutions/index.html`) et se lie aux autres par des chemins relatifs (`../assets/...`). L'adresse est alors la même sur Vercel et sur GitHub Pages, sans réglage.
 
 La page Contact accepte `contact/?solution=<slug>` (lot 4) : le message est pré-rempli avec le nom de la solution, et le type de besoin est choisi si la fiche ne correspond qu'à un seul type (`match.needs`). Un champ déjà rempli n'est jamais remplacé. Un slug inconnu ne pré-remplit rien. Lecture dans `assets/js/pages/contact.js`.
+
+Depuis le lot 5, la page Contact accepte aussi `contact/?besoin=<need>&delai=<deadline>&budget=<budget>` (voir « En place depuis le lot 5 »). Le questionnaire `trouver-ma-solution/` y envoie les réponses.
 
 `vercel.json` n'active ni `cleanUrls` ni `trailingSlash` : avec ces options, `cv.html` serait servi sous `/cv/` et ses liens relatifs (`mon-cv-fr.css`, `index.html`) ne fonctionneraient plus.
 
@@ -100,7 +117,7 @@ Les pages ne chargent pas les JSON directement. Elles appellent des fonctions d�
 - `catalogService.getCategories()`, `catalogService.getSolutions(filters)` et `catalogService.getSolutionBySlug(slug)` : en place depuis le lot 4 (`assets/js/services/catalog-service.js`), sous forme de fonctions exportées. Le paramètre `locale` de `getSolutionBySlug` n'est pas encore pris en compte.
 - `catalogService.getProjects()`
 - `quoteService.submitQuote(payload)` (en place : prépare un e-mail dans la messagerie du visiteur ; appellera `POST /api/v1/quotes`)
-- `recommendationEngine.recommend(answers, solutions)`
+- `recommendationEngine.recommend(answers, solutions, questionnaire, options)` : en place depuis le lot 5 (`assets/js/engine/recommendation-engine.js`, fonction pure, côté navigateur). La cible est `POST /api/v1/recommendations` (voir `API-CONTRACT.md`) : le serveur recalculera le score, le navigateur ne lui envoie jamais de score.
 
 Les services masquent la source des données. Plus tard, leur implémentation appellera `/api/v1/...` (voir `API-CONTRACT.md`) sans réécrire les pages.
 

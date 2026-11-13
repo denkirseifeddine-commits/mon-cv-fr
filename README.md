@@ -22,6 +22,7 @@ services/               prestations
 automatisations/        cas d'usage et déroulement
 contact/                coordonnées et demande de devis
 solutions/              catalogue et fiches (non indexés tant qu'aucune solution n'est publiée)
+trouver-ma-solution/    questionnaire « Trouver ma solution » et résultats (indexable)
 cv.html, mon-cv-fr.css  CV (style autonome, conservé tel quel)
 404.html                page d'erreur autonome
 assets/css/             tokens (variables), base, composants, formulaires, catalogue, pages
@@ -34,6 +35,7 @@ assets/data/            données JSON (projets, catégories, solutions, question
 docs/                   audit, architecture, design system, plan
 scripts/check-site.py   vérification des liens internes et des JSON
 scripts/test-catalog.mjs tests unitaires du service du catalogue
+scripts/test-recommendation.mjs tests unitaires du moteur de recommandation
 site.config.json        nom du site, adresse canonique, langues, contact
 vercel.json             en-têtes de cache
 ```
@@ -42,7 +44,7 @@ vercel.json             en-têtes de cache
 
 1. Lire `AGENTS.md` et `docs/`.
 2. Servir le dossier en local, par exemple `python3 -m http.server`, puis ouvrir `http://localhost:8000/`. Les scripts sont des modules ES : ils ne se chargent pas en ouvrant `index.html` directement. Aucun build n'est nécessaire.
-3. Avant chaque commit : `python3 scripts/check-site.py` (liens internes, chemins relatifs, imports JavaScript, références CSS, JSON), puis `node scripts/test-catalog.mjs` (tests unitaires du service du catalogue, sans dépendance).
+3. Avant chaque commit : `python3 scripts/check-site.py` (liens internes, chemins relatifs, imports JavaScript, références CSS, JSON), puis `node scripts/test-catalog.mjs` (tests unitaires du service du catalogue, sans dépendance) et `node scripts/test-recommendation.mjs` (tests unitaires du moteur de recommandation du questionnaire, sans dépendance).
 
 Tous les chemins internes sont relatifs : le site est servi à la racine sur Vercel et sous `/mon-cv-fr/` sur GitHub Pages.
 

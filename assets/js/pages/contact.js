@@ -9,6 +9,7 @@
 import '../main.js';
 import { submitQuote } from '../services/quote-service.js';
 import { getSolutionBySlug, localized } from '../services/catalog-service.js';
+import { getQuestionnaire, findQuestion, optionLabel } from '../services/questionnaire-service.js';
 
 // Message pré-rempli depuis une fiche (?solution=<slug>) ; {name} = nom de la solution
 const SOLUTION_MESSAGE = 'Je suis intéressé(e) par la solution : {name}.';
@@ -28,6 +29,38 @@ const form = document.getElementById('quote-form');
 if (form) {
     initQuoteForm(form);
     prefillFromSolution(form);
+    prefillFromAnswers(form);
+}
+
+/*
+ * Arrivée depuis le questionnaire (trouver-ma-solution/) :
+ * contact/?besoin=<need>&delai=<deadline>&budget=<budget>, codes de
+ * questionnaire.json. Le type de besoin et le délai sont choisis dans leur
+ * liste ; le budget est écrit en toutes lettres (libellé du questionnaire).
+ * Un code inconnu est ignoré ; un champ déjà rempli n'est jamais remplacé.
+ */
+async function prefillFromAnswers(quoteForm) {
+    const params = new URLSearchParams(window.location.search);
+    const selectCode = (select, code) => {
+        if (!select || !code || select.value) return;
+        if ([...select.options].some((o) => o.value === code)) select.value = code;
+    };
+    selectCode(quoteForm.elements.need, params.get('besoin'));
+    selectCode(quoteForm.elements.deadline, params.get('delai'));
+
+    const budgetCode = params.get('budget');
+    const budget = quoteForm.elements.budget;
+    if (!budgetCode || !budget || budget.value.trim()) return;
+    let question = null;
+    try {
+        question = findQuestion(await getQuestionnaire(), 'budget');
+    } catch (error) {
+        return;
+    }
+    const options = Array.isArray(question?.options) ? question.options : [];
+    // Code inconnu, ou saisie du visiteur pendant le chargement : rien n'est écrit
+    if (!options.includes(budgetCode) || budget.value.trim()) return;
+    budget.value = optionLabel(question, budgetCode);
 }
 
 /*

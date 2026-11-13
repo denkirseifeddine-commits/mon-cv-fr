@@ -222,6 +222,72 @@ textarea.field-input { min-height: 9.5rem; resize: vertical; line-height: 1.6; }
 }
 .form-actions > :only-child { margin-inline-start: auto; }
 
+/* ---------- Questionnaire « Trouver ma solution » ---------- */
+/* Les blocs affichés ou masqués par le script gardent leur display propre (grid, flex) */
+.finder-app [hidden] { display: none !important; }
+/* Sans JavaScript, le questionnaire ne fonctionne pas : il est remplacé par le message <noscript> */
+.no-js .finder-app { display: none; }
+.finder-status { color: var(--muted); }
+
+.finder-layout {
+    display: grid;
+    grid-template-columns: minmax(11rem, 15rem) minmax(0, 1fr);
+    gap: 40px clamp(40px, 7vw, 112px);
+    align-items: start;
+}
+
+/* Sommaire des sept questions (décoratif : la progression est annoncée par le formulaire) */
+.finder-steps {
+    position: sticky; top: 112px;
+    display: grid;
+    border-top: 1px solid var(--ink);
+}
+.finder-steps li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    align-items: baseline;
+    padding-block: 11px;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    transition: color .4s var(--ease);
+}
+.finder-steps-num { font-family: var(--serif); font-size: 1.25rem; line-height: 1; }
+.finder-steps-name { text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.6875rem; font-weight: 500; line-height: 1.5; }
+.finder-steps .is-done { color: var(--ink); }
+.finder-steps .is-done .finder-steps-name::after { content: " ✳"; color: var(--accent-deep); letter-spacing: 0; }
+.finder-steps .is-current { color: var(--ink); }
+.finder-steps .is-current .finder-steps-num { color: var(--accent); }
+.finder-steps .is-current .finder-steps-name { font-weight: 600; }
+/* Repère de l'étape en cours, posé sur le filet de début de ligne */
+.finder-steps .is-current::before {
+    content: "";
+    position: absolute; inset-inline-start: 0; inset-block-end: -1px;
+    width: 100%; height: 2px;
+    background: var(--accent);
+}
+
+.finder-form { max-width: 52rem; gap: clamp(28px, 3.5vw, 40px); scroll-margin-top: 112px; }
+.finder-choices .choices-legend { scroll-margin-top: 112px; }
+.finder-choices .choices-legend:focus { outline: none; }
+.finder-choices .choices-legend:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 6px; }
+.finder-choices .choices-title { margin-top: 10px; max-width: 26ch; text-wrap: pretty; }
+.finder-error { margin-bottom: 20px; }
+/* « Suivant » reste en fin de ligne, même sans « Précédent » (première étape) */
+.finder-form .form-actions .btn { margin-inline-start: auto; }
+
+/* Entrée d'une étape : léger glissement, coupé par prefers-reduced-motion (base.css) */
+.finder-step.is-entering, .finder-results.is-entering { animation: finder-in .6s var(--ease) both; }
+@keyframes finder-in {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 960px) {
+    .finder-layout { grid-template-columns: minmax(0, 1fr); }
+    .finder-steps { display: none; }
+}
+
 @media (max-width: 640px) {
     .form-row { grid-template-columns: 1fr; }
     .form-actions .btn { flex: 1 1 auto; }
@@ -229,4 +295,5 @@ textarea.field-input { min-height: 9.5rem; resize: vertical; line-height: 1.6; }
 
 @media (prefers-reduced-motion: reduce) {
     .q-progress-bar::-webkit-progress-value { transition: none; }
+    .finder-step.is-entering, .finder-results.is-entering { animation: none; }
 }
