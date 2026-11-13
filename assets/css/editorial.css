@@ -1,0 +1,208 @@
+/*
+ * Sections éditoriales partagées par l'accueil (index.html) et le portfolio
+ * (portfolio/index.html) : hero à mot géant, disque et macaron, bandeau
+ * défilant, citation et points d'expertise, appel à l'action final, et
+ * animations d'entrée du hero.
+ * À charger après components.css et avant projects.css et la feuille de la page.
+ * La taille du mot géant et la composition fine du hero sont propres à chaque page.
+ */
+
+/* Petites capitales espacées partagées */
+.side, .role, .points h3, .kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.6875rem;
+    font-weight: 500;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+    position: relative;
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: clamp(8px, 2vw, 24px) var(--gutter) clamp(56px, 7vw, 96px);
+    container-type: inline-size;
+}
+
+/* Mot géant (décoratif) : chaque lettre est un <span> ; un mot entier peut
+   être regroupé dans .giant-word. La taille est fixée par la page. */
+.giant {
+    font-family: var(--display);
+    line-height: 0.9;
+    padding-top: 0.06em;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    display: flex; justify-content: space-between;
+    overflow: hidden;
+    user-select: none;
+}
+.giant span { display: block; }
+.giant .giant-word { display: flex; overflow: hidden; }
+
+.side {
+    position: absolute; top: clamp(60px, 9cqw, 120px);
+    display: flex; align-items: center; gap: 14px;
+    writing-mode: vertical-rl;
+    font-size: 0.625rem;
+    color: var(--muted);
+}
+.side i { display: block; width: 1px; height: 44px; background: var(--muted); }
+.side-l { left: calc(var(--gutter) - 34px); transform: rotate(180deg); }
+.side-r { right: calc(var(--gutter) - 34px); top: clamp(240px, 26cqw, 360px); }
+
+.hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+.hero-intro { padding-top: clamp(28px, 4cqw, 56px); }
+.hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    margin-top: 10px;
+}
+.mask { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.mask > span { display: block; }
+.role { margin-top: 18px; color: var(--accent-deep); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.16em; }
+.pitch { margin-top: 18px; max-width: 40ch; color: var(--muted); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; margin-top: 32px; }
+
+.hero-art { position: relative; padding-bottom: 2cqw; }
+.disc {
+    width: min(40cqw, 500px); aspect-ratio: 1;
+    margin-inline: auto;
+    border-radius: 50%;
+    background: var(--accent);
+    display: grid; place-items: center;
+}
+.monogram {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: min(17cqw, 210px);
+    line-height: 1;
+    color: var(--bg);
+    letter-spacing: -0.04em;
+    transform: translateY(-4%);
+}
+.hero-badge {
+    position: absolute; right: 2%; top: 30%;
+    width: clamp(128px, 12cqw, 150px); aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--bg);
+    display: grid; place-items: center;
+}
+.hero-badge-ring { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 22s linear infinite; }
+.hero-badge-ring text { font-family: var(--sans); font-size: 11.500px; font-weight: 500; letter-spacing: 0.08em; fill: var(--ink); }
+.hero-badge-core { text-align: center; font-size: 0.5625rem; font-weight: 600; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-deep); }
+
+/* ---------- Bandeau défilant ---------- */
+.marquee { border-block: 1px solid var(--line); overflow: hidden; padding: 18px 0; }
+.marquee-track { display: flex; width: max-content; animation: slide 36s linear infinite; }
+.marquee span {
+    display: inline-flex; align-items: center;
+    font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.250rem); font-style: italic; line-height: 1;
+    white-space: nowrap;
+}
+.marquee span::after { content: "✳"; font-family: var(--sans); font-style: normal; font-size: 0.5em; color: var(--accent); margin: 0 clamp(20px, 3vw, 44px); }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* ---------- Citation et points d'expertise ---------- */
+.quote { align-self: center; }
+.quote-mark { display: block; font-family: var(--serif); font-size: 6rem; line-height: 0.7; color: var(--accent); height: 44px; }
+.quote p { font-family: var(--serif); font-size: clamp(1.500rem, 2.400vw, 1.875rem); line-height: 1.3; }
+
+.points { display: grid; gap: 26px; padding-inline-start: clamp(0px, 3vw, 40px); border-inline-start: 1px solid var(--line); }
+.points li { display: flex; gap: 18px; align-items: flex-start; }
+.ico {
+    flex: none; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--accent); color: var(--bg);
+    display: grid; place-items: center;
+    transition: transform .6s var(--ease);
+}
+.points li:hover .ico { transform: rotate(-12deg) scale(1.08); }
+.ico svg { width: 20px; height: 20px; }
+.points h3 { font-weight: 600; }
+.points p { color: var(--muted); font-size: 0.8125rem; margin-top: 2px; }
+
+/* Libellé de section en petites capitales (titre court, sans la forme sur deux lignes) */
+.kicker { font-family: var(--sans); line-height: 1.65; color: var(--accent-deep); font-weight: 600; }
+
+/* ---------- Appel à l'action final ---------- */
+.cta-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.200fr) minmax(0, 1fr) auto;
+    gap: 28px clamp(32px, 5vw, 72px);
+    align-items: center;
+}
+.cta-grid > p { color: var(--muted); max-width: 40ch; }
+.cta-actions {
+    display: grid; justify-items: start; gap: 12px;
+    align-self: stretch; align-content: center;
+    padding-inline-start: clamp(0px, 4vw, 56px);
+    border-inline-start: 1px solid var(--line);
+}
+.cta-actions .btn { gap: 14px; }
+.cta-actions .btn .arrow { color: currentColor; }
+.cta-actions .link-arrow { min-height: 44px; }
+
+/* ---------- Animations d'entrée du hero ---------- */
+/* Rang de chaque lettre dans son mot (--n) ; la page peut décaler un mot entier avec --w */
+.giant span:first-child { --n: 0; }
+.giant span:nth-child(2) { --n: 1; }
+.giant span:nth-child(3) { --n: 2; }
+.giant span:nth-child(4) { --n: 3; }
+.giant span:nth-child(5) { --n: 4; }
+.giant span:nth-child(6) { --n: 5; }
+.giant span:nth-child(7) { --n: 6; }
+.giant span:nth-child(8) { --n: 7; }
+.giant span:nth-child(9) { --n: 8; }
+.js .giant span:not(.giant-word) {
+    transform: translateY(110%);
+    transition: transform 1.100s var(--ease);
+    transition-delay: calc((var(--w, 0) + var(--n, 0)) * var(--step, 50ms));
+}
+.js.is-loaded .giant span:not(.giant-word) { transform: none; }
+
+.js .mask > span { transform: translateY(110%); transition: transform 1.100s var(--ease) 650ms; }
+.js .mask + .mask > span { transition-delay: 760ms; }
+.js.is-loaded .mask > span { transform: none; }
+
+.js .hello, .js .role, .js .pitch, .js .actions, .js .side {
+    opacity: 0; transition: opacity 1s ease 1s, transform 1s var(--ease) 1s;
+}
+.js .hello, .js .role, .js .pitch, .js .actions { transform: translateY(16px); }
+.js .role { transition-delay: 1.100s; }
+.js .pitch { transition-delay: 1.200s; }
+.js .actions { transition-delay: 1.300s; }
+.js.is-loaded .hello, .js.is-loaded .role, .js.is-loaded .pitch, .js.is-loaded .actions, .js.is-loaded .side { opacity: 1; transform: none; }
+.js.is-loaded .side-l { transform: rotate(180deg); }
+
+.js .disc, .js .hero-badge { scale: 0; transition: scale 1.300s var(--ease) 500ms; }
+.js .hero-badge { transition-delay: 1.100s; }
+.js.is-loaded .disc, .js.is-loaded .hero-badge { scale: 1; }
+.disc, .hero-badge, .giant { translate: 0 var(--shift, 0px); will-change: translate; }
+
+@media (prefers-reduced-motion: reduce) {
+    .js .giant span:not(.giant-word), .js .mask > span, .js .hello, .js .role, .js .pitch, .js .actions, .js .side { opacity: 1; transform: none; }
+    .js .side-l { transform: rotate(180deg); }
+    .js .disc, .js .hero-badge { scale: 1; }
+    .disc, .hero-badge, .giant { translate: none; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+    .side { display: none; }
+    .cta-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .cta-actions { grid-column: 1 / -1; padding: 0; border: 0; }
+}
+
+@media (max-width: 820px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-art { order: -1; }
+    .hero-badge { right: 4%; top: auto; bottom: -6%; }
+    .hero-intro { padding-top: 12px; }
+    .points { padding-inline-start: 0; border-inline-start: 0; }
+    .cta-grid { grid-template-columns: 1fr; }
+}

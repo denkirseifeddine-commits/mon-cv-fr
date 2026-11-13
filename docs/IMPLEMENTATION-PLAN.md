@@ -7,7 +7,9 @@ Une pull request par lot, validée avant le lot suivant.
 - [x] Retenir l'URL Vercel canonique : `https://mon-cv-fr.vercel.app`.
 - [ ] Vérifier les paramètres de déploiement Vercel (tableau de bord).
 - [x] Inventorier les liens et ressources actuels (`docs/AUDIT.md`).
-- [ ] Résoudre les captures manquantes et le lien LinkedIn `#` sans inventer de contenu (en attente du propriétaire).
+- [x] Captures d'ATDDS et de Meubles Chabbouh, lien LinkedIn.
+- [ ] Capture mobile d'ATDDS (le site s'affichait sans ses styles au moment des captures).
+- [ ] Rôle et période pour ATDDS et Meubles Chabbouh (à fournir par le propriétaire).
 
 ## Lot 1 — Fondation non destructive
 - [x] Ajouter README et AGENTS.
@@ -30,10 +32,13 @@ Une pull request par lot, validée avant le lot suivant.
 - [x] `check-site.py` vérifie les imports JavaScript et les références CSS.
 
 ## Lot 3 — Positionnement et pages
-- [ ] Faire évoluer la page d'accueil (proposition de valeur, trois piliers).
-- [ ] Créer les pages Portfolio, Services, Automatisations et Contact.
-- [ ] Transformer les projets existants en études de cas.
-- [ ] Garder les contenus réels ; marquer les informations manquantes.
+- [x] Accueil du studio : proposition de valeur, trois offres, projets récents, méthode.
+- [x] Page Portfolio : l'ancienne page d'accueil, avec les vraies captures des deux projets à la une.
+- [x] Pages Services, Automatisations et Contact.
+- [x] Formulaire de demande de devis : e-mail pré-rempli dans la messagerie du visiteur (`quote-service.js`).
+- [x] Navigation du studio et lien LinkedIn dans le pied de page et le CV.
+- [ ] Textes des pages Services et Automatisations à valider par le propriétaire.
+- [ ] Transformer les projets existants en études de cas (contexte, défi, résultats : contenu à fournir).
 
 ## Lot 4 — Catalogue
 - [ ] Couche de services (`catalogService`).

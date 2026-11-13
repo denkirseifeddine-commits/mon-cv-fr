@@ -7,4 +7,16 @@
   <url>
     <loc>https://mon-cv-fr.vercel.app/cv.html</loc>
   </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/portfolio/</loc>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/services/</loc>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/automatisations/</loc>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/contact/</loc>
+  </url>
 </urlset>

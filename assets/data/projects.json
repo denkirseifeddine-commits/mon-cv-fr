@@ -1,36 +1,65 @@
 {
-  "sourceOfTruth": "index.html, section #projets",
-  "note": "Contenu recopié tel quel depuis index.html. Les champs null sont des informations manquantes à fournir par le propriétaire du site ; ne rien inventer.",
+  "sourceOfTruth": "portfolio/index.html, section #projets",
+  "note": "Projets 03 à 08 : contenu recopié tel quel depuis le portfolio d'origine. Projets 01 et 02 : résumés rédigés à partir de ce qui est visible sur les sites publics. Les champs null et la liste missing indiquent les informations à fournir par le propriétaire du site ; ne rien inventer.",
   "projects": [
     {
-      "id": "attds",
-      "slug": "attds",
+      "id": "atdds",
+      "slug": "atdds",
       "order": 1,
       "featured": true,
-      "name": "ATTDS",
-      "category": { "fr": "Site web" },
-      "summary": { "fr": null },
-      "client": null,
+      "name": "ATDDS",
+      "category": {
+        "fr": "Site associatif bilingue"
+      },
+      "summary": {
+        "fr": "Site WordPress en français et en arabe de l'Association Tunisienne de Défense du Droit à la Santé : présentation de l'association, activités, publications et espace communauté."
+      },
+      "client": "Association Tunisienne de Défense du Droit à la Santé",
       "period": null,
-      "technologies": [],
-      "media": { "desktop": null, "mobile": null },
-      "url": null,
-      "missing": ["summary", "role", "media", "url"]
+      "technologies": [
+        "WordPress",
+        "Elementor",
+        "Polylang"
+      ],
+      "media": {
+        "desktop": "assets/projets/atdds-desktop.jpg",
+        "mobile": null
+      },
+      "url": "https://droitalasante.tn/",
+      "missing": [
+        "role",
+        "period",
+        "media.mobile"
+      ]
     },
     {
-      "id": "meuble-chabbouc",
-      "slug": "meuble-chabbouc",
+      "id": "meubles-chabbouh",
+      "slug": "meubles-chabbouh",
       "order": 2,
       "featured": true,
-      "name": "Meuble Chabbouc",
-      "category": { "fr": "Site web" },
-      "summary": { "fr": null },
-      "client": null,
+      "name": "Meubles Chabbouh",
+      "category": {
+        "fr": "Boutique en ligne"
+      },
+      "summary": {
+        "fr": "Boutique WooCommerce de meubles en Tunisie : catalogue par pièce, panier et commande, avec livraison partout en Tunisie et paiement à la réception."
+      },
+      "client": "Meubles Chabbouh",
       "period": null,
-      "technologies": [],
-      "media": { "desktop": null, "mobile": null },
-      "url": null,
-      "missing": ["summary", "role", "media", "url"]
+      "technologies": [
+        "WordPress",
+        "WooCommerce",
+        "Elementor"
+      ],
+      "media": {
+        "desktop": "assets/projets/chabbouh-desktop.jpg",
+        "mobile": "assets/projets/chabbouh-mobile.jpg"
+      },
+      "url": "https://meubles-chabbouh.tn/",
+      "missing": [
+        "role",
+        "period"
+      ]
     },
     {
       "id": "rybsen",
@@ -38,14 +67,24 @@
       "order": 3,
       "featured": false,
       "name": "Rybsen",
-      "category": { "fr": "Refonte d'une marque Greentech" },
-      "summary": { "fr": "Direction technique et graphique de la refonte complète du site, de l'interface à la mise en production." },
+      "category": {
+        "fr": "Refonte d'une marque Greentech"
+      },
+      "summary": {
+        "fr": "Direction technique et graphique de la refonte complète du site, de l'interface à la mise en production."
+      },
       "client": "Kwantic",
       "period": "2025",
       "technologies": [],
-      "media": { "desktop": null, "mobile": null },
+      "media": {
+        "desktop": null,
+        "mobile": null
+      },
       "url": null,
-      "missing": ["media", "url"]
+      "missing": [
+        "media",
+        "url"
+      ]
     },
     {
       "id": "boutiques-sylius",
@@ -53,14 +92,28 @@
       "order": 4,
       "featured": false,
       "name": "Boutiques Sylius",
-      "category": { "fr": "E-commerce haut de gamme" },
-      "summary": { "fr": "Développement de boutiques sur mesure avec Sylius et Symfony, et débogage des environnements Docker." },
+      "category": {
+        "fr": "E-commerce haut de gamme"
+      },
+      "summary": {
+        "fr": "Développement de boutiques sur mesure avec Sylius et Symfony, et débogage des environnements Docker."
+      },
       "client": "Kwantic",
       "period": "2025",
-      "technologies": ["Sylius", "Symfony", "Docker"],
-      "media": { "desktop": null, "mobile": null },
+      "technologies": [
+        "Sylius",
+        "Symfony",
+        "Docker"
+      ],
+      "media": {
+        "desktop": null,
+        "mobile": null
+      },
       "url": null,
-      "missing": ["media", "url"]
+      "missing": [
+        "media",
+        "url"
+      ]
     },
     {
       "id": "audit-seo",
@@ -68,14 +121,24 @@
       "order": 5,
       "featured": false,
       "name": "Audit SEO",
-      "category": { "fr": "Maillage interne et redirections" },
-      "summary": { "fr": "Audit technique approfondi et correction des anomalies de maillage, avec plus de 400 redirections remises en ordre." },
+      "category": {
+        "fr": "Maillage interne et redirections"
+      },
+      "summary": {
+        "fr": "Audit technique approfondi et correction des anomalies de maillage, avec plus de 400 redirections remises en ordre."
+      },
       "client": "Kwantic",
       "period": "2025",
       "technologies": [],
-      "media": { "desktop": null, "mobile": null },
+      "media": {
+        "desktop": null,
+        "mobile": null
+      },
       "url": null,
-      "missing": ["media", "url"]
+      "missing": [
+        "media",
+        "url"
+      ]
     },
     {
       "id": "esvs-library",
@@ -83,14 +146,27 @@
       "order": 6,
       "featured": false,
       "name": "ESVS Library",
-      "category": { "fr": "Plateforme e-learning" },
-      "summary": { "fr": "Conception d'un LMS sur WordPress avec LearnDash et des Custom Post Types pour organiser cours et ressources." },
+      "category": {
+        "fr": "Plateforme e-learning"
+      },
+      "summary": {
+        "fr": "Conception d'un LMS sur WordPress avec LearnDash et des Custom Post Types pour organiser cours et ressources."
+      },
       "client": "Indépendant",
       "period": "2023–2024",
-      "technologies": ["WordPress", "LearnDash"],
-      "media": { "desktop": null, "mobile": null },
+      "technologies": [
+        "WordPress",
+        "LearnDash"
+      ],
+      "media": {
+        "desktop": null,
+        "mobile": null
+      },
       "url": null,
-      "missing": ["media", "url"]
+      "missing": [
+        "media",
+        "url"
+      ]
     },
     {
       "id": "musee-ile-oleron",
@@ -98,14 +174,24 @@
       "order": 7,
       "featured": false,
       "name": "Musée de l'Île d'Oléron",
-      "category": { "fr": "Maintenance et sur-mesure" },
-      "summary": { "fr": "Maintenance technique du site et développement de fonctionnalités sur mesure pour le musée." },
+      "category": {
+        "fr": "Maintenance et sur-mesure"
+      },
+      "summary": {
+        "fr": "Maintenance technique du site et développement de fonctionnalités sur mesure pour le musée."
+      },
       "client": "Indépendant",
       "period": "2023–2024",
       "technologies": [],
-      "media": { "desktop": null, "mobile": null },
+      "media": {
+        "desktop": null,
+        "mobile": null
+      },
       "url": null,
-      "missing": ["media", "url"]
+      "missing": [
+        "media",
+        "url"
+      ]
     },
     {
       "id": "orbitai-tsi",
@@ -113,14 +199,24 @@
       "order": 8,
       "featured": false,
       "name": "OrbitAI et TSI",
-      "category": { "fr": "Identités visuelles" },
-      "summary": { "fr": "Création et modernisation de logos et d'identités pour deux entreprises du secteur IT." },
+      "category": {
+        "fr": "Identités visuelles"
+      },
+      "summary": {
+        "fr": "Création et modernisation de logos et d'identités pour deux entreprises du secteur IT."
+      },
       "client": "Indépendant",
       "period": "2023–2024",
       "technologies": [],
-      "media": { "desktop": null, "mobile": null },
+      "media": {
+        "desktop": null,
+        "mobile": null
+      },
       "url": null,
-      "missing": ["media", "url"]
+      "missing": [
+        "media",
+        "url"
+      ]
     }
   ]
 }

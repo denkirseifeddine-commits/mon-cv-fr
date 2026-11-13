@@ -62,11 +62,19 @@ Catalogue (`assets/css/catalog.css`) :
 - Résultat de recommandation
 - État vide (aucune solution adaptée)
 
-Propres à l'accueil (`assets/portfolio.css`) :
-- Carte projet avec maquette navigateur + téléphone (`.feat`, `.mock`)
-- Ligne de projet numérotée (`.row`)
-- Point d'expertise avec pictogramme rond (`.points`)
+Accueil et portfolio (`assets/css/editorial.css`, `assets/css/projects.css`) :
+- Hero à mot géant, disque et macaron tournant
 - Bandeau défilant (`.marquee`)
+- Citation et points d'expertise avec pictogramme rond (`.points`)
+- Appel à l'action final
+- Carte projet avec maquette navigateur + téléphone (`.feat`, `.mock`)
+
+Pages intérieures (`assets/css/pages.css`) :
+- En-tête de page : mot géant, titre, introduction
+
+Propres à une page :
+- Accueil (`assets/css/home.css`) : trois offres, méthode en quatre étapes
+- Portfolio (`assets/portfolio.css`) : ligne de projet numérotée (`.row`), compétences, parcours
 
 ## Composants à créer
 - FAQ

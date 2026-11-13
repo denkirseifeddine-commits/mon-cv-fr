@@ -5,7 +5,7 @@
 import { NAV, BRAND, CONTACT, LABELS } from '../config/navigation.js';
 import { resolveLink } from '../utils/site-root.js';
 import { escapeHtml } from '../utils/html.js';
-import { starIcon, mailIcon, phoneIcon, pinIcon } from './icons.js';
+import { starIcon, mailIcon, phoneIcon, pinIcon, linkedinIcon } from './icons.js';
 
 function linkAttrs(href) {
     const link = resolveLink(href);
@@ -33,6 +33,7 @@ function template() {
                     <li>${mailIcon()}<a href="mailto:${escapeHtml(CONTACT.email)}"><span>${escapeHtml(CONTACT.email)}</span></a></li>
                     <li>${phoneIcon()}<a href="${escapeHtml(CONTACT.phoneHref)}"><span>${escapeHtml(CONTACT.phone)}</span></a></li>
                     <li>${pinIcon()}<span>${escapeHtml(CONTACT.city)}</span></li>
+                    ${CONTACT.linkedin ? `<li>${linkedinIcon()}<a href="${escapeHtml(CONTACT.linkedin)}" target="_blank" rel="noopener"><span>${escapeHtml(LABELS.linkedin)}</span></a></li>` : ''}
                 </ul>
             </div>
         </div>
