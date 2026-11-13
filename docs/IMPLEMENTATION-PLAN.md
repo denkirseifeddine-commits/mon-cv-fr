@@ -41,10 +41,12 @@ Une pull request par lot, validée avant le lot suivant.
 - [ ] Transformer les projets existants en études de cas (contexte, défi, résultats : contenu à fournir).
 
 ## Lot 4 — Catalogue
-- [ ] Couche de services (`catalogService`).
-- [ ] Page catalogue avec filtres par catégorie et recherche.
-- [ ] Ajouter uniquement des offres réellement prêtes ou clairement marquées comme exemples.
-- [ ] Créer des fiches HTML indexables pour les solutions publiées.
+- [x] Couche de services (`catalogService`).
+- [x] Page catalogue avec filtres par catégorie et recherche.
+- [x] Ajouter uniquement des offres réellement prêtes ou clairement marquées comme exemples.
+- [x] Fiche solution (`solutions/fiche/?s=<slug>`).
+- [x] Tests unitaires du service catalogue (`scripts/test-catalog.mjs`, intégration continue).
+- [ ] Créer des fiches HTML indexables pour les solutions publiées (aucune solution publiée pour l'instant).
 
 ## Lot 5 — Questionnaire
 - [ ] Créer le questionnaire accessible.

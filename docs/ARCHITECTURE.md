@@ -24,6 +24,8 @@ Pages :
 - `index.html` : accueil du studio (`assets/css/home.css`, `assets/js/pages/home.js`)
 - `portfolio/` : portfolio complet, l'ancienne page d'accueil (`assets/portfolio.css`, `assets/portfolio.js`)
 - `services/`, `automatisations/`, `contact/` : pages intérieures (`assets/css/pages.css`)
+- `solutions/` : catalogue des solutions (`assets/js/pages/catalog.js`), en `noindex` tant qu'aucune solution n'est publiée
+- `solutions/fiche/?s=<slug>` : fiche d'une solution, remplie en JavaScript (`assets/js/pages/solution.js`), en `noindex`
 - `cv.html`, `mon-cv-fr.css` : CV autonome
 - `design-system/` : démonstration des composants (non indexée, hors navigation)
 - `404.html` : page d'erreur autonome
@@ -55,14 +57,23 @@ En place depuis le lot 3 « Positionnement et pages » :
 - `assets/js/services/quote-service.js` : préparation d'une demande de devis
 - `assets/projets/` : captures d'écran des projets
 
+En place depuis le lot 4 « Catalogue » :
+- `assets/js/services/catalog-service.js` : accès aux solutions et aux catégories. Fonctions pures, sans DOM ni réseau : `localized`, `normalizeText`, `isListed` (exclut `draft` et `archived`), `filterSolutions` (catégorie et recherche), `sortSolutions` (publiées d'abord, puis ordre de catégorie, puis nom). Fonctions de chargement : `getCategories`, `getSolutions`, `getSolutionBySlug`, qui lisent `assets/data/` avec `fetch` et gardent le résultat en cache.
+- `assets/js/components/solution-view.js` : présentation d'une solution (badge, prix, délai, carte, liens vers la fiche et le devis). Tout texte injecté passe par `escapeHtml`.
+- `assets/js/pages/catalog.js` : page du catalogue (filtres, recherche, compteur). L'état est écrit dans l'adresse (`?categorie=<slug>&q=<texte>`) et relu au chargement.
+- `assets/js/pages/solution.js` : fiche d'une solution. Slug absent ou inconnu : message et lien vers le catalogue.
+- `scripts/test-catalog.mjs` : tests unitaires des fonctions du service, sous Node, sans dépendance.
+
 À créer dans les lots suivants :
-- `assets/js/services/` : catalogue, préférences
+- `assets/js/services/` : préférences
 - `assets/js/engine/` : moteur de recommandation
 - `assets/js/components/` : sélecteur de langue
 - `assets/i18n/` : traductions
 
 ## Pages et adresses
 Chaque nouvelle page vit dans un dossier (`solutions/index.html`) et se lie aux autres par des chemins relatifs (`../assets/...`). L'adresse est alors la même sur Vercel et sur GitHub Pages, sans réglage.
+
+La page Contact accepte `contact/?solution=<slug>` (lot 4) : le message est pré-rempli avec le nom de la solution, et le type de besoin est choisi si la fiche ne correspond qu'à un seul type (`match.needs`). Un champ déjà rempli n'est jamais remplacé. Un slug inconnu ne pré-remplit rien. Lecture dans `assets/js/pages/contact.js`.
 
 `vercel.json` n'active ni `cleanUrls` ni `trailingSlash` : avec ces options, `cv.html` serait servi sous `/cv/` et ses liens relatifs (`mon-cv-fr.css`, `index.html`) ne fonctionneraient plus.
 
@@ -86,8 +97,7 @@ Les scripts sont des modules ES : ils ne se chargent pas en ouvrant un fichier d
 
 ## Contrat des services
 Les pages ne chargent pas les JSON directement. Elles appellent des fonctions dédiées :
-- `catalogService.getSolutions(filters)`
-- `catalogService.getSolutionBySlug(slug, locale)`
+- `catalogService.getCategories()`, `catalogService.getSolutions(filters)` et `catalogService.getSolutionBySlug(slug)` : en place depuis le lot 4 (`assets/js/services/catalog-service.js`), sous forme de fonctions exportées. Le paramètre `locale` de `getSolutionBySlug` n'est pas encore pris en compte.
 - `catalogService.getProjects()`
 - `quoteService.submitQuote(payload)` (en place : prépare un e-mail dans la messagerie du visiteur ; appellera `POST /api/v1/quotes`)
 - `recommendationEngine.recommend(answers, solutions)`
@@ -110,6 +120,7 @@ Le dépôt est servi sous `/mon-cv-fr/` sur GitHub Pages et à la racine sur Ver
 - `index.html` et `cv.html` portent une URL canonique vers le domaine Vercel : le miroir GitHub Pages n'est donc pas vu comme un doublon.
 - Pour les solutions publiées, des fichiers HTML statiques individuels, plus robustes pour l'indexation qu'une page remplie par JavaScript.
 - `sitemap.xml` ne liste que des URL qui existent.
+- Tant qu'aucune solution n'est publiée, `solutions/` et `solutions/fiche/` sont en `noindex` et absents de `sitemap.xml`.
 - Données structurées et `og:image` à ajouter quand le contenu réel existe.
 
 ## Backend futur

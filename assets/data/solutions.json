@@ -1,34 +1,379 @@
 [
   {
-    "id": "example-website-starter",
-    "slug": "website-starter",
-    "categoryId": "websites",
+    "id": "exemple-site-vitrine",
+    "slug": "exemple-site-vitrine",
     "status": "exemple",
-    "name": {
-      "fr": "Site vitrine Starter",
-      "en": "Website Starter",
-      "ar": "موقع تعريفي أساسي"
-    },
-    "shortDescription": {
-      "fr": "Exemple de fiche à compléter après validation de l'offre.",
-      "en": "Example listing to complete after the offer is validated.",
-      "ar": "مثال على منتج يُستكمل بعد اعتماد العرض."
-    },
-    "price": null,
-    "currency": "EUR",
-    "license": {
-      "name": null,
-      "url": null,
-      "verified": false
-    },
-    "features": [],
-    "technologies": [],
+    "categoryId": "websites",
+    "featured": true,
+    "updatedAt": "2026-11-13",
+    "name": { "fr": "Site vitrine" },
+    "shortDescription": { "fr": "Un site institutionnel clair, facile à mettre à jour, pour présenter votre activité." },
+    "problem": { "fr": "Vous souhaitez présenter votre activité en ligne sans dépendre d'un développeur pour modifier chaque page." },
+    "description": { "fr": "Le site présente votre activité, vos services et vos coordonnées sur des pages bien organisées. Il est construit sur WordPress, avec une interface d'administration pour publier vos textes et vos images. Un formulaire de contact permet aux visiteurs de vous écrire directement." },
+    "features": [
+      { "fr": "Pages de présentation : activité, services, équipe et coordonnées" },
+      { "fr": "Formulaire de contact relié à votre adresse e-mail" },
+      { "fr": "Mise à jour des contenus depuis l'administration WordPress" },
+      { "fr": "Mise en page adaptée aux téléphones et aux tablettes" },
+      { "fr": "Structure des pages et balises de base pour le référencement" }
+    ],
+    "technologies": ["WordPress", "Elementor Pro", "ACF Pro"],
+    "requirements": [
+      { "fr": "Les textes et les images à publier, ou une idée de leur contenu" },
+      { "fr": "Une charte graphique existante, ou les couleurs et le style souhaités" }
+    ],
+    "deliverables": [
+      { "fr": "Un site installé et paramétré, avec les pages convenues ensemble" },
+      { "fr": "Une prise en main de l'interface d'administration" }
+    ],
+    "options": [
+      {
+        "name": { "fr": "Rédaction des textes" },
+        "description": { "fr": "Rédaction des pages à partir des informations que vous fournissez." }
+      }
+    ],
+    "deliveryDays": null,
+    "price": { "amount": null, "currency": null, "model": "quote" },
     "demoUrl": null,
     "screenshots": [],
-    "notice": {
-      "fr": "Exemple, non commercialisé",
-      "en": "Example, not for sale",
-      "ar": "مثال، غير متاح للبيع"
-    }
+    "license": { "name": null, "url": null, "verified": false },
+    "match": {
+      "needs": ["website"],
+      "goals": ["showcase", "leads"],
+      "industries": [],
+      "complexity": ["simple", "intermediate"],
+      "customization": ["ready", "some-changes"]
+    },
+    "notice": { "fr": "Exemple, non commercialisé" }
+  },
+  {
+    "id": "exemple-boutique-en-ligne",
+    "slug": "exemple-boutique-en-ligne",
+    "status": "exemple",
+    "categoryId": "ecommerce",
+    "featured": true,
+    "updatedAt": "2026-11-13",
+    "name": { "fr": "Boutique en ligne" },
+    "shortDescription": { "fr": "Une boutique avec catalogue, panier et commande, gérée depuis un espace d'administration." },
+    "problem": { "fr": "Vous voulez vendre vos produits directement en ligne, avec une gestion simple des commandes." },
+    "description": { "fr": "La boutique présente vos produits par catégories, avec photos et descriptions. Les clients constituent leur panier et passent commande en quelques étapes. Vous suivez les commandes et les stocks depuis l'administration." },
+    "features": [
+      { "fr": "Catalogue par catégories, avec fiches produits, photos et descriptions" },
+      { "fr": "Panier et processus de commande" },
+      { "fr": "Suivi des commandes et des stocks depuis l'administration" },
+      { "fr": "Comptes clients et historique des commandes" },
+      { "fr": "Notifications par e-mail lors d'une commande" }
+    ],
+    "technologies": ["WooCommerce", "WordPress", "Elementor Pro"],
+    "requirements": [
+      { "fr": "La liste des produits, avec descriptions, prix et photos" },
+      { "fr": "Les conditions générales de vente et les modalités de livraison" }
+    ],
+    "deliverables": [
+      { "fr": "Une boutique installée, avec le catalogue initial" },
+      { "fr": "Une notice d'utilisation de l'administration" }
+    ],
+    "options": [
+      {
+        "name": { "fr": "Import du catalogue" },
+        "description": { "fr": "Reprise des produits à partir d'un fichier tableur fourni par vos soins." }
+      }
+    ],
+    "deliveryDays": null,
+    "price": { "amount": null, "currency": null, "model": "quote" },
+    "demoUrl": null,
+    "screenshots": [],
+    "license": { "name": null, "url": null, "verified": false },
+    "match": {
+      "needs": ["ecommerce"],
+      "goals": ["sell", "manage-customers"],
+      "industries": [],
+      "complexity": ["simple", "intermediate"],
+      "customization": ["ready", "some-changes"]
+    },
+    "notice": { "fr": "Exemple, non commercialisé" }
+  },
+  {
+    "id": "exemple-crm-suivi-contacts",
+    "slug": "exemple-crm-suivi-contacts",
+    "status": "exemple",
+    "categoryId": "crm",
+    "featured": false,
+    "updatedAt": "2026-11-13",
+    "name": { "fr": "CRM de suivi des contacts" },
+    "shortDescription": { "fr": "Un outil pour suivre vos contacts, vos prospects et vos échanges commerciaux." },
+    "problem": { "fr": "Vos contacts et vos échanges sont dispersés dans des fichiers et des messageries, ce qui rend le suivi commercial difficile." },
+    "description": { "fr": "L'outil regroupe les contacts et leur historique d'échanges au même endroit. Chaque prospect avance dans les étapes de votre processus de vente, avec des rappels pour les actions à mener. Les utilisateurs autorisés accèdent aux mêmes informations." },
+    "features": [
+      { "fr": "Fiches contacts avec historique des échanges" },
+      { "fr": "Suivi des prospects par étapes de vente" },
+      { "fr": "Rappels et tâches à réaliser" },
+      { "fr": "Recherche et filtres sur les contacts" },
+      { "fr": "Export des données au format tableur" }
+    ],
+    "technologies": ["Symfony", "PHP", "API REST"],
+    "requirements": [
+      { "fr": "La liste des informations à suivre pour chaque contact" },
+      { "fr": "Les étapes de votre processus commercial" }
+    ],
+    "deliverables": [
+      { "fr": "Un outil installé et configuré selon votre processus" },
+      { "fr": "Un accès protégé par identifiant pour chaque utilisateur" }
+    ],
+    "options": [
+      {
+        "name": { "fr": "Import initial des contacts" },
+        "description": { "fr": "Reprise des contacts existants à partir d'un fichier tableur." }
+      }
+    ],
+    "deliveryDays": null,
+    "price": { "amount": null, "currency": null, "model": "quote" },
+    "demoUrl": null,
+    "screenshots": [],
+    "license": { "name": null, "url": null, "verified": false },
+    "match": {
+      "needs": ["crm"],
+      "goals": ["manage-customers", "leads"],
+      "industries": [],
+      "complexity": ["intermediate", "advanced"],
+      "customization": ["some-changes", "custom"]
+    },
+    "notice": { "fr": "Exemple, non commercialisé" }
+  },
+  {
+    "id": "exemple-relances-emails-automatiques",
+    "slug": "exemple-relances-emails-automatiques",
+    "status": "exemple",
+    "categoryId": "marketing-automation",
+    "featured": true,
+    "updatedAt": "2026-11-13",
+    "name": { "fr": "Relances et e-mails automatiques" },
+    "shortDescription": { "fr": "Des messages envoyés automatiquement selon des événements ou des délais que vous définissez." },
+    "problem": { "fr": "Vous devez relancer vos prospects ou vos clients, mais les envois manuels prennent du temps et sont souvent oubliés." },
+    "description": { "fr": "Un scénario envoie des e-mails au moment voulu, à partir de modèles que vous validez. Chaque envoi est suivi, et les destinataires peuvent se désinscrire simplement. Les relances restent cohérentes d'un contact à l'autre." },
+    "features": [
+      { "fr": "Envois automatiques déclenchés par un événement ou un délai" },
+      { "fr": "Modèles de messages personnalisables" },
+      { "fr": "Personnalisation avec le prénom et les informations du contact" },
+      { "fr": "Suivi des messages envoyés" },
+      { "fr": "Désinscription simple pour les destinataires" }
+    ],
+    "technologies": ["WordPress", "PHP", "API REST"],
+    "requirements": [
+      { "fr": "Les modèles de messages, rédigés ou validés par vos soins" },
+      { "fr": "La liste des événements qui doivent déclencher un envoi" }
+    ],
+    "deliverables": [
+      { "fr": "Le scénario de relance configuré et testé" },
+      { "fr": "Une notice décrivant les déclencheurs et les modèles" }
+    ],
+    "options": [
+      {
+        "name": { "fr": "Connexion à un outil existant" },
+        "description": { "fr": "Échange de données entre le scénario et l'outil de gestion des contacts que vous utilisez déjà." }
+      }
+    ],
+    "deliveryDays": null,
+    "price": { "amount": null, "currency": null, "model": "quote" },
+    "demoUrl": null,
+    "screenshots": [],
+    "license": { "name": null, "url": null, "verified": false },
+    "match": {
+      "needs": ["automation"],
+      "goals": ["automate", "manage-customers"],
+      "industries": [],
+      "complexity": ["simple", "intermediate"],
+      "customization": ["some-changes", "custom"]
+    },
+    "notice": { "fr": "Exemple, non commercialisé" }
+  },
+  {
+    "id": "exemple-assistant-questions-frequentes",
+    "slug": "exemple-assistant-questions-frequentes",
+    "status": "exemple",
+    "categoryId": "ai-assistants",
+    "featured": false,
+    "updatedAt": "2026-11-13",
+    "name": { "fr": "Assistant de questions fréquentes" },
+    "shortDescription": { "fr": "Un assistant de discussion qui répond aux questions courantes à partir de vos contenus." },
+    "problem": { "fr": "Vos visiteurs posent souvent les mêmes questions, et votre équipe passe du temps à y répondre." },
+    "description": { "fr": "L'assistant s'affiche sur votre site et répond à partir des documents et des informations que vous fournissez. Lorsqu'une demande dépasse son périmètre, il oriente le visiteur vers votre équipe. Les questions posées restent consultables pour améliorer les réponses." },
+    "features": [
+      { "fr": "Bulle de discussion intégrée au site" },
+      { "fr": "Réponses fondées sur les documents et les informations fournis" },
+      { "fr": "Orientation vers votre équipe pour les demandes complexes" },
+      { "fr": "Historique des questions posées, consultable depuis l'administration" },
+      { "fr": "Activation et désactivation depuis l'administration" }
+    ],
+    "technologies": ["JavaScript", "API REST", "PHP"],
+    "requirements": [
+      { "fr": "Les documents de référence : fiches produits, conditions, questions fréquentes" },
+      { "fr": "Les règles d'orientation vers votre équipe" }
+    ],
+    "deliverables": [
+      { "fr": "Un assistant configuré sur vos contenus" },
+      { "fr": "Une notice d'administration" }
+    ],
+    "options": [
+      {
+        "name": { "fr": "Mise à jour des contenus" },
+        "description": { "fr": "Actualisation des informations de référence lorsque votre offre évolue." }
+      }
+    ],
+    "deliveryDays": null,
+    "price": { "amount": null, "currency": null, "model": "quote" },
+    "demoUrl": null,
+    "screenshots": [],
+    "license": { "name": null, "url": null, "verified": false },
+    "match": {
+      "needs": ["ai"],
+      "goals": ["automate", "manage-customers"],
+      "industries": [],
+      "complexity": ["intermediate", "advanced"],
+      "customization": ["some-changes", "custom"]
+    },
+    "notice": { "fr": "Exemple, non commercialisé" }
+  },
+  {
+    "id": "exemple-prise-rendez-vous",
+    "slug": "exemple-prise-rendez-vous",
+    "status": "exemple",
+    "categoryId": "mini-saas",
+    "featured": false,
+    "updatedAt": "2026-11-13",
+    "name": { "fr": "Outil de prise de rendez-vous" },
+    "shortDescription": { "fr": "Une page de réservation en ligne, reliée aux disponibilités de votre équipe." },
+    "problem": { "fr": "Les demandes de rendez-vous par téléphone ou par e-mail prennent du temps et entraînent des oublis et des doublons." },
+    "description": { "fr": "Vos clients choisissent un créneau disponible sur une page dédiée. Ils reçoivent une confirmation et un rappel, et peuvent annuler ou déplacer leur rendez-vous. Vous gérez les disponibilités et la liste des rendez-vous depuis un espace d'administration." },
+    "features": [
+      { "fr": "Calendrier de disponibilités par personne ou par service" },
+      { "fr": "Réservation en ligne depuis une page dédiée" },
+      { "fr": "Confirmation et rappel envoyés par e-mail" },
+      { "fr": "Annulation ou déplacement du rendez-vous par le client" },
+      { "fr": "Liste des rendez-vous à venir dans l'administration" }
+    ],
+    "technologies": ["Symfony", "API REST", "Docker"],
+    "requirements": [
+      { "fr": "Les services proposés et leur durée" },
+      { "fr": "Les plages horaires de disponibilité de chaque personne" }
+    ],
+    "deliverables": [
+      { "fr": "Une page de réservation intégrée à votre site" },
+      { "fr": "Un espace d'administration pour gérer les rendez-vous" }
+    ],
+    "options": [
+      {
+        "name": { "fr": "Synchronisation avec un agenda" },
+        "description": { "fr": "Reprise des rendez-vous vers l'agenda que vous utilisez déjà." }
+      }
+    ],
+    "deliveryDays": null,
+    "price": { "amount": null, "currency": null, "model": "quote" },
+    "demoUrl": null,
+    "screenshots": [],
+    "license": { "name": null, "url": null, "verified": false },
+    "match": {
+      "needs": ["application"],
+      "goals": ["manage-customers", "automate"],
+      "industries": [],
+      "complexity": ["intermediate", "advanced"],
+      "customization": ["ready", "some-changes"]
+    },
+    "notice": { "fr": "Exemple, non commercialisé" }
+  },
+  {
+    "id": "exemple-tableau-de-bord-activite",
+    "slug": "exemple-tableau-de-bord-activite",
+    "status": "exemple",
+    "categoryId": "business-tools",
+    "featured": false,
+    "updatedAt": "2026-11-13",
+    "name": { "fr": "Tableau de bord d'activité" },
+    "shortDescription": { "fr": "Une page qui regroupe les indicateurs clés de votre activité, à partir de vos données." },
+    "problem": { "fr": "Les chiffres de l'activité sont répartis dans plusieurs fichiers, ce qui empêche d'avoir une vue d'ensemble." },
+    "description": { "fr": "Les indicateurs choisis avec vous apparaissent sur une seule page, avec des graphiques et des filtres par période. L'accès est réservé aux personnes autorisées. Le tableau de bord reste simple à lire, même pour une équipe non technique." },
+    "features": [
+      { "fr": "Indicateurs clés regroupés sur une seule page" },
+      { "fr": "Graphiques d'évolution par période" },
+      { "fr": "Filtres par période et par service" },
+      { "fr": "Accès réservé aux personnes autorisées" },
+      { "fr": "Export des données au format tableur" }
+    ],
+    "technologies": ["PHP", "JavaScript", "API REST"],
+    "requirements": [
+      { "fr": "La liste des indicateurs à suivre" },
+      { "fr": "Les sources de données déjà utilisées, fichiers ou outils" }
+    ],
+    "deliverables": [
+      { "fr": "Un tableau de bord installé avec les indicateurs convenus" },
+      { "fr": "Un accès distinct pour chaque utilisateur autorisé" }
+    ],
+    "options": [
+      {
+        "name": { "fr": "Connexion automatique à une source de données" },
+        "description": { "fr": "Mise à jour des indicateurs sans saisie manuelle, à partir d'une source existante." }
+      }
+    ],
+    "deliveryDays": null,
+    "price": { "amount": null, "currency": null, "model": "quote" },
+    "demoUrl": null,
+    "screenshots": [],
+    "license": { "name": null, "url": null, "verified": false },
+    "match": {
+      "needs": ["application"],
+      "goals": ["centralize"],
+      "industries": [],
+      "complexity": ["intermediate", "advanced"],
+      "customization": ["some-changes", "custom"]
+    },
+    "notice": { "fr": "Exemple, non commercialisé" }
+  },
+  {
+    "id": "exemple-application-metier-sur-mesure",
+    "slug": "exemple-application-metier-sur-mesure",
+    "status": "exemple",
+    "categoryId": "custom-applications",
+    "featured": false,
+    "updatedAt": "2026-11-13",
+    "name": { "fr": "Application métier sur mesure" },
+    "shortDescription": { "fr": "Une application conçue pour les processus propres à votre entreprise." },
+    "problem": { "fr": "Les outils standards ne couvrent pas certains processus de votre entreprise, et leur gestion reste manuelle ou dispersée." },
+    "description": { "fr": "L'application est définie à partir de vos processus, puis développée par étapes avec des points de validation. Elle propose une interface claire pour les équipes et échange des données par API REST avec vos outils existants. Elle est livrée avec sa documentation technique." },
+    "features": [
+      { "fr": "Analyse du besoin et découpage des fonctions" },
+      { "fr": "Interface adaptée aux métiers de l'entreprise" },
+      { "fr": "Gestion des droits selon les profils utilisateurs" },
+      { "fr": "Échanges de données avec vos outils existants par API REST" },
+      { "fr": "Déploiement dans un environnement conteneurisé" },
+      { "fr": "Documentation technique du projet" }
+    ],
+    "technologies": ["Symfony", "PHP", "JavaScript", "API REST", "Docker"],
+    "requirements": [
+      { "fr": "Une description écrite des processus à automatiser ou à centraliser" },
+      { "fr": "Les données existantes à reprendre, si elles existent" }
+    ],
+    "deliverables": [
+      { "fr": "Une application livrée et déployée" },
+      { "fr": "Une documentation technique et une notice d'utilisation" }
+    ],
+    "options": [
+      {
+        "name": { "fr": "Maintenance et évolutions" },
+        "description": { "fr": "Corrections, mises à jour et nouvelles fonctions après la livraison." }
+      }
+    ],
+    "deliveryDays": null,
+    "price": { "amount": null, "currency": null, "model": "quote" },
+    "demoUrl": null,
+    "screenshots": [],
+    "license": { "name": null, "url": null, "verified": false },
+    "match": {
+      "needs": ["application"],
+      "goals": ["centralize", "automate"],
+      "industries": [],
+      "complexity": ["intermediate", "advanced"],
+      "customization": ["custom"]
+    },
+    "notice": { "fr": "Exemple, non commercialisé" }
   }
 ]

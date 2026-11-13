@@ -8,6 +8,10 @@
  */
 import '../main.js';
 import { submitQuote } from '../services/quote-service.js';
+import { getSolutionBySlug, localized } from '../services/catalog-service.js';
+
+// Message pré-rempli depuis une fiche (?solution=<slug>) ; {name} = nom de la solution
+const SOLUTION_MESSAGE = 'Je suis intéressé(e) par la solution : {name}.';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -21,7 +25,38 @@ const RULES = [
 ];
 
 const form = document.getElementById('quote-form');
-if (form) initQuoteForm(form);
+if (form) {
+    initQuoteForm(form);
+    prefillFromSolution(form);
+}
+
+/*
+ * Arrivée depuis le catalogue (contact/?solution=<slug>) : pré-remplit le
+ * message avec le nom de la solution et, si la fiche ne correspond qu'à un
+ * type de besoin, choisit ce type. Slug inconnu : rien n'est pré-rempli.
+ * Un champ déjà saisi par le visiteur n'est jamais remplacé.
+ */
+async function prefillFromSolution(quoteForm) {
+    const slug = new URLSearchParams(window.location.search).get('solution');
+    if (!slug) return;
+    let solution = null;
+    try {
+        solution = await getSolutionBySlug(slug);
+    } catch (error) {
+        return;
+    }
+    const name = solution ? localized(solution.name) : '';
+    if (!name) return;
+
+    const message = quoteForm.elements.message;
+    if (message && !message.value.trim()) message.value = SOLUTION_MESSAGE.replace('{name}', name);
+
+    const needs = Array.isArray(solution.match?.needs) ? solution.match.needs : [];
+    const need = quoteForm.elements.need;
+    if (need && !need.value && needs.length === 1 && [...need.options].some((o) => o.value === needs[0])) {
+        need.value = needs[0];
+    }
+}
 
 function initQuoteForm(form) {
     const summary = document.getElementById('quote-summary');
