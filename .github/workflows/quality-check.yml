@@ -1,0 +1,12 @@
+name: Static site quality checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  basic-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check entry files, internal links and JSON data
+        run: python3 scripts/check-site.py

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mon-cv-fr.vercel.app/sitemap.xml

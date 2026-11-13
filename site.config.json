@@ -1,0 +1,17 @@
+{
+  "siteName": "Digital Solution Studio",
+  "owner": "Seif Eddine Denkir",
+  "canonicalUrl": "https://mon-cv-fr.vercel.app",
+  "githubPagesUrl": "https://denkirseifeddine-commits.github.io/mon-cv-fr",
+  "defaultLocale": "fr",
+  "locales": ["fr", "en", "ar"],
+  "rtlLocales": ["ar"],
+  "hosting": "vercel",
+  "staticFirst": true,
+  "githubPagesCompatibility": true,
+  "contact": {
+    "email": "denkirseifeddine@gmail.com",
+    "phone": "+216 21 327 315",
+    "location": "Tunis, Tunisie"
+  }
+}
