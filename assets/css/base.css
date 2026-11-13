@@ -63,6 +63,32 @@ a:hover > .arrow { transform: translateX(8px); }
 }
 .btn-solid:hover::before { transform: translateY(0); }
 
+/* Boutons natifs (<button>) : mêmes styles que les liens .btn / .link-arrow */
+button.btn, button.link-arrow {
+    font-family: inherit;
+    line-height: inherit;
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: 600;
+}
+button.btn { gap: 14px; min-height: 44px; }
+button.btn .arrow { color: currentColor; }
+button.link-arrow {
+    min-height: 44px;
+    padding: 0;
+    background: none;
+    color: var(--ink);
+}
+button.link-arrow:hover > .arrow { transform: translateX(8px); }
+/* Flèche retournée (« Précédent ») : pointe vers le début de la ligne */
+.arrow-back { scale: -1 1; }
+button.link-arrow:hover > .arrow-back { transform: translateX(8px); }
+button.btn:disabled { cursor: not-allowed; opacity: .45; }
+button.btn:disabled::before { display: none; }
+button.link-arrow:disabled { cursor: not-allowed; color: var(--muted); }
+button.link-arrow:disabled > .arrow { transform: none; }
+
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* Sections */

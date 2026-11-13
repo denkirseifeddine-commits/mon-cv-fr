@@ -1,0 +1,245 @@
+/*
+ * Catalogue : badge de statut, filtres et recherche, carte solution,
+ * carte de résultat de recommandation et état vide.
+ * À charger après tokens.css, base.css et components.css (et forms.css
+ * quand la page contient aussi des champs).
+ *
+ * Couleurs, polices et courbes : uniquement tokens.css.
+ */
+
+/* Petites capitales espacées du catalogue */
+.badge, .filter, .search-label, .solution-cat, .solution-notice, .solution-meta dt,
+.tags li, .reco-rank, .reco-why-title, .empty-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.6875rem;
+    font-weight: 500;
+}
+
+/* ---------- Badge de statut ---------- */
+/* .badge-exemple / .badge-draft / .badge-published reprennent les valeurs de `status` */
+.badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    width: fit-content; max-width: 100%;
+    padding: 6px 12px 6px 10px;
+    font-weight: 600;
+    line-height: 1.3;
+    border: 1px solid currentColor;
+}
+.badge::before {
+    content: "";
+    flex: none;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+}
+/* Exemple : aplat terracotta foncé, texte crème (5,5:1) — visible au premier regard */
+.badge-exemple { background: var(--accent-deep); border-color: var(--accent-deep); color: var(--bg); }
+.badge-exemple::before { content: "✳"; width: auto; height: auto; background: none; border-radius: 0; font-size: 0.875rem; line-height: 1; }
+/* Brouillon : filet pointillé, texte secondaire */
+.badge-draft { color: var(--muted); border-style: dashed; background: transparent; }
+.badge-draft::before { background: transparent; border: 1px solid currentColor; }
+/* Publié : encre, pastille pleine */
+.badge-published { color: var(--ink); background: var(--card); }
+
+/* ---------- Outils du catalogue : filtres + recherche ---------- */
+.catalog-tools {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem);
+    gap: 24px 48px;
+    align-items: end;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+}
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px;
+    padding: 0 18px;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 0;
+    cursor: pointer;
+    transition: border-color .35s var(--ease), background-color .35s var(--ease), color .35s var(--ease);
+}
+.filter:hover { border-color: var(--accent); }
+.filter[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.filter[aria-pressed="true"]:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
+
+.search { display: grid; gap: 10px; }
+.search-label { color: var(--ink); font-weight: 600; }
+.search-box { position: relative; }
+.search-box .field-input { padding-inline-start: 46px; }
+.search-box::before {
+    /* Loupe dessinée en CSS : cercle + manche */
+    content: "";
+    position: absolute; inset-inline-start: 17px; top: 50%;
+    width: 13px; height: 13px;
+    margin-top: -9px;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+}
+.search-box::after {
+    content: "";
+    position: absolute; inset-inline-start: 28px; top: 50%;
+    width: 1.5px; height: 7px;
+    margin-top: 1px;
+    background: var(--ink);
+    transform: rotate(-45deg);
+    pointer-events: none;
+}
+.search-box .field-input::-webkit-search-cancel-button { cursor: pointer; }
+.catalog-count { margin-top: 16px; color: var(--muted); font-size: 0.8125rem; }
+
+/* ---------- Grille et carte solution ---------- */
+.solutions {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: clamp(16px, 2vw, 28px);
+}
+.solutions > li { display: flex; flex-direction: column; }
+.solutions > li > .solution { flex: 1; }
+/* S'appuie sur .card (fond, filet, survol) ; le média occupe toute la largeur */
+.solution { padding: 0; }
+.solution-media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+}
+.solution-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.solution-media .badge { position: absolute; inset-block-start: 16px; inset-inline-start: 16px; z-index: 1; }
+
+/* Pas encore de capture : cadre en filet fin, libellé discret */
+.card .solution-shot-empty {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    margin: 0;
+    color: var(--muted);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.0625rem;
+}
+.solution-shot-empty::before { content: "✳"; font-style: normal; font-size: 1.5rem; line-height: 1; color: var(--accent); }
+
+.solution-body { display: flex; flex-direction: column; flex: 1; padding: 24px 28px 28px; }
+.solution-cat, .card .solution-cat { margin: 0; color: var(--accent-deep); font-weight: 600; }
+.card .solution-name { margin-top: 10px; }
+.card .solution-desc { margin: 10px 0 0; }
+
+.solution-features { display: grid; gap: 6px; margin-top: 20px; font-size: 0.875rem; }
+.solution-features li { display: flex; gap: 12px; }
+.solution-features li::before {
+    content: "";
+    flex: none;
+    width: 14px; height: 0;
+    border-top: 1px solid var(--accent);
+    align-self: center;
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+.tags li {
+    padding: 4px 10px;
+    font-size: 0.625rem;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    background: var(--bg);
+}
+
+.solution-meta {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+}
+.solution-meta dt { color: var(--muted); font-size: 0.625rem; }
+.solution-meta dd { margin: 4px 0 0; font-family: var(--serif); font-size: 1.25rem; line-height: 1.2; }
+
+.solution-notice { margin-top: 18px; color: var(--accent-deep); font-weight: 600; }
+.solution-actions {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 12px 24px;
+    margin-top: auto;
+    padding-top: 22px;
+}
+.solution-actions .link-arrow { min-height: 44px; }
+
+/* Libellé au-dessus d'une carte de démonstration au contenu fictif */
+.demo-label {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 4px 10px;
+    color: var(--ink);
+    border: 1px dashed var(--muted);
+    font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+}
+
+/* ---------- Résultat de recommandation ---------- */
+.recos { display: grid; gap: clamp(16px, 2vw, 24px); }
+.reco {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr);
+    gap: 20px clamp(24px, 4vw, 56px);
+    align-items: start;
+    padding: clamp(24px, 3vw, 36px);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-inline-start: 3px solid var(--accent);
+}
+.reco .num { font-size: clamp(2.75rem, 5vw, 3.75rem); }
+.reco-rank { color: var(--muted); }
+.reco-head .badge { margin-top: 14px; }
+.reco-name { font-family: var(--serif); font-size: clamp(1.625rem, 2.6vw, 2rem); font-weight: 500; line-height: 1.1; margin-top: 8px; }
+.reco-desc { margin-top: 8px; color: var(--muted); }
+.reco-head .solution-cat { display: block; margin-top: 14px; }
+.reco-why { padding-inline-start: clamp(0px, 3vw, 40px); border-inline-start: 1px solid var(--line); }
+.reco-why-title { color: var(--accent-deep); font-weight: 600; }
+.reco-why ul { display: grid; gap: 10px; margin-top: 14px; }
+.reco-why li { display: flex; gap: 12px; align-items: baseline; }
+.reco-why li::before {
+    content: "✳";
+    flex: none;
+    color: var(--accent);
+    font-size: 0.75rem;
+}
+.reco-why .link-arrow { margin-top: 20px; min-height: 44px; }
+/* Rangs 2 et 3 : filet d'accent remplacé par l'encre, numéro plus discret */
+.reco + .reco { border-inline-start-color: var(--ink); }
+
+/* ---------- État vide ---------- */
+.empty {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) auto;
+    gap: 24px 48px;
+    align-items: center;
+    padding: clamp(32px, 5vw, 64px);
+    border: 1px solid var(--line);
+    border-block-start: 3px solid var(--ink);
+    background: var(--bg);
+}
+.empty .empty-kicker { margin: 0; color: var(--accent-deep); font-weight: 600; }
+.empty-title { margin-top: 12px; font-family: var(--serif); font-size: clamp(1.875rem, 3.4vw, 2.625rem); font-weight: 400; line-height: 1.08; }
+.empty-title em { font-style: italic; color: var(--accent); }
+.empty p { margin-top: 12px; color: var(--muted); max-width: 52ch; }
+.empty-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.empty-actions .link-arrow { min-height: 44px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+    .catalog-tools { grid-template-columns: 1fr; }
+    .reco { grid-template-columns: auto minmax(0, 1fr); }
+    .reco-why { grid-column: 2; padding-inline-start: 0; border-inline-start: 0; padding-top: 20px; border-top: 1px solid var(--line); }
+    .empty { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+    .reco { grid-template-columns: minmax(0, 1fr); }
+    .reco-why { grid-column: auto; }
+    .solution-body { padding: 20px 20px 24px; }
+    .empty-actions .btn { width: 100%; }
+}

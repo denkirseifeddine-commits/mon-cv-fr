@@ -11,6 +11,8 @@
     --line: #D6CCBB;
     --accent: #C5512E;
     --accent-deep: #A3401F;
+    /* Rouge d'erreur, messages et champs en erreur : distinct du terracotta, 6,4:1 sur --bg, 6,8:1 sur --card (AA) */
+    --error: #A61E32;
 
     --display: 'Anton', 'Arial Narrow', sans-serif;
     --serif: 'Cormorant Garamond', Georgia, serif;

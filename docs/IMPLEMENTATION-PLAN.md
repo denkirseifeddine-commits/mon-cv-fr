@@ -19,12 +19,15 @@ Une pull request par lot, validée avant le lot suivant.
 - [x] Ajouter les données de départ : catégories, questionnaire, solution d'exemple.
 - [x] Vérifier le CV et préserver son style autonome.
 - [x] Ajouter un test de liens et de ressources (`scripts/check-site.py`) et l'intégration continue.
-- [ ] Factoriser header/footer (reporté au lot 2, stratégie décrite dans `ARCHITECTURE.md`).
 
 ## Lot 2 — Navigation et design system
-- [ ] En-tête et pied de page communs.
-- [ ] Découper `portfolio.css` en base et composants.
-- [ ] Nouveaux composants : carte solution, badge de statut, champs de formulaire.
+- [x] En-tête et pied de page communs, générés depuis `assets/js/config/navigation.js`.
+- [x] Menu compact accessible sur petit écran.
+- [x] Découper `portfolio.css` en base, composants et styles de l'accueil.
+- [x] Découper `portfolio.js` en modules ES.
+- [x] Nouveaux composants : carte solution, badge de statut, filtres, champs de formulaire, cartes de choix, résultat de recommandation.
+- [x] Page de démonstration `design-system/`.
+- [x] `check-site.py` vérifie les imports JavaScript et les références CSS.
 
 ## Lot 3 — Positionnement et pages
 - [ ] Faire évoluer la page d'accueil (proposition de valeur, trois piliers).
