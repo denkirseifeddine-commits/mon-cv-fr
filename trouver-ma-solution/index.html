@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr" data-root="../" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trouver ma solution — Digital Solution Studio</title>
+    <meta name="description" content="Sept questions, deux minutes : obtenez jusqu'à trois solutions digitales adaptées à votre besoin, ou une orientation vers un devis sur mesure.">
+    <link rel="canonical" href="https://mon-cv-fr.vercel.app/trouver-ma-solution/">
+    <meta name="theme-color" content="#F4EFE6">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Trouver ma solution — Digital Solution Studio">
+    <meta property="og:description" content="Sept questions, deux minutes : obtenez jusqu'à trois solutions digitales adaptées à votre besoin, ou une orientation vers un devis sur mesure.">
+    <meta property="og:url" content="https://mon-cv-fr.vercel.app/trouver-ma-solution/">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="Digital Solution Studio">
+    <meta name="twitter:card" content="summary">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <script>document.documentElement.className = 'js';</script>
+    <script nomodule>document.documentElement.className = 'no-js';</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/tokens.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/forms.css">
+    <link rel="stylesheet" href="../assets/css/catalog.css">
+    <link rel="stylesheet" href="../assets/css/pages.css">
+</head>
+<body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-arrow" viewBox="0 0 48 12"><path d="M0 6h46M40 1l6 5-6 5" fill="none" stroke="currentColor" stroke-width="1.2"/></symbol>
+        <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    </svg>
+
+    <div class="progress" aria-hidden="true"></div>
+    <a class="skip" href="#top">Aller au contenu</a>
+
+    <!-- En-tête commun : contenu de secours, remplacé par assets/js/components/site-header.js -->
+    <header class="top" data-site-header>
+        <a class="top-brand" href="../index.html">
+            <svg class="star" aria-hidden="true"><use href="#i-star"/></svg>
+            <span>Digital Solution Studio</span>
+        </a>
+        <a class="top-cta" href="../contact/">Demander un devis <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </header>
+
+    <main id="top">
+        <!-- En-tête de page -->
+        <section class="page-head" aria-labelledby="page-title">
+            <p class="page-giant" aria-hidden="true" style="--fit: 3.190"><span class="page-giant-part"><span style="--i:0">T</span><span style="--i:1">R</span><span style="--i:2">O</span><span style="--i:3">U</span><span style="--i:4">V</span><span style="--i:5">E</span><span style="--i:6">R</span></span></p>
+            <div class="page-intro">
+                <h1 class="page-title" id="page-title"><span class="mask"><span>Trouvez la solution <em>adaptée à votre besoin</em></span></span></h1>
+                <p class="page-lead">Sept questions, deux minutes : vous obtenez jusqu'à trois solutions adaptées, ou une orientation vers un devis sur mesure.</p>
+            </div>
+        </section>
+
+        <!-- Questionnaire et résultats : remplis par assets/js/pages/finder.js -->
+        <section class="section finder" id="questionnaire" aria-labelledby="finder-title">
+            <h2 class="visually-hidden" id="finder-title">Questionnaire</h2>
+
+            <noscript>
+                <p class="form-noscript">Ce questionnaire a besoin de JavaScript pour fonctionner. Vous pouvez <a href="../solutions/">parcourir les solutions</a> ou <a href="../contact/">décrire votre besoin dans une demande de devis</a>.</p>
+            </noscript>
+
+            <div class="finder-app" id="finder"
+                 data-loading="Chargement du questionnaire…"
+                 data-error="Le questionnaire n'a pas pu être chargé. Rechargez la page, ou décrivez directement votre besoin dans une demande de devis.">
+                <p class="finder-status" id="finder-status" role="status">Chargement du questionnaire…</p>
+
+                <!-- Étapes : une question à la fois -->
+                <div class="finder-layout" id="finder-quiz" hidden>
+                    <ol class="finder-steps" id="finder-steps" aria-hidden="true"></ol>
+
+                    <form class="form finder-form" id="finder-form" aria-labelledby="finder-title" novalidate>
+                        <div class="q-progress">
+                            <p class="q-progress-text" id="finder-progress"><span>Question <strong id="finder-progress-n">1</strong> sur <span id="finder-progress-total">7</span></span><span id="finder-progress-type">Choix unique</span></p>
+                            <progress class="q-progress-bar" id="finder-progress-bar" max="7" value="1" aria-labelledby="finder-progress">1 sur 7</progress>
+                        </div>
+
+                        <div class="finder-step" id="finder-step"></div>
+
+                        <div class="form-actions">
+                            <button class="link-arrow" type="button" id="finder-prev"><svg class="arrow arrow-back" aria-hidden="true"><use href="#i-arrow"/></svg> Précédent</button>
+                            <button class="btn btn-solid" type="submit" id="finder-next" data-next="Suivant" data-last="Voir mes solutions"><span id="finder-next-label">Suivant</span> <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Résultats -->
+                <div class="finder-results" id="finder-results" hidden>
+                    <div class="finder-results-head">
+                        <p class="finder-kicker">Vos résultats</p>
+                        <h2 class="finder-results-title" id="finder-results-title" tabindex="-1"><span>Les pistes</span> <em>pour votre projet</em></h2>
+                        <p class="finder-results-lead" id="finder-results-lead"></p>
+                    </div>
+
+                    <div class="finder-recap" aria-labelledby="finder-recap-title">
+                        <h3 class="finder-recap-title" id="finder-recap-title">Vos réponses</h3>
+                        <dl class="finder-recap-list" id="finder-recap-list"></dl>
+                        <button class="link-arrow" type="button" id="finder-edit"><svg class="arrow arrow-back" aria-hidden="true"><use href="#i-arrow"/></svg> Modifier mes réponses</button>
+                    </div>
+
+                    <div class="finder-reco-list" id="finder-reco-list"></div>
+
+                    <p class="finder-note">Les solutions proposées sont classées par un calcul simple fondé sur vos réponses ; aucune donnée n'est enregistrée.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Appel à l'action final -->
+        <section class="section cta" id="contact" aria-labelledby="cta-title">
+            <div class="cta-grid" data-stagger>
+                <div data-reveal>
+                    <h2 id="cta-title"><span>Vous préférez</span> <em>en parler&nbsp;?</em></h2>
+                    <p>Décrivez votre projet en quelques lignes : je vous réponds avec une proposition adaptée.</p>
+                </div>
+                <div class="cta-actions" data-reveal>
+                    <a class="btn btn-solid" href="../contact/">Demander un devis <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                    <a class="link-arrow" href="../solutions/">Parcourir les solutions <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pied de page commun : contenu de secours, remplacé par assets/js/components/site-footer.js -->
+    <footer class="footer" data-site-footer>
+        <div class="footer-bottom">
+            <p>© 2026 Seif Eddine Denkir</p>
+            <a href="#top">Revenir en haut</a>
+        </div>
+    </footer>
+
+    <script type="module" src="../assets/js/pages/finder.js"></script>
+</body>
+</html>

@@ -3,8 +3,8 @@
  * et le pied de page. Les href sont relatifs à la racine du site :
  * les composants les préfixent avec siteRoot() (voir utils/site-root.js).
  *
- * Les lots suivants ajouteront Solutions et Trouver ma solution ;
- * l'en-tête passe en menu compact quand la barre ne tient plus.
+ * NAV liste les pages du site, dans l'ordre du menu ; l'en-tête passe
+ * en menu compact quand la barre ne tient plus.
  */
 export const NAV = [
     { id: 'accueil', label: 'Accueil', href: 'index.html' },
@@ -12,6 +12,7 @@ export const NAV = [
     { id: 'services', label: 'Services', href: 'services/' },
     { id: 'solutions', label: 'Solutions', href: 'solutions/' },
     { id: 'automatisations', label: 'Automatisations', href: 'automatisations/' },
+    { id: 'trouver', label: 'Trouver ma solution', href: 'trouver-ma-solution/' },
     { id: 'cv', label: 'CV', href: 'cv.html' },
 ];
 

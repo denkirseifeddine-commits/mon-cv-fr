@@ -49,10 +49,11 @@ Une pull request par lot, validée avant le lot suivant.
 - [ ] Créer des fiches HTML indexables pour les solutions publiées (aucune solution publiée pour l'instant).
 
 ## Lot 5 — Questionnaire
-- [ ] Créer le questionnaire accessible.
-- [ ] Implémenter le scoring et les contraintes bloquantes.
-- [ ] Tester les cas sans résultat et les demandes sur mesure.
-- [ ] Vérifier que le résultat est explicable et non trompeur.
+- [x] Créer le questionnaire accessible.
+- [x] Implémenter le scoring et les contraintes bloquantes.
+- [x] Tester les cas sans résultat et les demandes sur mesure.
+- [x] Vérifier que le résultat est explicable et non trompeur.
+- [x] Tests unitaires du moteur (`scripts/test-recommendation.mjs`, intégration continue).
 
 ## Lot 6 — Internationalisation
 - [ ] Définir le routage FR/EN/AR.

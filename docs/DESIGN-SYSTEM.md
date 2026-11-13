@@ -64,6 +64,13 @@ Catalogue (`assets/css/catalog.css`) :
 - Résultat de recommandation
 - État vide (aucune solution adaptée)
 
+Questionnaire et résultats « Trouver ma solution » (lot 5, `assets/css/catalog.css`, `assets/css/forms.css`) :
+- Cartes de choix par étape, à choix unique ou multiple (`.choice`, `.choices-grid`), avec légende, aide et erreur
+- Sommaire des étapes (`.finder-steps`) et progression (`.q-progress`)
+- Carte de résultat avec pourcentage de correspondance (`.reco-match`, barre `.reco-match-bar`) et bloc « Pourquoi cette solution » (`.reco-why`)
+- Carte « Demande sur mesure » (`.finder-custom`) et sa variante mise en avant (`.finder-custom.is-recommended`), utilisée quand le moteur conseille un devis
+- Récapitulatif des réponses (`.finder-recap`) et note sous les résultats (`.finder-note`)
+
 Accueil et portfolio (`assets/css/editorial.css`, `assets/css/projects.css`) :
 - Hero à mot géant, disque et macaron tournant
 - Bandeau défilant (`.marquee`)
