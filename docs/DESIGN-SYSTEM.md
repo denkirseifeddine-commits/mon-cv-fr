@@ -35,22 +35,40 @@ Règle de contraste : `--accent` est réservé aux grands textes et aux formes ;
 
 À ajouter quand un composant en a besoin (ne pas les créer par avance) : échelle d'espacements, échelle typographique, états de formulaire (erreur, succès), couleurs des badges de statut.
 
-## Composants existants (dans `assets/portfolio.css`)
-- En-tête collant avec navigation et lien fléché
+## Composants
+La page `design-system/index.html` les montre tous, dans leurs différents états.
+
+Socle (`assets/css/base.css`) :
 - Bouton plein (`.btn-solid`) et lien fléché (`.link-arrow`)
 - Titre de section sur deux lignes, la seconde en terracotta
+- Conteneur de section (`.section`) et en-tête de section (`.head`)
+- Apparition au défilement (`[data-reveal]`)
+
+Partagés (`assets/css/components.css`) :
+- En-tête collant : barre horizontale ou menu compact
+- Pied de page : marque, liens, coordonnées
+- Carte bordée (`.card`) et numéro (`.num`)
+
+Formulaires et questionnaire (`assets/css/forms.css`) :
+- Champs, liste déroulante, zone de texte, aide, erreur
+- Case à cocher
+- Cartes de choix (choix unique et choix multiple)
+- Progression du questionnaire
+
+Catalogue (`assets/css/catalog.css`) :
+- Badge de statut, dont « Exemple, non commercialisé »
+- Filtres par catégorie et recherche
+- Carte solution
+- Résultat de recommandation
+- État vide (aucune solution adaptée)
+
+Propres à l'accueil (`assets/portfolio.css`) :
 - Carte projet avec maquette navigateur + téléphone (`.feat`, `.mock`)
 - Ligne de projet numérotée (`.row`)
-- Carte bordée (`.card`)
 - Point d'expertise avec pictogramme rond (`.points`)
 - Bandeau défilant (`.marquee`)
 
 ## Composants à créer
-- Pied de page complet
-- Carte solution et badge de statut (« Exemple, non commercialisé »)
-- Filtres et recherche du catalogue
-- Champs de formulaire
-- Progression du questionnaire et résultat de recommandation
 - FAQ
 - Sélecteur de langue
 

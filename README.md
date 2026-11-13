@@ -19,9 +19,11 @@ Site statique : portfolio professionnel en cours d'évolution vers un studio de 
 index.html              accueil / portfolio
 cv.html, mon-cv-fr.css  CV (style autonome, conservé tel quel)
 404.html                page d'erreur autonome
-assets/css/tokens.css   variables de design (source unique)
-assets/portfolio.css    styles du portfolio
-assets/portfolio.js     animations du portfolio
+assets/css/             tokens (variables), base, composants, formulaires, catalogue
+assets/js/              modules partagés : navigation, en-tête, pied de page, animations
+assets/portfolio.css    styles propres à l'accueil
+assets/portfolio.js     script de l'accueil
+design-system/          page de démonstration des composants (non indexée)
 assets/data/            données JSON (projets, catégories, solutions, questionnaire)
 docs/                   audit, architecture, design system, plan
 scripts/check-site.py   vérification des liens internes et des JSON
@@ -32,8 +34,8 @@ vercel.json             en-têtes de cache
 ## Travailler sur le site
 
 1. Lire `AGENTS.md` et `docs/`.
-2. Ouvrir `index.html` dans un navigateur : aucun serveur ni build n'est nécessaire pour les pages actuelles.
-3. Avant chaque commit : `python3 scripts/check-site.py` (liens internes, chemins relatifs, JSON).
+2. Servir le dossier en local, par exemple `python3 -m http.server`, puis ouvrir `http://localhost:8000/`. Les scripts sont des modules ES : ils ne se chargent pas en ouvrant `index.html` directement. Aucun build n'est nécessaire.
+3. Avant chaque commit : `python3 scripts/check-site.py` (liens internes, chemins relatifs, imports JavaScript, références CSS, JSON).
 
 Tous les chemins internes sont relatifs : le site est servi à la racine sur Vercel et sous `/mon-cv-fr/` sur GitHub Pages.
 

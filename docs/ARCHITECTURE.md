@@ -24,17 +24,29 @@ Existant (conservé) :
 - `index.html`, `assets/portfolio.css`, `assets/portfolio.js` : accueil et portfolio
 - `cv.html`, `mon-cv-fr.css` : CV autonome
 
-En place depuis le lot « Fondation » :
+En place depuis le lot 1 « Fondation » :
 - `assets/css/tokens.css` : variables de design
 - `assets/data/` : `projects.json`, `categories.json`, `solutions.json`, `questionnaire.json`
-- `scripts/check-site.py` : vérification des liens et des JSON
+- `scripts/check-site.py` : vérification des liens, des imports JavaScript, des références CSS et des JSON
 - `404.html`, `favicon.svg`, `robots.txt`, `sitemap.xml`, `vercel.json`, `site.config.json`
 
+En place depuis le lot 2 « Navigation et design system » :
+- `assets/css/base.css` : socle commun (reset, liens, boutons, titres, sections, apparitions)
+- `assets/css/components.css` : en-tête, pied de page, carte bordée, numéro
+- `assets/css/forms.css`, `assets/css/catalog.css` : formulaires, questionnaire, catalogue
+- `assets/portfolio.css` : styles propres à l'accueil
+- `assets/js/main.js` : point d'entrée commun à toutes les pages
+- `assets/js/config/navigation.js` : source unique des liens, des coordonnées et des libellés d'interface
+- `assets/js/components/` : `site-header.js`, `site-footer.js`, `icons.js`
+- `assets/js/motion/` : `intro.js`, `reveal.js`, `scroll.js`, `tilt.js`
+- `assets/js/utils/` : `site-root.js`, `html.js`, `reduced-motion.js`
+- `assets/portfolio.js` : script de l'accueil, importe `js/main.js`
+- `design-system/` : page de démonstration des composants (non indexée, hors navigation)
+
 À créer dans les lots suivants :
-- `assets/css/` : `base.css`, `components.css`, styles de pages
-- `assets/js/components/` : en-tête, pied de page, sélecteur de langue
 - `assets/js/services/` : catalogue, devis, préférences
 - `assets/js/engine/` : moteur de recommandation
+- `assets/js/components/` : sélecteur de langue
 - `assets/i18n/` : traductions
 
 ## Pages et adresses
@@ -45,7 +57,20 @@ Chaque nouvelle page vit dans un dossier (`solutions/index.html`) et se lie aux 
 Chaque page déclare sa profondeur avec `<html data-root="../">` (vide à la racine) pour que les composants partagés construisent leurs liens.
 
 ## En-tête et pied de page communs
-Proposition pour le lot suivant : un module par composant dans `assets/js/components/`, qui génère le balisage à partir d'une seule liste de liens. Chaque page garde dans son HTML un lien de secours vers l'accueil, pour rester utilisable sans JavaScript.
+`site-header.js` et `site-footer.js` génèrent le balisage à partir de `config/navigation.js` (`NAV`, `CTA`, `BRAND`, `CONTACT`, `LABELS`). Pour ajouter une page au menu, il suffit d'ajouter une entrée à `NAV`.
+
+Chaque page fournit :
+- `<html data-root="…">` : vide à la racine, `../` dans un dossier ;
+- `<header class="top" data-site-header>` avec, en secours statique, le lien de marque et le lien de contact ;
+- `<footer class="footer" data-site-footer>` avec, en secours, la ligne © ;
+- `<script type="module" src="…/assets/js/main.js">` (ou un script de page qui l'importe).
+
+Sans JavaScript, le contenu de secours reste affiché et tout le contenu de la page est visible.
+
+L'en-tête a deux modes. La barre horizontale s'affiche tant qu'elle tient en largeur. Le mode compact (bouton « Menu » et panneau) s'active toujours sous 820 px, et au-delà dès que la barre ne tient plus : il s'adapte donc seul quand le menu passera à 7 pages ou sera traduit.
+
+## Modules ES et test local
+Les scripts sont des modules ES : ils ne se chargent pas en ouvrant un fichier directement (`file://`). Pour tester en local, servir le dossier, par exemple avec `python3 -m http.server`, puis ouvrir `http://localhost:8000/`.
 
 ## Contrat des services
 Les pages ne chargent pas les JSON directement. Elles appellent des fonctions dédiées :

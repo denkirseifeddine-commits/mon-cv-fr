@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Vérifie le site statique : liens internes, ancres, JSON et fichiers d'entrée.
+"""Vérifie le site statique : liens internes, ancres, JSON, fichiers d'entrée,
+imports relatifs des modules JavaScript et références des fichiers CSS.
 
 Lancement : python3 scripts/check-site.py (depuis n'importe où).
 Bibliothèque standard uniquement. Code de sortie 1 s'il y a au moins une erreur.
@@ -24,6 +25,22 @@ EXTERNE = re.compile(r"^(?:[a-z][a-z0-9+.-]*:|//)", re.IGNORECASE)
 
 # Fichiers d'entrée obligatoires (chemins relatifs à la racine)
 FICHIERS_REQUIS = ["index.html", "cv.html", "assets/portfolio.css", "assets/portfolio.js"]
+
+# Imports statiques JavaScript : import ... from 'x', import 'x', export ... from 'x'.
+# Le groupe 2 capture le chemin ; la clause "from" est facultative (import 'x').
+IMPORT_STATIQUE = re.compile(
+    r"""(?<![\w$.])(?:import|export)\b(?:[^'"`;()]*?\bfrom)?\s*(['"])([^'"\n]+)\1""")
+
+# Imports dynamiques JavaScript : import('x'). Le groupe 2 capture le chemin.
+IMPORT_DYNAMIQUE = re.compile(r"""(?<![\w$.])import\s*\(\s*(['"])([^'"\n]+)\1\s*\)""")
+
+# Références CSS : @import "x.css", @import url(x.css), url(...).
+# Un @import est consommé en entier par la première alternative, son url() n'est donc pas compté deux fois.
+# Groupes utiles : 2 (@import url), 4 (@import "..."), 6 (url(...)).
+REFERENCE_CSS = re.compile(
+    r"""@import\s+(?:url\(\s*(['"]?)([^'")]*?)\1\s*\)|(['"])([^'"]*)\3)"""
+    r"""|url\(\s*(['"]?)([^'")]*?)\5\s*\)""",
+    re.IGNORECASE)
 
 
 class Analyseur(HTMLParser):
@@ -52,6 +69,10 @@ class Verificateur:
     def __init__(self):
         self.problemes = []  # liste de (niveau, fichier, ligne, message)
         self.liens_verifies = 0
+        self.fichiers_js = 0
+        self.imports_verifies = 0
+        self.fichiers_css = 0
+        self.references_css = 0
         self._cache = {}  # chemin -> (ids, liens), pour ne lire chaque fichier qu'une fois
 
     def signaler(self, niveau, chemin, ligne, message):
@@ -138,16 +159,80 @@ class Verificateur:
             if not (ROOT / rel).is_file():
                 self.signaler("ERREUR", ROOT / rel, 0, "fichier d'entrée absent")
 
+    def verifier_import_js(self, source, ligne, valeur):
+        """Vérifie un import relatif (./ ou ../) : extension .js obligatoire et cible existante."""
+        if valeur.startswith("/") and not valeur.startswith("//"):
+            self.imports_verifies += 1
+            self.signaler("ERREUR", source, ligne,
+                          f"chemin absolu, incompatible avec GitHub Pages : {valeur}")
+            return
+        if not valeur.startswith(("./", "../")):
+            return  # non relatif (URL, nom de paquet...) : non vérifié
+        self.imports_verifies += 1
+        chemin_brut = unquote(urlsplit(valeur).path)
+        if not chemin_brut.endswith(".js"):
+            self.signaler("ERREUR", source, ligne,
+                          f"import relatif sans extension .js : {valeur}")
+            return
+        cible = Path(os.path.normpath(source.parent / chemin_brut))
+        if not cible.is_file():
+            self.signaler("ERREUR", source, ligne, f"cible introuvable : {valeur}")
+
+    def verifier_js(self):
+        """Vérifie les imports relatifs de chaque fichier *.js sous assets/."""
+        for source in fichiers_avec_extension(ROOT / "assets", ".js"):
+            self.fichiers_js += 1
+            texte = masquer_commentaires_ligne(source.read_text(encoding="utf-8", errors="replace"))
+            trouves = []
+            for regex in (IMPORT_STATIQUE, IMPORT_DYNAMIQUE):
+                for m in regex.finditer(texte):
+                    trouves.append((m.start(), m.group(2)))
+            for debut, valeur in sorted(trouves):
+                ligne = texte.count("\n", 0, debut) + 1
+                self.verifier_import_js(source, ligne, valeur)
+
+    def verifier_css(self):
+        """Vérifie les @import et url(...) de chaque fichier *.css du dépôt."""
+        for source in fichiers_avec_extension(ROOT, ".css"):
+            self.fichiers_css += 1
+            texte = source.read_text(encoding="utf-8", errors="replace")
+            for m in REFERENCE_CSS.finditer(texte):
+                valeur = next(g for g in (m.group(2), m.group(4), m.group(6)) if g is not None).strip()
+                if not valeur or valeur.startswith("#") or EXTERNE.match(valeur):
+                    continue  # vide, ancre SVG (#id), externe ou data: : non vérifié
+                ligne = texte.count("\n", 0, m.start()) + 1
+                self.references_css += 1
+                if valeur.startswith("/"):
+                    self.signaler("ERREUR", source, ligne,
+                                  f"chemin absolu, incompatible avec GitHub Pages : {valeur}")
+                    continue
+                chemin_brut = unquote(urlsplit(valeur).path)
+                if not chemin_brut:
+                    continue  # référence sans chemin (ex. "?x") : rien à vérifier
+                cible = Path(os.path.normpath(source.parent / chemin_brut))
+                if not cible.is_file():
+                    self.signaler("ERREUR", source, ligne, f"cible introuvable : {valeur}")
+
+
+def masquer_commentaires_ligne(texte):
+    """Remplace les lignes commençant par // par des lignes vides (les numéros de ligne sont conservés)."""
+    return "\n".join("" if ligne.lstrip().startswith("//") else ligne for ligne in texte.split("\n"))
+
+
+def fichiers_avec_extension(racine, extension):
+    """Retourne tous les fichiers de racine dont le nom finit par extension, sauf dans les dossiers ignorés."""
+    trouves = []
+    for dirpath, dirnames, filenames in os.walk(racine):
+        dirnames[:] = [d for d in dirnames if d not in DOSSIERS_IGNORES]
+        for nom in filenames:
+            if nom.endswith(extension):
+                trouves.append(Path(dirpath) / nom)
+    return sorted(trouves)
+
 
 def fichiers_html():
     """Retourne tous les *.html du dépôt, sauf dans les dossiers ignorés."""
-    trouves = []
-    for dirpath, dirnames, filenames in os.walk(ROOT):
-        dirnames[:] = [d for d in dirnames if d not in DOSSIERS_IGNORES]
-        for nom in filenames:
-            if nom.endswith(".html"):
-                trouves.append(Path(dirpath) / nom)
-    return sorted(trouves)
+    return fichiers_avec_extension(ROOT, ".html")
 
 
 def main():
@@ -161,6 +246,8 @@ def main():
 
     verif.verifier_json()
     verif.verifier_entrees()
+    verif.verifier_js()
+    verif.verifier_css()
 
     for niveau, fichier, ligne, message in verif.problemes:
         print(f"{niveau} {fichier}:{ligne} {message}")
@@ -168,6 +255,8 @@ def main():
     erreurs = sum(1 for p in verif.problemes if p[0] == "ERREUR")
     avertissements = sum(1 for p in verif.problemes if p[0] == "AVERTISSEMENT")
     print(f"{len(html)} fichier(s) HTML, {verif.liens_verifies} lien(s) vérifié(s), "
+          f"{verif.fichiers_js} fichier(s) JS, {verif.imports_verifies} import(s), "
+          f"{verif.fichiers_css} fichier(s) CSS, {verif.references_css} référence(s) CSS, "
           f"{erreurs} erreur(s), {avertissements} avertissement(s)")
     return 1 if erreurs else 0
 

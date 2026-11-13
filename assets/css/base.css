@@ -1,0 +1,137 @@
+/*
+ * Base commune à toutes les pages : reset, typographie de base, liens,
+ * boutons, conteneur de section et système d'apparition au défilement.
+ * À charger après tokens.css et avant components.css.
+ */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--sans);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+a { color: inherit; }
+ul, ol { list-style: none; padding: 0; }
+svg { display: block; }
+:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 4px; }
+
+.skip { position: absolute; left: -9999px; top: 8px; z-index: 30; background: var(--ink); color: var(--bg); padding: 8px 14px; }
+.skip:focus { left: 8px; }
+
+.progress {
+    position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 25;
+    background: var(--accent);
+    transform: scaleX(var(--scroll, 0)); transform-origin: left;
+}
+
+/* Petites capitales espacées, reprises partout (chaque feuille déclare ses propres classes) */
+.link-arrow, .btn {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.6875rem;
+    font-weight: 500;
+}
+
+.arrow { width: 44px; height: 11px; flex: none; transition: transform .5s var(--ease); }
+a:hover > .arrow { transform: translateX(8px); }
+
+.link-arrow { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; white-space: nowrap; }
+.link-arrow .arrow { color: var(--accent-deep); }
+
+.btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 16px 28px;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative; overflow: hidden; isolation: isolate;
+    transition: color .45s var(--ease);
+}
+.btn-solid { background: var(--ink); color: var(--bg); }
+.btn-solid::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: var(--accent-deep);
+    transform: translateY(101%);
+    transition: transform .55s var(--ease);
+}
+.btn-solid:hover::before { transform: translateY(0); }
+
+/* Boutons natifs (<button>) : mêmes styles que les liens .btn / .link-arrow */
+button.btn, button.link-arrow {
+    font-family: inherit;
+    line-height: inherit;
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: 600;
+}
+button.btn { gap: 14px; min-height: 44px; }
+button.btn .arrow { color: currentColor; }
+button.link-arrow {
+    min-height: 44px;
+    padding: 0;
+    background: none;
+    color: var(--ink);
+}
+button.link-arrow:hover > .arrow { transform: translateX(8px); }
+/* Flèche retournée (« Précédent ») : pointe vers le début de la ligne */
+.arrow-back { scale: -1 1; }
+button.link-arrow:hover > .arrow-back { transform: translateX(8px); }
+button.btn:disabled { cursor: not-allowed; opacity: .45; }
+button.btn:disabled::before { display: none; }
+button.link-arrow:disabled { cursor: not-allowed; color: var(--muted); }
+button.link-arrow:disabled > .arrow { transform: none; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Sections */
+.section { max-width: var(--max); margin-inline: auto; padding: clamp(64px, 8vw, 112px) var(--gutter); scroll-margin-top: 48px; }
+.section + .section { border-top: 1px solid var(--line); }
+
+/* Titre de section sur deux lignes, la seconde en terracotta */
+h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2.125rem, 4vw, 3rem);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+}
+h2 span, h2 em { display: block; }
+h2 em { font-style: normal; color: var(--accent); }
+
+/* En-tête de section : titre, texte, lien */
+.head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.300fr) auto;
+    gap: 16px 40px;
+    align-items: end;
+    margin-bottom: clamp(36px, 5vw, 64px);
+}
+.head p { color: var(--muted); max-width: 44ch; }
+
+/* ---------- Apparition au défilement (seulement si JavaScript est actif) ---------- */
+.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 1s var(--ease), transform 1s var(--ease);
+    transition-delay: calc(var(--i, 0) * 90ms);
+}
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .js [data-reveal] { opacity: 1; transform: none; }
+}
+
+@media (max-width: 820px) {
+    .head { grid-template-columns: 1fr; align-items: start; }
+}

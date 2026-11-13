@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="fr" data-root="../" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design system — Seif Eddine Denkir</title>
+    <meta name="robots" content="noindex">
+    <meta name="description" content="Page interne de validation des composants d'interface : couleurs, typographie, boutons, badges, cartes solution, formulaires et questionnaire.">
+    <meta name="theme-color" content="#F4EFE6">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <script>document.documentElement.className = 'js';</script>
+    <script nomodule>document.documentElement.className = 'no-js';</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/tokens.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/forms.css">
+    <link rel="stylesheet" href="../assets/css/catalog.css">
+    <style>
+        /* Mise en page propre à cette page de démonstration (non réutilisable) */
+        .ds-small { text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.6875rem; font-weight: 500; }
+
+        .ds-intro { max-width: var(--max); margin-inline: auto; padding: clamp(32px, 6vw, 80px) var(--gutter) clamp(40px, 5vw, 64px); }
+        .ds-intro h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(3rem, 8vw, 6rem); line-height: 0.95; text-transform: uppercase; letter-spacing: -0.01em; margin-top: 12px; }
+        .ds-intro h1 em { display: block; font-style: normal; color: var(--accent); }
+        .ds-intro > p:not(.ds-small) { margin-top: 20px; max-width: 60ch; color: var(--muted); }
+        .ds-kicker { color: var(--accent-deep); font-weight: 600; }
+
+        .ds-toc { display: flex; flex-wrap: wrap; gap: 0 28px; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--line); }
+        .ds-toc a { display: inline-flex; align-items: baseline; gap: 10px; min-height: 44px; padding-block: 12px; text-decoration: none; }
+        .ds-toc a:hover span:last-child { color: var(--accent-deep); }
+        .ds-toc .ds-n { color: var(--accent-deep); font-weight: 600; }
+
+        .ds-head { display: flex; align-items: flex-end; gap: 20px 28px; flex-wrap: wrap; margin-bottom: clamp(28px, 4vw, 48px); }
+        .ds-head > p { flex: 1 1 22rem; max-width: 52ch; color: var(--muted); }
+        .ds-sub { margin: 40px 0 16px; color: var(--accent-deep); font-weight: 600; }
+        .ds-head + .ds-sub { margin-top: 0; }
+        .ds-note { margin-top: 16px; color: var(--muted); font-size: 0.8125rem; max-width: 70ch; }
+        .ds-code { white-space: nowrap; }
+        .ds-note code { overflow-wrap: anywhere; }
+        .ds-note code, .ds-code { text-transform: none; letter-spacing: 0; font-weight: 400; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.8125rem; color: var(--ink); }
+        .ds-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 20px 32px; }
+        .ds-cell { display: grid; gap: 12px; justify-items: start; }
+        .ds-cell > .ds-small { color: var(--muted); }
+        .ds-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 4vw, 48px); align-items: start; }
+        .ds-panel { padding: clamp(20px, 4vw, 48px); background: var(--card); border: 1px solid var(--line); }
+
+        /* Couleurs */
+        .ds-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr)); gap: 16px; }
+        .ds-swatch { border: 1px solid var(--line); background: var(--card); }
+        .ds-swatch-chip { height: 96px; border-bottom: 1px solid var(--line); }
+        .ds-swatch-info { padding: 12px 14px 14px; display: grid; gap: 2px; }
+        .ds-swatch-info .ds-small { color: var(--muted); }
+
+        /* Typographie */
+        .ds-type { display: grid; gap: 0; border-top: 1px solid var(--line); }
+        .ds-type > div { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 12px 40px; padding: 28px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+        .ds-type dt { display: grid; gap: 6px; }
+        .ds-type dt .ds-small { color: var(--accent-deep); font-weight: 600; }
+        .ds-type dt span:last-child { color: var(--muted); font-size: 0.8125rem; }
+        .ds-type dd { margin: 0; min-width: 0; }
+        .ds-anton { font-family: var(--display); font-size: clamp(3rem, 9vw, 6.5rem); line-height: 0.9; overflow-wrap: anywhere; }
+        .ds-serif { font-family: var(--serif); font-size: clamp(1.75rem, 3.6vw, 2.75rem); line-height: 1.1; }
+        .ds-serif i { color: var(--accent); }
+        .ds-sans p + p { margin-top: 10px; }
+
+        /* États forcés, uniquement pour la démonstration (reprennent les règles réelles) */
+        .ds-force-hover.btn-solid::before { transform: translateY(0); }
+        .ds-force-hover.link-arrow > .arrow { transform: translateX(8px); }
+        .ds-force-hover.filter { border-color: var(--accent); }
+        .ds-force-hover.choice { border-color: var(--accent); }
+        .ds-force-focus { outline: 2px solid var(--accent-deep); outline-offset: 4px; }
+        .ds-force-focus.field-input { border-color: var(--accent-deep); box-shadow: inset 0 -2px 0 0 var(--accent-deep); outline-offset: 3px; }
+        .ds-force-focus.choice { outline-offset: 3px; }
+
+        /* Questionnaire */
+        .ds-real { border-style: solid; border-color: var(--line); color: var(--muted); }
+        .ds-quiz { display: grid; gap: 40px; }
+
+        @media (max-width: 374px) {
+            .ds-head h2 { font-size: 1.875rem; }
+        }
+        @media (max-width: 820px) {
+            .ds-grid-2 { grid-template-columns: 1fr; }
+            .ds-type > div { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-arrow" viewBox="0 0 48 12"><path d="M0 6h46M40 1l6 5-6 5" fill="none" stroke="currentColor" stroke-width="1.2"/></symbol>
+    </svg>
+
+    <div class="progress" aria-hidden="true"></div>
+    <a class="skip" href="#contenu">Aller au contenu</a>
+
+    <!-- En-tête commun : contenu de secours, remplacé par assets/js/components/site-header.js -->
+    <header class="top" data-site-header>
+        <a class="top-brand" href="../index.html">
+            <svg class="star" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            <span>Seif Eddine Denkir</span>
+        </a>
+    </header>
+
+    <main id="contenu">
+        <div class="ds-intro">
+            <p class="ds-small ds-kicker">Page interne · non indexée</p>
+            <h1>Design <em>system</em></h1>
+            <p>Les composants d'interface du futur Digital Solution Studio (catalogue, questionnaire, demande de devis), présentés dans leurs différents états pour validation avant la construction des pages. Les contenus marqués « fictif » servent uniquement à la démonstration.</p>
+            <nav aria-label="Sommaire de la page">
+                <ul class="ds-toc ds-small" role="list">
+                    <li><a href="#couleurs"><span class="ds-n">01</span><span>Couleurs</span></a></li>
+                    <li><a href="#typographie"><span class="ds-n">02</span><span>Typographie</span></a></li>
+                    <li><a href="#boutons"><span class="ds-n">03</span><span>Boutons et liens</span></a></li>
+                    <li><a href="#titres"><span class="ds-n">04</span><span>Titres de section</span></a></li>
+                    <li><a href="#badges"><span class="ds-n">05</span><span>Badges</span></a></li>
+                    <li><a href="#carte-solution"><span class="ds-n">06</span><span>Carte solution</span></a></li>
+                    <li><a href="#filtres"><span class="ds-n">07</span><span>Filtres et recherche</span></a></li>
+                    <li><a href="#formulaire"><span class="ds-n">08</span><span>Formulaire</span></a></li>
+                    <li><a href="#questionnaire"><span class="ds-n">09</span><span>Questionnaire</span></a></li>
+                    <li><a href="#recommandation"><span class="ds-n">10</span><span>Recommandation</span></a></li>
+                    <li><a href="#etat-vide"><span class="ds-n">11</span><span>État vide</span></a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- 01 Couleurs -->
+        <section class="section" id="couleurs" aria-labelledby="couleurs-title">
+            <div class="ds-head">
+                <span class="num" aria-hidden="true">01</span>
+                <h2 id="couleurs-title"><span>Les</span> <em>couleurs</em></h2>
+                <p>Source unique : <code class="ds-code">assets/css/tokens.css</code>. Le terracotta <code class="ds-code">--accent</code> est réservé aux grands textes et aux formes ; le petit texte utilise <code class="ds-code">--accent-deep</code>.</p>
+            </div>
+            <ul class="ds-swatches" role="list">
+                <li class="ds-swatch"><div class="ds-swatch-chip" style="background: var(--bg)"></div><div class="ds-swatch-info"><code class="ds-code">--bg</code><span>#F4EFE6</span><span class="ds-small">Fond de page</span></div></li>
+                <li class="ds-swatch"><div class="ds-swatch-chip" style="background: var(--card)"></div><div class="ds-swatch-info"><code class="ds-code">--card</code><span>#FAF6EE</span><span class="ds-small">Fond des cartes</span></div></li>
+                <li class="ds-swatch"><div class="ds-swatch-chip" style="background: var(--ink)"></div><div class="ds-swatch-info"><code class="ds-code">--ink</code><span>#171512</span><span class="ds-small">Texte, bouton plein</span></div></li>
+                <li class="ds-swatch"><div class="ds-swatch-chip" style="background: var(--muted)"></div><div class="ds-swatch-info"><code class="ds-code">--muted</code><span>#675F54</span><span class="ds-small">Texte secondaire</span></div></li>
+                <li class="ds-swatch"><div class="ds-swatch-chip" style="background: var(--line)"></div><div class="ds-swatch-info"><code class="ds-code">--line</code><span>#D6CCBB</span><span class="ds-small">Filets, bordures</span></div></li>
+                <li class="ds-swatch"><div class="ds-swatch-chip" style="background: var(--accent)"></div><div class="ds-swatch-info"><code class="ds-code">--accent</code><span>#C5512E</span><span class="ds-small">Grands textes, formes</span></div></li>
+                <li class="ds-swatch"><div class="ds-swatch-chip" style="background: var(--accent-deep)"></div><div class="ds-swatch-info"><code class="ds-code">--accent-deep</code><span>#A3401F</span><span class="ds-small">Petit texte accentué</span></div></li>
+                <li class="ds-swatch"><div class="ds-swatch-chip" style="background: var(--error)"></div><div class="ds-swatch-info"><code class="ds-code">--error</code><span>#A61E32</span><span class="ds-small">Erreur (forms.css, à remonter)</span></div></li>
+            </ul>
+        </section>
+
+        <!-- 02 Typographie -->
+        <section class="section" id="typographie" aria-labelledby="typographie-title">
+            <div class="ds-head">
+                <span class="num" aria-hidden="true">02</span>
+                <h2 id="typographie-title"><span>La</span> <em>typographie</em></h2>
+                <p>Trois familles, chacune avec un rôle précis. Aucune ne couvre l'arabe : une police dédiée sera choisie pour la version RTL.</p>
+            </div>
+            <dl class="ds-type">
+                <div>
+                    <dt><span class="ds-small">Anton · <code class="ds-code">--display</code></span><span>Titre géant uniquement (mot « Portfolio » de l'accueil).</span></dt>
+                    <dd class="ds-anton" aria-hidden="true">PORTFOLIO</dd>
+                </div>
+                <div>
+                    <dt><span class="ds-small">Cormorant Garamond · <code class="ds-code">--serif</code></span><span>Titres, noms de solution, citations, numéros.</span></dt>
+                    <dd class="ds-serif">Site vitrine Starter <i>— 01</i></dd>
+                </div>
+                <div>
+                    <dt><span class="ds-small">Montserrat · <code class="ds-code">--sans</code></span><span>Texte courant et libellés en petites capitales espacées.</span></dt>
+                    <dd class="ds-sans">
+                        <p class="ds-small">Libellé en petites capitales · 0,6875 rem · espacement 0,14 em</p>
+                        <p>Texte courant en 0,9375 rem, interligne 1,65. Les textes secondaires utilisent la couleur <code class="ds-code">--muted</code>.</p>
+                        <p style="color: var(--muted)">Texte secondaire, contraste 5,5:1 sur le fond crème.</p>
+                    </dd>
+                </div>
+            </dl>
+        </section>
+
+        <!-- 03 Boutons et liens -->
+        <section class="section" id="boutons" aria-labelledby="boutons-title">
+            <div class="ds-head">
+                <span class="num" aria-hidden="true">03</span>
+                <h2 id="boutons-title"><span>Boutons</span> <em>et liens</em></h2>
+                <p>Angles droits, petites capitales, flèche longue. Le focus clavier (contour terracotta foncé) se vérifie avec la touche Tab ; les états ci-dessous sont aussi figés pour comparaison.</p>
+            </div>
+            <p class="ds-sub ds-small">Bouton plein · <code class="ds-code">.btn.btn-solid</code></p>
+            <div class="ds-row">
+                <div class="ds-cell"><span class="ds-small">Normal</span><a class="btn btn-solid" href="#formulaire">Demander un devis</a></div>
+                <div class="ds-cell"><span class="ds-small">Survol</span><span class="btn btn-solid ds-force-hover" aria-hidden="true">Demander un devis</span></div>
+                <div class="ds-cell"><span class="ds-small">Focus clavier</span><span class="btn btn-solid ds-force-focus" aria-hidden="true">Demander un devis</span></div>
+                <div class="ds-cell"><span class="ds-small">Bouton de formulaire</span><button class="btn btn-solid" type="button">Suivant <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
+                <div class="ds-cell"><span class="ds-small">Désactivé</span><button class="btn btn-solid" type="button" disabled>Envoyer</button></div>
+            </div>
+            <p class="ds-sub ds-small">Lien fléché · <code class="ds-code">.link-arrow</code></p>
+            <div class="ds-row">
+                <div class="ds-cell"><span class="ds-small">Normal</span><a class="link-arrow" href="#carte-solution">Voir les solutions <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+                <div class="ds-cell"><span class="ds-small">Survol</span><span class="link-arrow ds-force-hover" aria-hidden="true">Voir les solutions <svg class="arrow"><use href="#i-arrow"/></svg></span></div>
+                <div class="ds-cell"><span class="ds-small">Focus clavier</span><span class="link-arrow ds-force-focus" aria-hidden="true">Voir les solutions <svg class="arrow"><use href="#i-arrow"/></svg></span></div>
+                <div class="ds-cell"><span class="ds-small">Retour (bouton)</span><button class="link-arrow" type="button"><svg class="arrow arrow-back" aria-hidden="true"><use href="#i-arrow"/></svg> Précédent</button></div>
+            </div>
+        </section>
+
+        <!-- 04 Titres de section -->
+        <section class="section" id="titres" aria-labelledby="titres-title">
+            <div class="head">
+                <h2 id="titres-title"><span>Titres</span> <em>de section</em></h2>
+                <p>Titre sur deux lignes, la seconde en terracotta, dans l'en-tête de section <code class="ds-code">.head</code> : titre, texte, lien.</p>
+                <a class="link-arrow" href="#carte-solution">Lien de section <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </div>
+            <p class="ds-note">Balisage : <code>&lt;h2&gt;&lt;span&gt;Titres&lt;/span&gt; &lt;em&gt;de section&lt;/em&gt;&lt;/h2&gt;</code>. Les autres sections de cette page ajoutent un numéro <code>.num</code> devant le titre.</p>
+        </section>
+
+        <!-- 05 Badges -->
+        <section class="section" id="badges" aria-labelledby="badges-title">
+            <div class="ds-head">
+                <span class="num" aria-hidden="true">05</span>
+                <h2 id="badges-title"><span>Badges</span> <em>de statut</em></h2>
+                <p>Une variante par valeur de <code class="ds-code">status</code> : <code class="ds-code">.badge-exemple</code>, <code class="ds-code">.badge-draft</code>, <code class="ds-code">.badge-published</code>. Le statut se lit au texte, pas seulement à la couleur.</p>
+            </div>
+            <div class="ds-row">
+                <div class="ds-cell"><span class="ds-small">exemple</span><span class="badge badge-exemple">Exemple, non commercialisé</span></div>
+                <div class="ds-cell"><span class="ds-small">draft</span><span class="badge badge-draft">Brouillon</span></div>
+                <div class="ds-cell"><span class="ds-small">published</span><span class="badge badge-published">Publié</span></div>
+            </div>
+        </section>
+
+        <!-- 06 Carte solution -->
+        <section class="section" id="carte-solution" aria-labelledby="carte-solution-title">
+            <div class="ds-head">
+                <span class="num" aria-hidden="true">06</span>
+                <h2 id="carte-solution-title"><span>Carte</span> <em>solution</em></h2>
+                <p>Première carte : la fiche d'exemple réelle de <code class="ds-code">solutions.json</code> : listes vides masquées, prix <code class="ds-code">null</code> affiché « Prix à définir ». Une solution au statut <code class="ds-code">exemple</code> n'a jamais de bouton d'achat.</p>
+            </div>
+            <ul class="solutions" role="list">
+                <li>
+                    <p class="demo-label ds-real">Fiche réelle · solutions.json</p>
+                    <article class="card solution" aria-labelledby="sol-starter">
+                        <div class="solution-media">
+                            <span class="badge badge-exemple">Exemple, non commercialisé</span>
+                            <p class="solution-shot-empty"><span>Pas encore de capture</span></p>
+                        </div>
+                        <div class="solution-body">
+                            <p class="solution-cat">Sites web</p>
+                            <h3 class="solution-name" id="sol-starter">Site vitrine Starter</h3>
+                            <p class="solution-desc">Exemple de fiche à compléter après validation de l'offre.</p>
+                            <dl class="solution-meta">
+                                <div><dt>Prix</dt><dd>Prix à définir</dd></div>
+                                <div><dt>Délai</dt><dd>À définir</dd></div>
+                            </dl>
+                            <div class="solution-actions">
+                                <a class="link-arrow" href="#formulaire">Demander un devis <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                            </div>
+                        </div>
+                    </article>
+                </li>
+                <li>
+                    <p class="demo-label">Contenu fictif de démonstration</p>
+                    <article class="card solution" aria-labelledby="sol-demo">
+                        <div class="solution-media">
+                            <span class="badge badge-exemple">Exemple, non commercialisé</span>
+                            <p class="solution-shot-empty"><span>Pas encore de capture</span></p>
+                        </div>
+                        <div class="solution-body">
+                            <p class="solution-cat">Catégorie fictive</p>
+                            <h3 class="solution-name" id="sol-demo">Solution de démonstration</h3>
+                            <p class="solution-desc">Description courte fictive, sur deux lignes au plus, pour tester la mise en page.</p>
+                            <ul class="solution-features" aria-label="Fonctionnalités">
+                                <li>Fonctionnalité 1</li>
+                                <li>Fonctionnalité 2</li>
+                                <li>Fonctionnalité 3</li>
+                            </ul>
+                            <ul class="tags" aria-label="Technologies">
+                                <li>Technologie A</li>
+                                <li>Technologie B</li>
+                                <li>Technologie C</li>
+                            </ul>
+                            <dl class="solution-meta">
+                                <div><dt>Prix</dt><dd>Prix à définir</dd></div>
+                                <div><dt>Délai</dt><dd>À définir</dd></div>
+                            </dl>
+                            <div class="solution-actions">
+                                <a class="link-arrow" href="#formulaire">Demander un devis <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                            </div>
+                        </div>
+                    </article>
+                </li>
+            </ul>
+            <p class="ds-note">Avec une capture, la zone média reçoit un <code>&lt;img&gt;</code> (recadré en haut, <code>object-fit: cover</code>) à la place de « Pas encore de capture » ; aucune capture réelle n'existe encore, l'état n'est donc pas montré.</p>
+        </section>
+
+        <!-- 07 Filtres et recherche -->
+        <section class="section" id="filtres" aria-labelledby="filtres-title">
+            <div class="ds-head">
+                <span class="num" aria-hidden="true">07</span>
+                <h2 id="filtres-title"><span>Filtres</span> <em>et recherche</em></h2>
+                <p>Boutons à bascule (<code class="ds-code">aria-pressed</code>) avec les catégories de <code class="ds-code">categories.json</code>, et champ de recherche. Dans cette démonstration, les boutons ne filtrent rien.</p>
+            </div>
+            <div class="catalog-tools">
+                <div class="filters" role="group" aria-label="Filtrer par catégorie">
+                    <button class="filter" type="button" aria-pressed="true">Toutes</button>
+                    <button class="filter" type="button" aria-pressed="false">Sites web</button>
+                    <button class="filter" type="button" aria-pressed="false">E-commerce</button>
+                    <button class="filter" type="button" aria-pressed="false">CRM</button>
+                    <button class="filter" type="button" aria-pressed="false">Automatisation marketing</button>
+                    <button class="filter" type="button" aria-pressed="false">Assistants IA</button>
+                    <button class="filter" type="button" aria-pressed="false">Mini-SaaS</button>
+                    <button class="filter" type="button" aria-pressed="false">Outils métier</button>
+                    <button class="filter" type="button" aria-pressed="false">Applications sur mesure</button>
+                </div>
+                <div class="search" role="search">
+                    <label class="search-label" for="ds-search">Rechercher une solution</label>
+                    <div class="search-box">
+                        <input class="field-input" id="ds-search" type="search" name="q" placeholder="Nom, besoin…" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <p class="catalog-count" aria-live="polite">1 solution affichée</p>
+            <p class="ds-sub ds-small">États figés</p>
+            <div class="ds-row">
+                <div class="ds-cell"><span class="ds-small">Normal</span><span class="filter" aria-hidden="true">Sites web</span></div>
+                <div class="ds-cell"><span class="ds-small">Survol</span><span class="filter ds-force-hover" aria-hidden="true">Sites web</span></div>
+                <div class="ds-cell"><span class="ds-small">Focus clavier</span><span class="filter ds-force-focus" aria-hidden="true">Sites web</span></div>
+                <div class="ds-cell"><span class="ds-small">Actif</span><span class="filter" style="background: var(--ink); border-color: var(--ink); color: var(--bg)" aria-hidden="true">Sites web</span></div>
+            </div>
+        </section>
+
+        <!-- 08 Formulaire -->
+        <section class="section" id="formulaire" aria-labelledby="formulaire-title">
+            <div class="ds-head">
+                <span class="num" aria-hidden="true">08</span>
+                <h2 id="formulaire-title"><span>Formulaire</span> <em>de devis</em></h2>
+                <p>Vrais éléments de formulaire, libellés visibles, aide et erreur reliées par <code class="ds-code">aria-describedby</code>. Ce formulaire de démonstration n'envoie rien.</p>
+            </div>
+            <div class="ds-grid-2">
+                <form class="form ds-panel" aria-labelledby="form-normal-title" novalidate>
+                    <p class="ds-small ds-kicker" id="form-normal-title">État normal</p>
+                    <div class="form-row">
+                        <div class="field">
+                            <label class="field-label" for="f-name">Nom <span class="field-req">obligatoire</span></label>
+                            <input class="field-input" id="f-name" name="name" type="text" autocomplete="name" required>
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="f-email">E-mail <span class="field-req">obligatoire</span></label>
+                            <input class="field-input" id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="f-email-help">
+                            <p class="field-help" id="f-email-help">Pour vous répondre au sujet de votre demande.</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field">
+                            <label class="field-label" for="f-phone">Téléphone <span class="field-opt">facultatif</span></label>
+                            <input class="field-input" id="f-phone" name="phone" type="tel" autocomplete="tel">
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="f-need">Type de besoin <span class="field-req">obligatoire</span></label>
+                            <div class="select">
+                                <select class="field-input" id="f-need" name="need" required>
+                                    <option value="">Choisir…</option>
+                                    <option value="website">Site web</option>
+                                    <option value="ecommerce">E-commerce</option>
+                                    <option value="automation">Automatisation</option>
+                                    <option value="crm">CRM</option>
+                                    <option value="application">Application</option>
+                                    <option value="ai">Assistant IA</option>
+                                    <option value="unsure">Je ne sais pas encore</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="field-label" for="f-message">Message <span class="field-req">obligatoire</span></label>
+                        <textarea class="field-input" id="f-message" name="message" rows="5" required aria-describedby="f-message-help"></textarea>
+                        <p class="field-help" id="f-message-help">Décrivez votre projet en quelques lignes : activité, objectif, échéance.</p>
+                    </div>
+                    <label class="check">
+                        <input class="check-input" type="checkbox" name="consent" required>
+                        <span class="check-text">J'accepte d'être recontacté au sujet de ma demande.</span>
+                    </label>
+                    <div class="form-actions">
+                        <button class="btn btn-solid" type="button">Envoyer la demande <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                    </div>
+                </form>
+
+                <form class="form ds-panel" aria-labelledby="form-error-title" novalidate>
+                    <p class="ds-small ds-kicker" id="form-error-title">États figés : focus, erreur, case cochée</p>
+                    <div class="field">
+                        <label class="field-label" for="e-name">Nom <span class="field-req">obligatoire</span></label>
+                        <input class="field-input ds-force-focus" id="e-name" name="name" type="text" autocomplete="off" aria-describedby="e-name-note">
+                        <p class="field-help" id="e-name-note">Focus clavier figé pour la démonstration.</p>
+                    </div>
+                    <div class="field">
+                        <label class="field-label" for="e-phone">Téléphone <span class="field-opt">facultatif</span></label>
+                        <input class="field-input" id="e-phone" name="phone" type="tel" autocomplete="off" placeholder="+216 …">
+                    </div>
+                    <div class="field">
+                        <label class="field-label" for="e-email">E-mail <span class="field-req">obligatoire</span></label>
+                        <input class="field-input" id="e-email" name="email" type="email" autocomplete="off" value="nom@domaine" aria-invalid="true" aria-describedby="e-email-error">
+                        <p class="field-error" id="e-email-error">Adresse e-mail incomplète. Exemple : nom@domaine.fr</p>
+                    </div>
+                    <div class="field">
+                        <label class="field-label" for="e-need">Type de besoin <span class="field-req">obligatoire</span></label>
+                        <div class="select">
+                            <select class="field-input" id="e-need" name="need" aria-invalid="true" aria-describedby="e-need-error">
+                                <option value="">Choisir…</option>
+                                <option value="website">Site web</option>
+                                <option value="ecommerce">E-commerce</option>
+                            </select>
+                        </div>
+                        <p class="field-error" id="e-need-error">Choisissez un type de besoin.</p>
+                    </div>
+                    <div class="field">
+                        <label class="check">
+                            <input class="check-input" type="checkbox" name="consent" aria-invalid="true" aria-describedby="e-consent-error">
+                            <span class="check-text">J'accepte d'être recontacté au sujet de ma demande.</span>
+                        </label>
+                        <p class="field-error" id="e-consent-error">Cochez cette case pour que je puisse vous répondre.</p>
+                    </div>
+                    <label class="check">
+                        <input class="check-input" type="checkbox" name="consent-ok" checked>
+                        <span class="check-text">Case cochée : j'accepte d'être recontacté au sujet de ma demande.</span>
+                    </label>
+                </form>
+            </div>
+        </section>
+
+        <!-- 09 Questionnaire -->
+        <section class="section" id="questionnaire" aria-labelledby="questionnaire-title">
+            <div class="ds-head">
+                <span class="num" aria-hidden="true">09</span>
+                <h2 id="questionnaire-title"><span>Le</span> <em>questionnaire</em></h2>
+                <p>Cartes de choix dans un <code class="ds-code">fieldset</code> : choix unique (radios, flèches du clavier) et choix multiple (cases, barre d'espace). Codes et ordre repris de <code class="ds-code">questionnaire.json</code>.</p>
+            </div>
+            <div class="ds-grid-2">
+                <form class="ds-quiz ds-panel" aria-label="Questionnaire, question 1" novalidate>
+                    <div class="q-progress">
+                        <p class="q-progress-text" id="q1-progress"><span>Question <strong>1</strong> sur 7</span><span>Choix unique</span></p>
+                        <progress class="q-progress-bar" max="7" value="1" aria-labelledby="q1-progress">1 sur 7</progress>
+                    </div>
+                    <fieldset class="choices" aria-describedby="q1-help">
+                        <legend class="choices-legend">Type de besoin <span class="field-req">obligatoire</span><span class="choices-title">De quoi avez-vous besoin ?</span></legend>
+                        <p class="field-help" id="q1-help">Une seule réponse.</p>
+                        <div class="choices-grid">
+                            <label class="choice"><input class="choice-input" type="radio" name="need" value="website" checked><span class="choice-label">Site web</span></label>
+                            <label class="choice"><input class="choice-input" type="radio" name="need" value="ecommerce"><span class="choice-label">E-commerce</span></label>
+                            <label class="choice"><input class="choice-input" type="radio" name="need" value="automation"><span class="choice-label">Automatisation</span></label>
+                            <label class="choice"><input class="choice-input" type="radio" name="need" value="crm"><span class="choice-label">CRM</span></label>
+                            <label class="choice"><input class="choice-input" type="radio" name="need" value="application"><span class="choice-label">Application</span></label>
+                            <label class="choice"><input class="choice-input" type="radio" name="need" value="ai"><span class="choice-label">Assistant IA</span></label>
+                            <label class="choice"><input class="choice-input" type="radio" name="need" value="unsure"><span class="choice-label">Je ne sais pas encore</span></label>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <button class="btn btn-solid" type="button">Suivant <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                    </div>
+                </form>
+
+                <form class="ds-quiz ds-panel" aria-label="Questionnaire, question 3" novalidate>
+                    <div class="q-progress">
+                        <p class="q-progress-text" id="q3-progress"><span>Question <strong>3</strong> sur 7</span><span>Choix multiple</span></p>
+                        <progress class="q-progress-bar" max="7" value="3" aria-labelledby="q3-progress">3 sur 7</progress>
+                    </div>
+                    <fieldset class="choices" aria-describedby="q3-help">
+                        <legend class="choices-legend">Objectif <span class="field-req">obligatoire</span><span class="choices-title">Qu'attendez-vous de ce projet ?</span></legend>
+                        <p class="field-help" id="q3-help">Plusieurs réponses possibles.</p>
+                        <div class="choices-grid">
+                            <label class="choice"><input class="choice-input" type="checkbox" name="goal" value="showcase" checked><span class="choice-label">Présenter mon activité</span></label>
+                            <label class="choice"><input class="choice-input" type="checkbox" name="goal" value="leads" checked><span class="choice-label">Obtenir des contacts</span></label>
+                            <label class="choice"><input class="choice-input" type="checkbox" name="goal" value="sell"><span class="choice-label">Vendre en ligne</span></label>
+                            <label class="choice"><input class="choice-input" type="checkbox" name="goal" value="manage-customers"><span class="choice-label">Gérer mes clients</span></label>
+                            <label class="choice"><input class="choice-input" type="checkbox" name="goal" value="automate"><span class="choice-label">Automatiser des tâches</span></label>
+                            <label class="choice"><input class="choice-input" type="checkbox" name="goal" value="centralize"><span class="choice-label">Centraliser mes outils</span></label>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <button class="link-arrow" type="button"><svg class="arrow arrow-back" aria-hidden="true"><use href="#i-arrow"/></svg> Précédent</button>
+                        <button class="btn btn-solid" type="button">Suivant <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                    </div>
+                </form>
+            </div>
+
+            <p class="ds-sub ds-small">États figés d'une carte de choix</p>
+            <div class="choices-grid" aria-hidden="true">
+                <span class="choice"><span class="choice-input" style="border-radius: 50%"></span><span class="choice-label">Normal</span></span>
+                <span class="choice ds-force-hover"><span class="choice-input" style="border-radius: 50%"></span><span class="choice-label">Survol</span></span>
+                <span class="choice ds-force-focus"><span class="choice-input" style="border-radius: 50%"></span><span class="choice-label">Focus clavier</span></span>
+                <span class="choice" style="background: var(--ink); border-color: var(--ink)"><span class="choice-input" style="border-radius: 50%; background: var(--bg); border-color: var(--bg); display: grid; place-items: center"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--accent)"></span></span><span class="choice-label" style="color: var(--bg)">Sélectionné</span></span>
+            </div>
+
+            <p class="ds-sub ds-small">Question non répondue (erreur)</p>
+            <form class="ds-panel" aria-label="Questionnaire, exemple d'erreur" novalidate>
+                <fieldset class="choices is-invalid" aria-describedby="q2-error">
+                    <legend class="choices-legend">Type de besoin <span class="field-req">obligatoire</span><span class="choices-title">De quoi avez-vous besoin ?</span></legend>
+                    <p class="field-error" id="q2-error" style="margin-bottom: 20px">Choisissez une réponse pour continuer.</p>
+                    <div class="choices-grid">
+                        <label class="choice"><input class="choice-input" type="radio" name="need-error" value="website"><span class="choice-label">Site web</span></label>
+                        <label class="choice"><input class="choice-input" type="radio" name="need-error" value="ecommerce"><span class="choice-label">E-commerce</span></label>
+                        <label class="choice"><input class="choice-input" type="radio" name="need-error" value="unsure"><span class="choice-label">Je ne sais pas encore</span></label>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+
+        <!-- 10 Résultat de recommandation -->
+        <section class="section" id="recommandation" aria-labelledby="recommandation-title">
+            <div class="ds-head">
+                <span class="num" aria-hidden="true">10</span>
+                <h2 id="recommandation-title"><span>Résultat de</span> <em>recommandation</em></h2>
+                <p>Jusqu'à trois résultats classés. Les raisons « Pourquoi cette solution » reprennent les réponses données au questionnaire.</p>
+            </div>
+            <ol class="recos" role="list">
+                <li class="reco">
+                    <span class="num" aria-hidden="true">01</span>
+                    <div class="reco-head">
+                        <p class="reco-rank">Recommandation 1 sur 3</p>
+                        <h3 class="reco-name">Site vitrine Starter</h3>
+                        <p class="reco-desc">Exemple de fiche à compléter après validation de l'offre.</p>
+                        <span class="solution-cat">Sites web</span>
+                        <span class="badge badge-exemple">Exemple, non commercialisé</span>
+                    </div>
+                    <div class="reco-why">
+                        <h4 class="reco-why-title">Pourquoi cette solution</h4>
+                        <ul>
+                            <li>Correspond à votre besoin : Site web</li>
+                            <li>Répond à votre objectif : Présenter mon activité</li>
+                            <li>Répond à votre objectif : Obtenir des contacts</li>
+                        </ul>
+                        <a class="link-arrow" href="#formulaire">Demander un devis <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                    </div>
+                </li>
+                <li class="reco">
+                    <span class="num" aria-hidden="true">02</span>
+                    <div class="reco-head">
+                        <p class="demo-label">Contenu fictif de démonstration</p>
+                        <p class="reco-rank">Recommandation 2 sur 3</p>
+                        <h3 class="reco-name">Solution de démonstration</h3>
+                        <span class="solution-cat">Catégorie fictive</span>
+                        <span class="badge badge-exemple">Exemple, non commercialisé</span>
+                    </div>
+                    <div class="reco-why">
+                        <h4 class="reco-why-title">Pourquoi cette solution</h4>
+                        <ul>
+                            <li>Raison fictive 1</li>
+                            <li>Raison fictive 2</li>
+                        </ul>
+                        <a class="link-arrow" href="#formulaire">Demander un devis <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- 11 État vide -->
+        <section class="section" id="etat-vide" aria-labelledby="etat-vide-title">
+            <div class="ds-head">
+                <span class="num" aria-hidden="true">11</span>
+                <h2 id="etat-vide-title"><span>État</span> <em>vide</em></h2>
+                <p>Affiché quand aucune solution ne correspond aux filtres ou aux réponses du questionnaire.</p>
+            </div>
+            <div class="empty" role="status">
+                <div>
+                    <p class="empty-kicker">Aucun résultat</p>
+                    <h3 class="empty-title">Aucune solution du catalogue <em>ne correspond encore.</em></h3>
+                    <p>Décrivez votre projet en quelques lignes : je vous réponds avec une proposition sur mesure.</p>
+                </div>
+                <div class="empty-actions">
+                    <a class="btn btn-solid" href="#formulaire">Demander un devis personnalisé</a>
+                    <a class="link-arrow" href="#filtres">Modifier les filtres <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pied de page commun : contenu de secours, remplacé par assets/js/components/site-footer.js -->
+    <footer class="footer" data-site-footer>
+        <div class="footer-bottom">
+            <p>© Seif Eddine Denkir</p>
+        </div>
+    </footer>
+
+    <script type="module" src="../assets/js/main.js"></script>
+</body>
+</html>
