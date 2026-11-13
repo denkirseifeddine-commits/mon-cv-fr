@@ -3,22 +3,23 @@
  * et le pied de page. Les href sont relatifs à la racine du site :
  * les composants les préfixent avec siteRoot() (voir utils/site-root.js).
  *
- * Les lots suivants remplaceront NAV par les 7 pages du studio ;
+ * Les lots suivants ajouteront Solutions et Trouver ma solution ;
  * l'en-tête passe en menu compact quand la barre ne tient plus.
  */
 export const NAV = [
-    { id: 'projets', label: 'Projets', href: 'index.html#projets' },
-    { id: 'expertise', label: 'Expertise', href: 'index.html#expertise' },
-    { id: 'parcours', label: 'Parcours', href: 'index.html#parcours' },
+    { id: 'accueil', label: 'Accueil', href: 'index.html' },
+    { id: 'portfolio', label: 'Portfolio', href: 'portfolio/' },
+    { id: 'services', label: 'Services', href: 'services/' },
+    { id: 'automatisations', label: 'Automatisations', href: 'automatisations/' },
     { id: 'cv', label: 'CV', href: 'cv.html' },
 ];
 
-export const CTA = { id: 'contact', label: 'Me contacter', href: 'index.html#contact' };
+export const CTA = { id: 'contact', label: 'Demander un devis', href: 'contact/' };
 
 export const BRAND = {
     name: 'Seif Eddine Denkir',
-    role: 'Développeur & designer web',
-    href: 'index.html#top',
+    role: 'Digital Solution Studio',
+    href: 'index.html',
 };
 
 export const CONTACT = {
@@ -26,6 +27,7 @@ export const CONTACT = {
     phone: '+216 21 327 315',
     phoneHref: 'tel:+21621327315',
     city: 'Tunis, Tunisie',
+    linkedin: 'https://www.linkedin.com/in/seif-eddine-denkir',
 };
 
 // Libellés d'interface des composants (à traduire avec le reste du contenu)
@@ -37,4 +39,5 @@ export const LABELS = {
     footerNavTitle: 'Navigation',
     footerContactTitle: 'Contact',
     backToTop: 'Revenir en haut',
+    linkedin: 'Profil LinkedIn',
 };

@@ -1,0 +1,442 @@
+/*
+ * Pages intérieures (services, automatisations, contact) : en-tête de page
+ * avec mot géant, liste des prestations, autres offres, cas d'usage,
+ * déroulement, technologies, demande de devis, coordonnées et appel à
+ * l'action final.
+ * À charger en dernier : après tokens.css, base.css, components.css
+ * (et forms.css / catalog.css quand la page en a besoin).
+ *
+ * Couleurs, polices et courbes : uniquement tokens.css.
+ */
+
+/* Petites capitales espacées des pages intérieures */
+.page-kicker, .service-meta dt, .offer-label, .tech-title, .coords-title,
+.coords dt, .quote-result-label, .form-summary-title, .copy-status {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.6875rem;
+    font-weight: 500;
+}
+
+/* Lien souligné d'un filet terracotta (texte courant) */
+.text-link {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.28em;
+    transition: color .35s var(--ease), text-decoration-color .35s var(--ease);
+}
+.text-link:hover { color: var(--accent-deep); text-decoration-color: currentColor; }
+
+/* Mot composé à ne pas couper en fin de ligne (« e-mail ») */
+.nowrap { white-space: nowrap; }
+
+/* ---------- En-tête de page : mot géant + titre + introduction ---------- */
+.page-head {
+    max-width: var(--max);
+    margin-inline: auto;
+    padding: clamp(8px, 2vw, 24px) var(--gutter) clamp(8px, 2vw, 24px);
+    container-type: inline-size;
+}
+
+/*
+ * Mot géant : la taille remplit la largeur quel que soit le nombre de lettres.
+ * --fit = largeur du mot en Anton, en em (mesurée) ; chaque page la déclare.
+ * Les lettres sont réparties sur toute la ligne (space-between).
+ */
+.page-giant {
+    display: flex;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: calc(97cqw / var(--fit, 4));
+    line-height: 0.9;
+    color: var(--ink);
+    user-select: none;
+}
+.page-giant-part {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    padding-top: 0.06em;
+    white-space: nowrap;
+}
+.page-giant-part > span { display: block; }
+
+.page-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 20px clamp(32px, 6vw, 96px);
+    align-items: end;
+    margin-top: clamp(20px, 3vw, 40px);
+    padding-top: clamp(20px, 2.5vw, 32px);
+    border-top: 1px solid var(--line);
+}
+.page-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2.375rem, 5.4cqw, 4.375rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+}
+.page-title em { font-style: italic; color: var(--accent); }
+.page-title .mask { display: block; overflow: hidden; padding-bottom: 0.1em; padding-inline-end: 0.08em; }
+.page-title .mask > span { display: block; }
+.page-lead { max-width: 40ch; color: var(--muted); font-size: 1rem; line-height: 1.65; }
+
+/* Entrée de l'en-tête de page (seulement si JavaScript est actif) */
+.js .page-giant-part > span {
+    transform: translateY(110%);
+    transition: transform 1.1s var(--ease);
+    transition-delay: calc(var(--i, 0) * 45ms);
+}
+.js .page-title .mask > span { transform: translateY(110%); transition: transform 1.1s var(--ease) 520ms; }
+.js .page-lead, .js .page-intro {
+    transition: opacity 1s ease 760ms, transform 1s var(--ease) 760ms, border-color 1s ease 400ms;
+}
+.js .page-lead { opacity: 0; transform: translateY(16px); }
+.js .page-intro { border-top-color: transparent; }
+.js.is-loaded .page-giant-part > span,
+.js.is-loaded .page-title .mask > span,
+.js.is-loaded .page-lead { opacity: 1; transform: none; }
+.js.is-loaded .page-intro { border-top-color: var(--line); }
+
+/* ---------- Services : prestations en lignes ---------- */
+.services { border-bottom: 1px solid var(--line); }
+.service {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 16px clamp(28px, 4vw, 64px);
+    padding-block: clamp(28px, 3.4vw, 44px);
+    border-top: 1px solid var(--line);
+}
+/* Filet terracotta qui se déploie au survol */
+.service::before {
+    content: "";
+    position: absolute; inset-inline: 0; top: -1px;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .7s var(--ease);
+}
+.service:hover::before { transform: scaleX(1); }
+.service-name {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+    line-height: 1.05;
+    transition: color .5s var(--ease);
+}
+.service:hover .service-name { color: var(--accent-deep); }
+.service-desc { color: var(--muted); max-width: 42ch; font-size: 1rem; }
+.service-meta { display: grid; gap: 18px; align-content: start; }
+.service-meta div { display: grid; gap: 4px; }
+.service-meta dt { color: var(--accent-deep); font-weight: 600; }
+.service-meta dd { margin: 0; }
+
+/* Liste en ligne, séparée par des points médians décoratifs */
+.inline-list { display: flex; flex-wrap: wrap; gap: 0 10px; }
+.inline-list li { display: inline-flex; align-items: center; gap: 10px; }
+.inline-list li:not(:last-child)::after { content: "·"; color: var(--accent-deep); }
+.inline-list a { display: inline-flex; align-items: center; min-height: 32px; }
+
+/* ---------- Services : autres offres ---------- */
+.offers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-block: 1px solid var(--line);
+}
+.offer {
+    display: grid;
+    align-content: start;
+    gap: 14px;
+    padding: clamp(28px, 4vw, 48px) clamp(0px, 4vw, 56px) clamp(28px, 4vw, 48px) 0;
+}
+.offer + .offer { padding-inline: clamp(28px, 4vw, 56px) 0; border-inline-start: 1px solid var(--line); }
+.offer-label { color: var(--muted); }
+.offer h3 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.75rem, 2.8vw, 2.375rem); line-height: 1.05; }
+.offer p:not(.offer-label) { color: var(--muted); max-width: 40ch; }
+.offer .badge, .offer .link-arrow { margin-top: 8px; }
+.offer .link-arrow { min-height: 44px; width: fit-content; }
+
+/* ---------- Automatisations : mention et cas d'usage ---------- */
+.notice {
+    max-width: 46ch;
+    padding-block: 14px;
+    padding-inline: 20px 0;
+    border-inline-start: 3px solid var(--accent);
+    color: var(--ink);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+}
+.head .notice { color: var(--ink); max-width: 46ch; }
+.notice strong { font-weight: 600; }
+
+/* Grille à filets (pas de cartes) : 3 colonnes, filets partagés */
+.usecases {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+}
+.usecase {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 14px;
+    min-height: 15rem;
+    padding: clamp(24px, 3vw, 40px) clamp(20px, 2.6vw, 36px) clamp(32px, 3.6vw, 48px);
+    border-bottom: 1px solid var(--line);
+}
+.usecase:not(:nth-child(3n + 1)) { border-inline-start: 1px solid var(--line); }
+.usecase:nth-child(3n + 1) { padding-inline-start: 0; }
+.usecase:nth-child(3n) { padding-inline-end: 0; }
+.usecase h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(1.875rem, 3vw, 2.5rem);
+    line-height: 1;
+    transition: color .5s var(--ease);
+}
+.usecase h3::after {
+    content: "";
+    display: block;
+    width: 32px; height: 2px;
+    margin-top: 16px;
+    background: var(--accent);
+    transition: width .7s var(--ease);
+}
+.usecase:hover h3 { color: var(--accent-deep); }
+.usecase:hover h3::after { width: 72px; }
+.usecase p { color: var(--muted); max-width: 36ch; }
+
+/* ---------- Automatisations : déroulement en quatre étapes ---------- */
+.steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px clamp(20px, 3vw, 44px);
+}
+.step {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    padding-top: 28px;
+    border-top: 1px solid var(--ink);
+}
+/* Repère sur le filet : marque le début de chaque étape */
+.step::before {
+    content: "";
+    position: absolute; inset-inline-start: 0; top: -5px;
+    width: 9px; height: 9px;
+    background: var(--accent);
+}
+.step .num { font-size: clamp(2.5rem, 4vw, 3.5rem); }
+.step h3 { font-family: var(--serif); font-weight: 500; font-size: 1.75rem; line-height: 1.1; }
+.step p { color: var(--muted); max-width: 30ch; }
+
+/* ---------- Automatisations : technologies ---------- */
+/* Bloc court : marges verticales réduites */
+.section:has(> .tech) { padding-block: clamp(48px, 6vw, 80px); }
+.tech {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+    gap: 16px clamp(32px, 6vw, 88px);
+    align-items: baseline;
+}
+h2.tech-title { font-family: var(--sans); font-size: 0.6875rem; line-height: 1.65; color: var(--accent-deep); font-weight: 600; letter-spacing: 0.14em; }
+.tech-list {
+    display: flex; flex-wrap: wrap; gap: 4px 0;
+    font-family: var(--serif);
+    font-size: clamp(1.75rem, 3.6vw, 3rem);
+    line-height: 1.15;
+}
+.tech-list li { display: inline-flex; align-items: baseline; }
+.tech-list li:not(:last-child)::after {
+    content: "/";
+    margin-inline: 0.4em;
+    color: var(--accent);
+    font-style: italic;
+}
+
+/* ---------- Appel à l'action final ---------- */
+.cta-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 32px clamp(32px, 6vw, 88px);
+    align-items: end;
+}
+.cta-grid p { margin-top: 16px; color: var(--muted); max-width: 40ch; font-size: 1rem; }
+.cta-actions {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: 20px 36px;
+    padding-inline-start: clamp(0px, 4vw, 56px);
+    border-inline-start: 1px solid var(--line);
+    align-self: stretch;
+    align-content: center;
+}
+.cta-actions .btn .arrow { color: currentColor; }
+.cta-actions .btn { gap: 14px; }
+.cta-actions .link-arrow { min-height: 44px; }
+
+/* ---------- Contact : formulaire + coordonnées ---------- */
+.quote-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: 48px clamp(40px, 7vw, 112px);
+    align-items: start;
+}
+.quote-main > h2 { margin-bottom: clamp(32px, 4vw, 48px); }
+.quote-form { max-width: none; }
+.quote-form[hidden] { display: none; }
+.quote-form .field-input { scroll-margin-top: 120px; }
+.quote-form .check-input { scroll-margin-top: 120px; }
+.quote-form .form-actions { justify-content: flex-start; }
+.quote-form .form-actions .field-help { flex: 1 1 18rem; max-width: 46ch; }
+
+/* Sans JavaScript, le formulaire ne fonctionne pas : il est remplacé par le message <noscript> */
+.no-js .quote-form { display: none; }
+.form-noscript {
+    padding: 24px clamp(20px, 3vw, 32px);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-inline-start: 3px solid var(--accent);
+    font-size: 1.0625rem;
+}
+.form-noscript a { font-weight: 600; overflow-wrap: anywhere; }
+
+/* Résumé des erreurs : vide (et masqué) tant qu'il n'y a pas d'erreur */
+.form-summary:empty { display: none; }
+.form-summary {
+    margin-bottom: 32px;
+    padding: 20px clamp(18px, 3vw, 28px);
+    background: color-mix(in srgb, var(--error) 5%, var(--card));
+    border: 1px solid var(--error);
+    border-inline-start-width: 3px;
+}
+.form-summary-title { color: var(--error); font-weight: 600; }
+.form-summary ul { display: grid; gap: 2px; margin-top: 10px; }
+.form-summary a { display: inline-flex; align-items: center; min-height: 32px; color: var(--ink); text-decoration-color: var(--error); text-underline-offset: 0.25em; }
+.form-summary a:hover { color: var(--error); }
+
+/* Après validation : message, texte de la demande, copie */
+.quote-result { display: grid; gap: 24px; }
+.quote-result[hidden] { display: none; }
+.quote-result-msg {
+    padding-block: 4px;
+    padding-inline: 20px 0;
+    border-inline-start: 3px solid var(--accent);
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    line-height: 1.2;
+}
+.quote-result-msg { scroll-margin-top: 120px; }
+.quote-result-msg:focus { outline: none; }
+.quote-result-msg:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 6px; }
+.quote-result-label { color: var(--accent-deep); font-weight: 600; margin-bottom: 10px; }
+.quote-text {
+    margin: 0;
+    max-height: 24rem;
+    overflow: auto;
+    padding: 20px clamp(16px, 3vw, 28px);
+    background: var(--card);
+    border: 1px solid var(--line);
+    font-family: var(--sans);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    tab-size: 4;
+}
+.quote-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
+.copy-status { color: var(--accent-deep); font-weight: 600; min-height: 1lh; }
+.copy-status:empty { display: none; }
+.quote-fallback { color: var(--muted); max-width: 52ch; }
+.quote-fallback a { color: var(--ink); font-weight: 600; overflow-wrap: anywhere; }
+.quote-links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 36px; padding-top: 20px; border-top: 1px solid var(--line); }
+.quote-links .link-arrow { min-height: 44px; }
+.quote-links button.link-arrow { font-weight: 500; }
+.form-summary { scroll-margin-top: 120px; }
+
+/* Coordonnées */
+.coords {
+    position: sticky; top: 104px;
+    padding-top: 20px;
+    border-top: 1px solid var(--ink);
+}
+.coords-title { color: var(--accent-deep); font-weight: 600; margin-bottom: 8px; }
+.coords dl > div {
+    display: grid;
+    gap: 2px;
+    padding-block: 16px;
+    border-bottom: 1px solid var(--line);
+}
+.coords dt { color: var(--muted); }
+.coords dd { margin: 0; font-family: var(--serif); font-size: 1.5rem; line-height: 1.25; }
+.coords dd a { display: inline-flex; align-items: center; min-height: 44px; overflow-wrap: anywhere; }
+.coords dd .link-arrow { font-family: var(--sans); }
+.coords-cv { padding-top: 12px; }
+
+/* ---------- Mouvement réduit ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .js .page-giant-part > span, .js .page-title .mask > span, .js .page-lead { opacity: 1; transform: none; }
+    .js .page-intro { border-top-color: var(--line); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
+    .service { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+    .service-meta { grid-column: 2; }
+    .quote-layout { grid-template-columns: minmax(0, 1fr); }
+    .coords { position: static; }
+    .coords dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+}
+
+@media (max-width: 900px) {
+    .usecases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .usecase:nth-child(n) { border-inline-start: 0; padding-inline: 0 clamp(16px, 3vw, 32px); }
+    .usecase:nth-child(even) { border-inline-start: 1px solid var(--line); padding-inline: clamp(16px, 3vw, 32px) 0; }
+    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tech { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 820px) {
+    .page-intro { grid-template-columns: 1fr; align-items: start; }
+    .cta-grid { grid-template-columns: 1fr; align-items: start; }
+    .cta-actions { padding-inline-start: 0; border-inline-start: 0; }
+    .offers { grid-template-columns: 1fr; }
+    .offer { padding-inline: 0; }
+    .offer + .offer { padding-inline: 0; border-inline-start: 0; border-top: 1px solid var(--line); }
+}
+
+@media (max-width: 680px) {
+    .service { grid-template-columns: 1fr; gap: 12px; }
+    .service-meta { grid-column: auto; margin-top: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; }
+    .usecases { grid-template-columns: 1fr; }
+    .usecase:nth-child(n) { border-inline-start: 0; padding-inline: 0; min-height: 0; }
+    .coords dl { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+    /* Mot long : coupé en deux lignes (déclaré par data-split et --fit-split) */
+    .page-giant[data-split] { flex-direction: column; }
+    /* Chaque ligne a sa propre taille (--fit de la ligne) : elles occupent toute la largeur */
+    .page-giant[data-split] .page-giant-part { font-size: calc(97cqw / var(--fit-part, 4)); }
+    .steps { grid-template-columns: 1fr; gap: 0; }
+    .step {
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: 20px;
+        padding-block: 24px;
+        border-top-color: var(--line);
+    }
+    .step:first-child { border-top-color: var(--ink); }
+    .step .num { grid-row: span 2; font-size: 2.5rem; }
+    .step::before { display: none; }
+    .step:first-child::before { display: block; }
+}
+
+@media (max-width: 420px) {
+    .service-meta { grid-template-columns: 1fr; }
+    .cta-actions .btn { flex: 1 1 100%; }
+}

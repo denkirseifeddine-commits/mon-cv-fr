@@ -19,6 +19,8 @@ Aucun `package.json`, `vercel.json`, README ni intégration continue. Seule ress
 - Compétences, parcours (Kwantic, indépendant, CODE EPIC), formation.
 
 ## Points ouverts
+Cette liste décrit l'état de départ. Voir `IMPLEMENTATION-PLAN.md` pour ce qui a été traité depuis.
+
 - Les maquettes d'ATTDS et de Meuble Chabbouc affichent « Capture d'écran à venir » : captures, rôle et résumé à fournir.
 - Le lien LinkedIn de `cv.html` pointe vers `#`.
 - Contact limité à `mailto:` : pas de formulaire de devis.

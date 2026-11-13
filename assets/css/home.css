@@ -1,0 +1,148 @@
+/*
+ * Styles propres à la page d'accueil du studio (index.html) : composition
+ * du hero « DIGITAL SOLUTION STUDIO », trois offres, lien vers le
+ * portfolio, méthode en quatre étapes et bloc d'expertise.
+ * Les sections partagées avec le portfolio sont dans assets/css/editorial.css
+ * et assets/css/projects.css, chargées avant.
+ */
+
+/* Petites capitales espacées propres à l'accueil */
+.offer-en, .offer-status {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.6875rem;
+    font-weight: 500;
+}
+
+/* ---------- Hero ---------- */
+/* Une seule ligne sur toute la largeur : la largeur naturelle des trois mots
+   en Anton vaut 9,13 em ; les espaces entre les mots absorbent le reste. */
+.hero-studio .giant { font-size: 11.100cqw; letter-spacing: 0; --step: 35ms; }
+.hero-studio .giant-word:nth-child(2) { --w: 7; }
+.hero-studio .giant-word:nth-child(3) { --w: 15; }
+
+.hero-studio .hero-grid { grid-template-columns: minmax(0, 1.150fr) minmax(0, 0.850fr); gap: 24px clamp(24px, 4cqw, 64px); }
+.hero-studio .hero-intro { padding-top: clamp(32px, 4.500cqw, 64px); }
+.hero-studio h1 {
+    font-size: clamp(2.500rem, 5.600cqw, 4.750rem);
+    line-height: 1;
+    letter-spacing: -0.015em;
+    margin-top: 0;
+    text-wrap: balance;
+}
+.hero-studio h1 .mask + .mask { color: var(--accent); font-style: italic; }
+.hero-studio .role { margin-top: 26px; }
+.hero-studio .pitch { max-width: 46ch; }
+.hero-studio .hero-art { margin-top: -4.500cqw; }
+.hero-studio .disc { width: min(37cqw, 470px); }
+.hero-studio .monogram { font-size: min(15.500cqw, 196px); }
+.hero-studio .hero-badge { right: -2%; top: auto; bottom: 4%; }
+
+/* ---------- Trois offres ---------- */
+.offers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+}
+.offer {
+    position: relative;
+    display: flex; flex-direction: column;
+    padding: clamp(28px, 3vw, 40px) clamp(20px, 2.500vw, 40px) clamp(24px, 2.500vw, 32px);
+}
+.offer + .offer { border-inline-start: 1px solid var(--line); }
+.offer:first-child { padding-inline-start: 0; }
+.offer:last-child { padding-inline-end: 0; }
+/* Filet terracotta qui se dessine au survol, au-dessus du bloc */
+.offer::before {
+    content: ""; position: absolute; inset-block-start: -1px; inset-inline: 0; height: 2px;
+    background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .8s var(--ease);
+}
+.offer:hover::before { transform: scaleX(1); }
+.offer .num { font-size: clamp(3.250rem, 5vw, 4.500rem); }
+.offer-en { margin-top: clamp(24px, 3vw, 40px); color: var(--muted); }
+.offer h3 { font-family: var(--serif); font-size: clamp(1.750rem, 2.400vw, 2.250rem); font-weight: 500; line-height: 1.08; margin-top: 6px; }
+.offer-text { margin-top: 14px; color: var(--muted); max-width: 36ch; }
+.offer-foot { margin-top: auto; padding-top: 28px; }
+.offer-foot .link-arrow { min-height: 44px; }
+/* Mention « Catalogue en préparation » : un tampon, pas un lien */
+.offer-status {
+    display: inline-flex; align-items: center; gap: 10px;
+    min-height: 44px; padding: 0 16px;
+    border: 1px solid var(--accent-deep);
+    color: var(--accent-deep); font-weight: 600;
+}
+.offer-status::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-deep); }
+
+/* ---------- Projets récents ---------- */
+.more {
+    display: flex; justify-content: flex-end;
+    margin-top: clamp(32px, 4vw, 56px);
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+}
+.more .link-arrow { min-height: 44px; }
+
+/* ---------- Méthode ---------- */
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px clamp(20px, 3vw, 40px); }
+.step { position: relative; padding-top: 28px; border-top: 1px solid var(--ink); }
+.step::before {
+    content: ""; position: absolute; inset-block-start: -5px; inset-inline-start: 0;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent);
+}
+.step .num { display: block; font-size: clamp(3.250rem, 5.500vw, 5rem); }
+.step h3 { font-family: var(--serif); font-size: 1.750rem; font-weight: 500; line-height: 1.1; margin-top: 20px; }
+.step p { margin-top: 10px; color: var(--muted); max-width: 30ch; }
+
+/* ---------- Expertise ---------- */
+.home-expertise {
+    display: grid;
+    grid-template-columns: minmax(0, 1.100fr) minmax(0, 1fr);
+    gap: 48px clamp(40px, 7vw, 112px);
+    align-items: center;
+}
+.home-expertise-lead { display: grid; justify-items: start; gap: 22px; }
+.home-expertise .quote p { font-size: clamp(1.750rem, 3vw, 2.500rem); line-height: 1.2; }
+.home-expertise .link-arrow { min-height: 44px; white-space: normal; }
+.home-expertise .points { gap: 32px; padding-block: 8px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+    .offers { grid-template-columns: 1fr; }
+    .offer { padding-inline: 0; }
+    .offer + .offer { border-top: 1px solid var(--line); }
+    .offer + .offer { border-inline-start: 0; }
+    .offer .num { font-size: 3rem; }
+    .offer-en { margin-top: 18px; }
+    .home-expertise { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 820px) {
+    .hero-studio .hero-grid { grid-template-columns: 1fr; }
+    .hero-studio .hero-art { margin-top: 0; }
+    .hero-studio .disc { width: 52cqw; }
+    .hero-studio .monogram { font-size: 22cqw; }
+    .hero-studio .hero-badge { right: 6%; bottom: -4%; }
+    .hero-studio .hero-intro { padding-top: 16px; }
+}
+
+/* Mobile : trois lignes empilées ; « SOLUTION » (3,43 em) occupe la largeur */
+@media (max-width: 600px) {
+    .hero-studio .giant { flex-direction: column; font-size: 29cqw; line-height: 0.88; }
+    .hero-studio .hero-art { margin-top: -11cqw; }
+    .hero-studio .disc { width: 50cqw; margin-inline: auto 4cqw; }
+    .hero-studio .monogram { font-size: 20cqw; }
+    .hero-studio .hero-badge { width: clamp(92px, 32cqw, 124px); inset-inline: 22% auto; bottom: -2%; }
+    .hero-studio .hero-intro { padding-top: 28px; }
+    .steps { grid-template-columns: 1fr; gap: 32px; }
+    .step { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 20px; }
+    .step .num { grid-row: span 2; font-size: 2.750rem; }
+    .step h3 { margin-top: 0; }
+    .more { justify-content: flex-start; }
+}

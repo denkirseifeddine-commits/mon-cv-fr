@@ -16,13 +16,18 @@ Site statique : portfolio professionnel en cours d'évolution vers un studio de 
 ## Structure
 
 ```
-index.html              accueil / portfolio
+index.html              accueil du studio
+portfolio/              portfolio complet
+services/               prestations
+automatisations/        cas d'usage et déroulement
+contact/                coordonnées et demande de devis
 cv.html, mon-cv-fr.css  CV (style autonome, conservé tel quel)
 404.html                page d'erreur autonome
-assets/css/             tokens (variables), base, composants, formulaires, catalogue
-assets/js/              modules partagés : navigation, en-tête, pied de page, animations
-assets/portfolio.css    styles propres à l'accueil
-assets/portfolio.js     script de l'accueil
+assets/css/             tokens (variables), base, composants, formulaires, catalogue, pages
+assets/js/              modules partagés : navigation, en-tête, pied de page, animations, services
+assets/portfolio.css    styles propres à la page Portfolio
+assets/portfolio.js     script de la page Portfolio
+assets/projets/         captures d'écran des projets
 design-system/          page de démonstration des composants (non indexée)
 assets/data/            données JSON (projets, catégories, solutions, questionnaire)
 docs/                   audit, architecture, design system, plan

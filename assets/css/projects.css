@@ -1,0 +1,89 @@
+/*
+ * Projets à la une, partagés par l'accueil et le portfolio : maquette
+ * navigateur (+ téléphone facultatif) avec la capture réelle, et fiche
+ * du projet (numéro, nom, catégorie, résumé, technologies, lien).
+ * À charger après editorial.css.
+ */
+
+/* Petites capitales espacées propres aux projets */
+.feat-meta p, .feat-tech {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.6875rem;
+    font-weight: 500;
+}
+
+.featured { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 4vw, 56px) clamp(24px, 3vw, 40px); }
+.feat { display: flex; flex-direction: column; }
+
+/* ---------- Maquette ---------- */
+.mock {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    display: grid; place-items: center;
+    overflow: hidden;
+    perspective: 1200px;
+}
+.mock-dark { background: #1D1A17; }
+.mock-sand { background: #B9AB98; }
+.browser {
+    --bx: -4%;
+    width: 80%;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .45);
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateX(var(--bx));
+    transition: transform .9s var(--ease);
+}
+/* Sans capture mobile : navigateur seul, centré */
+.mock-single .browser { --bx: 0%; width: 82%; }
+.bar { display: flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; background: #ECE7DF; }
+.bar i { width: 7px; height: 7px; border-radius: 50%; background: #C9C0B3; flex: none; }
+.bar span {
+    margin-inline-start: 10px;
+    font-size: 0.625rem; letter-spacing: 0.04em; color: #5F584E;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.screen { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #F7F4EE; container-type: size; }
+/* La capture, plus haute que l'écran, défile jusqu'en bas au survol */
+.screen img { display: block; width: 100%; height: auto; transition: transform 1.200s var(--ease); }
+.mock:hover .screen img, .feat:focus-within .screen img {
+    transform: translateY(calc(-100% + 100cqh));
+    transition: transform 6s cubic-bezier(.45, 0, .55, 1);
+}
+.phone {
+    position: absolute; right: 7%; bottom: 9%;
+    width: 19%;
+    border: 5px solid #111; border-radius: 16px;
+    background: #111;
+    overflow: hidden;
+    box-shadow: 0 24px 40px -16px rgba(0, 0, 0, .5);
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translate3d(var(--px, 0), var(--py, 0), 40px);
+    transition: transform .9s var(--ease);
+}
+.phone .screen { aspect-ratio: 9 / 18; border-radius: 10px; }
+
+/* ---------- Fiche du projet ---------- */
+.feat-meta { display: flex; align-items: center; gap: 16px; margin-top: 20px; }
+.feat-meta h3 { font-family: var(--serif); font-size: 1.750rem; font-weight: 500; line-height: 1.1; }
+.feat-meta p { color: var(--accent-deep); letter-spacing: 0.12em; margin-top: 4px; }
+.feat-summary { margin-top: 14px; color: var(--muted); max-width: 56ch; }
+.feat-foot {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px;
+    margin-top: auto; padding-top: 18px;
+}
+.feat-summary + .feat-foot { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 6px; }
+.feat-tech { display: flex; flex-wrap: wrap; gap: 4px 0; color: var(--ink); }
+.feat-tech li + li::before { content: "/"; margin-inline: 10px; color: var(--accent); }
+.feat-link { min-height: 44px; }
+/* Texte réservé aux lecteurs d'écran (nom du projet, nouvel onglet) */
+.feat-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+    .mock:hover .screen img, .feat:focus-within .screen img { transform: none; }
+}
+
+@media (max-width: 820px) {
+    .featured { grid-template-columns: 1fr; }
+}
