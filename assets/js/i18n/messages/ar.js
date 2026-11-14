@@ -107,6 +107,14 @@ export default {
 
     // ---------- Contact et e-mail de demande de devis ----------
     'contact.solutionMessage': 'أنا مهتم(ة) بالحل: {name}.',
+    // Envoi de la demande de devis (lot 7)
+    'contact.submitMail': 'إعداد رسالتي',
+    'contact.privacyMail': 'لا يحفظ هذا الموقع أي بيانات: يُرسَل طلبك من بريدك الإلكتروني الخاص.',
+    'contact.sending': 'جارٍ الإرسال…',
+    'contact.sent': 'تم استلام طلبك بنجاح (المرجع {reference}). سأردّ عليك عبر البريد الإلكتروني.',
+    'contact.sentNoReference': 'تم استلام طلبك بنجاح. سأردّ عليك عبر البريد الإلكتروني.',
+    'contact.rateLimited': 'طلبات كثيرة في وقت قصير. أعد المحاولة بعد بضع دقائق أو راسلني مباشرة على {email}.',
+    'contact.fallbackNotice': 'الإرسال المباشر غير متاح حاليًا.',
     'quote.subject': 'طلب عرض سعر',
     'quote.subjectWithNeed': '{subject} — {need}',
     'quote.line': '{label}: {value}',

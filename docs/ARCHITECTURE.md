@@ -98,6 +98,15 @@ En place depuis le lot 6 « Internationalisation » :
 - RTL (`dir="rtl"`) : propriétés logiques (`margin-inline`, `padding-inline`, `inset-inline`, `border-inline-start`, `text-align: start`). Sous `[dir="rtl"]`, la flèche « suivant » (`.arrow`) est retournée et les rares règles physiques restantes sont inversées (par exemple `.side-l` dans `editorial.css`). Les polices arabes sont définies sous `:root:lang(ar)` dans `tokens.css` et chargées seulement sur les pages `ar/` ; `:lang(ar)` retire capitales, espacement des lettres et italique.
 - hreflang, canonical et sitemap : voir « SEO ».
 
+En place depuis le lot 7 « Devis » :
+- Fonction serveur Vercel `api/quote.mjs` (route `POST /api/quote`) et sa logique pure `api/_lib/quote-core.mjs`, sans dépendance npm ni `package.json` : la demande de devis est validée côté serveur puis envoyée par e-mail au propriétaire avec l'API HTTP de Resend. Aucune donnée n'est stockée. Format, codes d'erreur et variables d'environnement : `API-CONTRACT.md`, « Point d'entrée provisoire Vercel ».
+- Anti-spam : origine vérifiée (`ALLOWED_ORIGINS`), pot de miel `website` (champ hors du flux, `aria-hidden`, `tabindex="-1"`), temps minimal de 3 s sur le formulaire (`elapsedMs`), limitation de débit en mémoire de l'instance (5 demandes par IP et par 10 minutes, non globale). Si le visiteur envoie le formulaire en moins de 3 s (formulaire pré-rempli), `contact.js` attend la fin du délai avant l'envoi.
+- `quote-service.js` : `submitQuote(payload, options)` envoie la demande au serveur (`siteRoot() + 'api/quote'`, délai maximal 15 s) et renvoie `status` : `sent` (avec `reference`), `invalid` (avec `fields`), `rate-limited` ou `mail-draft` (avec `fallback: true` si l'envoi direct a échoué). `buildQuote` (e-mail pré-rempli) est inchangé ; `prepareMailDraft`, `canSendDirectly` et `serverPayload` sont exportés.
+- `contact.js` : états « envoi en cours » (bouton désactivé, `aria-busy`, annonce `role="status"`), « envoyé » (message avec la référence, qui reçoit le focus), « invalide » (erreurs 422 rattachées aux champs, résumé `role="alert"`, focus sur le premier champ), « trop de demandes » (message `role="alert"` au-dessus du bouton, avec l'adresse du studio) et « repli » (e-mail pré-rempli précédé d'une phrase d'explication). Un 422 sur un champ que le visiteur ne peut pas corriger (délai, langue, solution) bascule aussi sur le repli. Messages dans les dictionnaires (`contact.sending`, `contact.sent`, `contact.sentNoReference`, `contact.rateLimited`, `contact.fallbackNotice`, `contact.submitMail`, `contact.privacyMail`).
+- Repli GitHub Pages : sur `*.github.io` (et en `file:`), aucune requête n'est faite vers `api/quote` ; le bouton reprend le libellé « Préparer mon e-mail » et le texte d'aide l'ancienne mention (la demande part de la messagerie du visiteur). Sur Vercel, le bouton est « Envoyer ma demande ».
+- `vercel.json` : `Cache-Control: no-store` sur `/api/(.*)` (la fonction le renvoie aussi).
+- Tests : `scripts/test-quote-api.mjs` (fonction serveur, sous Node, faux `fetch`).
+
 À créer dans les lots suivants :
 - `assets/js/services/` : préférences
 
@@ -132,7 +141,7 @@ Les scripts sont des modules ES : ils ne se chargent pas en ouvrant un fichier d
 Les pages ne chargent pas les JSON directement. Elles appellent des fonctions dédiées :
 - `catalogService.getCategories()`, `catalogService.getSolutions(filters)` et `catalogService.getSolutionBySlug(slug)` : en place depuis le lot 4 (`assets/js/services/catalog-service.js`), sous forme de fonctions exportées. Le paramètre `locale` de `getSolutionBySlug` n'est pas encore pris en compte.
 - `catalogService.getProjects()`
-- `quoteService.submitQuote(payload)` (en place : prépare un e-mail dans la messagerie du visiteur ; appellera `POST /api/v1/quotes`)
+- `quoteService.submitQuote(payload)` (en place : envoie la demande à `POST /api/quote` sur Vercel, ou prépare un e-mail dans la messagerie du visiteur sur GitHub Pages et en repli ; appellera `POST /api/v1/quotes`)
 - `recommendationEngine.recommend(answers, solutions, questionnaire, options)` : en place depuis le lot 5 (`assets/js/engine/recommendation-engine.js`, fonction pure, côté navigateur). La cible est `POST /api/v1/recommendations` (voir `API-CONTRACT.md`) : le serveur recalculera le score, le navigateur ne lui envoie jamais de score.
 
 Les services masquent la source des données. Plus tard, leur implémentation appellera `/api/v1/...` (voir `API-CONTRACT.md`) sans réécrire les pages.
@@ -145,9 +154,12 @@ Les JSON sont lus avec `fetch` : ces pages fonctionnent sur Vercel, GitHub Pages
 - Domaine canonique : `https://mon-cv-fr.vercel.app`.
 - Cache des fichiers de `assets/` : une heure, car leurs noms ne changent pas entre deux versions.
 - Ajouter des redirections uniquement après inventaire des URL existantes.
+- Fonctions serveur : dossier `api/` (fichiers `.mjs`, format Web `Request` → `Response`, runtime Node.js par défaut), détecté par Vercel sans configuration. Variables d'environnement à régler dans le tableau de bord (Settings → Environment Variables) : `RESEND_API_KEY`, `QUOTE_TO_EMAIL`, et facultativement `QUOTE_FROM_EMAIL`, `ALLOWED_ORIGINS`. Les déploiements de prévisualisation ont une autre origine : sans l'ajouter à `ALLOWED_ORIGINS`, ils répondent 403 et le formulaire bascule sur l'e-mail pré-rempli.
 
 ## Compatibilité GitHub Pages
 Le dépôt est servi sous `/mon-cv-fr/` sur GitHub Pages et à la racine sur Vercel. Aucun chemin interne ne commence par `/`. `scripts/check-site.py` le vérifie. Seule exception : `404.html`, autonome, qui adapte son lien d'accueil selon l'hôte.
+
+GitHub Pages ne sert que des fichiers statiques : la fonction `api/quote` n'y existe pas. Le formulaire de contact le détecte (hôte `*.github.io`) et garde l'e-mail pré-rempli, sans requête vers `api/quote`.
 
 ## SEO
 - `index.html` et `cv.html` portent une URL canonique vers le domaine Vercel : le miroir GitHub Pages n'est donc pas vu comme un doublon.

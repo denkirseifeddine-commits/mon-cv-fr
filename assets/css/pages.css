@@ -364,6 +364,55 @@ h2.tech-title { font-family: var(--sans); font-size: 0.6875rem; line-height: 1.6
 .quote-links button.link-arrow { font-weight: 500; }
 .form-summary { scroll-margin-top: 120px; }
 
+/* Message « trop de demandes » (role="alert"), au-dessus du bouton : même encadré que le résumé des erreurs */
+.form-notice:empty { display: none; }
+.form-notice {
+    padding: 20px clamp(18px, 3vw, 28px);
+    background: color-mix(in srgb, var(--error) 5%, var(--card));
+    border: 1px solid var(--error);
+    border-inline-start-width: 3px;
+    line-height: 1.6;
+}
+.form-notice a { color: var(--ink); font-weight: 600; text-decoration-color: var(--error); text-underline-offset: 0.25em; overflow-wrap: anywhere; }
+.form-notice a:hover { color: var(--error); }
+
+/* Pot de miel : hors du flux, invisible, ignoré par les lecteurs d'écran (aria-hidden) et la tabulation */
+.field-trap {
+    position: absolute;
+    inset-inline-start: -10000px;
+    width: 1px; height: 1px;
+    overflow: hidden;
+}
+
+/* Annonce « Envoi en cours… » pour les lecteurs d'écran (le bouton l'affiche déjà) */
+.quote-status {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+.quote-form .form-actions { position: relative; }
+.quote-form[aria-busy="true"] .btn { cursor: progress; }
+
+/* Repli sur l'e-mail pré-rempli : phrase d'explication au-dessus du message */
+.quote-result-notice {
+    display: block;
+    margin-bottom: 12px;
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--ink);
+}
+.quote-result-notice[hidden] { display: none; }
+
+/* Demande reçue par le serveur */
+.quote-sent { display: grid; gap: 24px; }
+.quote-sent[hidden] { display: none; }
+.quote-sent bdi, .form-notice bdi { white-space: nowrap; }
+
 /* Coordonnées */
 .coords {
     position: sticky; top: 104px;

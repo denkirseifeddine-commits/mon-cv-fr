@@ -21,6 +21,7 @@ portfolio/              portfolio complet
 services/               prestations
 automatisations/        cas d'usage et déroulement
 contact/                coordonnées et demande de devis
+api/quote.mjs           fonction serveur Vercel : envoi de la demande de devis par e-mail (Resend)
 solutions/              catalogue et fiches (non indexés tant qu'aucune solution n'est publiée)
 trouver-ma-solution/    questionnaire « Trouver ma solution » et résultats (indexable)
 en/, ar/                 mêmes pages en anglais et en arabe (RTL), mêmes noms de dossiers
@@ -38,6 +39,7 @@ scripts/check-site.py   vérification des liens internes et des JSON
 scripts/test-catalog.mjs tests unitaires du service du catalogue
 scripts/test-recommendation.mjs tests unitaires du moteur de recommandation
 scripts/test-i18n.mjs   tests unitaires des traductions et complétude des textes JSON fr/en/ar
+scripts/test-quote-api.mjs tests de la fonction serveur de devis
 site.config.json        nom du site, adresse canonique, langues, contact
 vercel.json             en-têtes de cache
 ```

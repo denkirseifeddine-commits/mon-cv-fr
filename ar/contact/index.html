@@ -68,7 +68,7 @@
                     <h2 id="devis-title"><span>طلب</span> <em>عرض سعر</em></h2>
 
                     <noscript>
-                        <p class="form-noscript">يحتاج هذا النموذج إلى JavaScript لإعداد رسالتك. راسلني مباشرة على <a href="mailto:denkirseifeddine@gmail.com?subject=%D8%B7%D9%84%D8%A8%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D8%B9%D8%B1">denkirseifeddine@gmail.com</a>.</p>
+                        <p class="form-noscript">يحتاج هذا النموذج إلى JavaScript لإرسال طلبك. راسلني مباشرة على <a href="mailto:denkirseifeddine@gmail.com?subject=%D8%B7%D9%84%D8%A8%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D8%B9%D8%B1">denkirseifeddine@gmail.com</a>.</p>
                     </noscript>
 
                     <!-- Résumé des erreurs : rempli par assets/js/pages/contact.js -->
@@ -79,19 +79,20 @@
                         <div class="form-row">
                             <div class="field">
                                 <label class="field-label" for="q-name">الاسم <span class="field-req">إلزامي</span></label>
-                                <input class="field-input" id="q-name" name="name" type="text" autocomplete="name" required>
-                                <p class="field-error" id="q-name-error" hidden>أدخل اسمك.</p>
+                                <input class="field-input" id="q-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+                                <p class="field-error" id="q-name-error" hidden>أدخل اسمك (حرفان على الأقل).</p>
                             </div>
                             <div class="field">
                                 <label class="field-label" for="q-email">البريد الإلكتروني <span class="field-req">إلزامي</span></label>
-                                <input class="field-input" id="q-email" name="email" type="email" autocomplete="email" spellcheck="false" required>
+                                <input class="field-input" id="q-email" name="email" type="email" autocomplete="email" spellcheck="false" maxlength="254" required>
                                 <p class="field-error" id="q-email-error" hidden>أدخل عنوان بريد إلكتروني صالحًا.</p>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="field">
                                 <label class="field-label" for="q-phone">الهاتف <span class="field-opt">اختياري</span></label>
-                                <input class="field-input" id="q-phone" name="phone" type="tel" autocomplete="tel">
+                                <input class="field-input" id="q-phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
+                                <p class="field-error" id="q-phone-error" hidden>أدخل رقم هاتف صالحًا: أرقام ومسافات والرموز + ( ) . - فقط.</p>
                             </div>
                             <div class="field">
                                 <label class="field-label" for="q-need">نوع الحاجة <span class="field-req">إلزامي</span></label>
@@ -125,13 +126,14 @@
                             </div>
                             <div class="field">
                                 <label class="field-label" for="q-budget">الميزانية التقديرية <span class="field-opt">اختياري</span></label>
-                                <input class="field-input" id="q-budget" name="budget" type="text" autocomplete="off">
+                                <input class="field-input" id="q-budget" name="budget" type="text" autocomplete="off" maxlength="100">
+                                <p class="field-error" id="q-budget-error" hidden>يجب ألّا تتجاوز الميزانية التقديرية 100 حرف.</p>
                             </div>
                         </div>
                         <div class="field">
                             <label class="field-label" for="q-message">الرسالة <span class="field-req">إلزامي</span></label>
-                            <textarea class="field-input" id="q-message" name="message" rows="6" required></textarea>
-                            <p class="field-error" id="q-message-error" hidden>صِف حاجتك في بضع كلمات.</p>
+                            <textarea class="field-input" id="q-message" name="message" rows="6" maxlength="5000" required></textarea>
+                            <p class="field-error" id="q-message-error" hidden>صِف حاجتك في بضع كلمات (10 أحرف على الأقل).</p>
                         </div>
                         <div class="field">
                             <label class="check">
@@ -140,15 +142,23 @@
                             </label>
                             <p class="field-error" id="q-consent-error" hidden>حدّد هذا المربّع للمتابعة.</p>
                         </div>
+                        <!-- Pot de miel : invisible et hors tabulation, doit rester vide (anti-spam, vérifié par api/quote) -->
+                        <div class="field-trap" aria-hidden="true">
+                            <label for="q-website">اترك هذا الحقل فارغًا</label>
+                            <input id="q-website" name="website" type="text" tabindex="-1" autocomplete="off" value="">
+                        </div>
+                        <!-- Message « trop de demandes » : rempli par assets/js/pages/contact.js, juste au-dessus du bouton -->
+                        <div class="form-notice" id="quote-notice" role="alert"></div>
                         <div class="form-actions">
-                            <button class="btn btn-solid" type="submit" aria-describedby="quote-privacy">إعداد رسالتي <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-                            <p class="field-help" id="quote-privacy">لا يحفظ هذا الموقع أي بيانات: يُرسَل طلبك من بريدك الإلكتروني الخاص.</p>
+                            <button class="btn btn-solid" type="submit" aria-describedby="quote-privacy"><span data-submit-label>إرسال طلبي</span> <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                            <p class="field-help" id="quote-privacy">يُرسَل طلبك إلى الاستوديو عبر البريد الإلكتروني، ولا يُحفظ على هذا الموقع.</p>
+                            <p class="quote-status" id="quote-status" role="status"></p>
                         </div>
                     </form>
 
                     <!-- Après validation : affiché par assets/js/pages/contact.js -->
                     <div class="quote-result" id="quote-result" hidden>
-                        <p class="quote-result-msg" id="quote-result-msg" tabindex="-1">يُفتح تطبيق بريدك وفيه طلبك <span class="nowrap">مُعبّأ مسبقًا</span>. أرسل هذه الرسالة لإيصال طلبك إليّ.</p>
+                        <p class="quote-result-msg" id="quote-result-msg" tabindex="-1"><span class="quote-result-notice" id="quote-result-notice" hidden></span>يُفتح تطبيق بريدك وفيه طلبك <span class="nowrap">مُعبّأ مسبقًا</span>. أرسل هذه الرسالة لإيصال طلبك إليّ.</p>
                         <div>
                             <p class="quote-result-label" id="quote-text-label">طلبك</p>
                             <pre class="quote-text" id="quote-text" aria-labelledby="quote-text-label" tabindex="0"></pre>
@@ -162,6 +172,11 @@
                             <a class="link-arrow" id="quote-reopen" href="mailto:denkirseifeddine@gmail.com">إعادة فتح تطبيق البريد <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
                             <button class="link-arrow" id="quote-edit" type="button"><svg class="arrow arrow-back" aria-hidden="true"><use href="#i-arrow"/></svg> تعديل طلبي</button>
                         </div>
+                    </div>
+
+                    <!-- Demande reçue par le serveur : message rempli par assets/js/pages/contact.js -->
+                    <div class="quote-sent" id="quote-sent" hidden>
+                        <p class="quote-result-msg" id="quote-sent-msg" tabindex="-1"></p>
                     </div>
                 </div>
 

@@ -19,3 +19,5 @@ jobs:
         run: node scripts/test-recommendation.mjs
       - name: Unit tests (i18n)
         run: node scripts/test-i18n.mjs
+      - name: Unit tests (quote API)
+        run: node scripts/test-quote-api.mjs
