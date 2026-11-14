@@ -67,7 +67,7 @@
                     <h2 id="devis-title"><span>Demande</span> <em>de devis</em></h2>
 
                     <noscript>
-                        <p class="form-noscript">Ce formulaire a besoin de JavaScript pour préparer votre e-mail. Écrivez-moi directement à <a href="mailto:denkirseifeddine@gmail.com?subject=Demande%20de%20devis">denkirseifeddine@gmail.com</a>.</p>
+                        <p class="form-noscript">Ce formulaire a besoin de JavaScript pour envoyer votre demande. Écrivez-moi directement à <a href="mailto:denkirseifeddine@gmail.com?subject=Demande%20de%20devis">denkirseifeddine@gmail.com</a>.</p>
                     </noscript>
 
                     <!-- Résumé des erreurs : rempli par assets/js/pages/contact.js -->
@@ -78,19 +78,20 @@
                         <div class="form-row">
                             <div class="field">
                                 <label class="field-label" for="q-name">Nom <span class="field-req">obligatoire</span></label>
-                                <input class="field-input" id="q-name" name="name" type="text" autocomplete="name" required>
-                                <p class="field-error" id="q-name-error" hidden>Indiquez votre nom.</p>
+                                <input class="field-input" id="q-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+                                <p class="field-error" id="q-name-error" hidden>Indiquez votre nom (2 caractères au moins).</p>
                             </div>
                             <div class="field">
                                 <label class="field-label" for="q-email">E-mail <span class="field-req">obligatoire</span></label>
-                                <input class="field-input" id="q-email" name="email" type="email" autocomplete="email" spellcheck="false" required>
+                                <input class="field-input" id="q-email" name="email" type="email" autocomplete="email" spellcheck="false" maxlength="254" required>
                                 <p class="field-error" id="q-email-error" hidden>Indiquez une adresse e-mail valide.</p>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="field">
                                 <label class="field-label" for="q-phone">Téléphone <span class="field-opt">facultatif</span></label>
-                                <input class="field-input" id="q-phone" name="phone" type="tel" autocomplete="tel">
+                                <input class="field-input" id="q-phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
+                                <p class="field-error" id="q-phone-error" hidden>Indiquez un numéro valide : chiffres, espaces et signes + ( ) . - uniquement.</p>
                             </div>
                             <div class="field">
                                 <label class="field-label" for="q-need">Type de besoin <span class="field-req">obligatoire</span></label>
@@ -124,13 +125,14 @@
                             </div>
                             <div class="field">
                                 <label class="field-label" for="q-budget">Budget indicatif <span class="field-opt">facultatif</span></label>
-                                <input class="field-input" id="q-budget" name="budget" type="text" autocomplete="off">
+                                <input class="field-input" id="q-budget" name="budget" type="text" autocomplete="off" maxlength="100">
+                                <p class="field-error" id="q-budget-error" hidden>Le budget indicatif ne doit pas dépasser 100 caractères.</p>
                             </div>
                         </div>
                         <div class="field">
                             <label class="field-label" for="q-message">Message <span class="field-req">obligatoire</span></label>
-                            <textarea class="field-input" id="q-message" name="message" rows="6" required></textarea>
-                            <p class="field-error" id="q-message-error" hidden>Décrivez votre besoin en quelques mots.</p>
+                            <textarea class="field-input" id="q-message" name="message" rows="6" maxlength="5000" required></textarea>
+                            <p class="field-error" id="q-message-error" hidden>Décrivez votre besoin en quelques mots (10 caractères au moins).</p>
                         </div>
                         <div class="field">
                             <label class="check">
@@ -139,15 +141,23 @@
                             </label>
                             <p class="field-error" id="q-consent-error" hidden>Cochez cette case pour continuer.</p>
                         </div>
+                        <!-- Pot de miel : invisible et hors tabulation, doit rester vide (anti-spam, vérifié par api/quote) -->
+                        <div class="field-trap" aria-hidden="true">
+                            <label for="q-website">Ne remplissez pas ce champ</label>
+                            <input id="q-website" name="website" type="text" tabindex="-1" autocomplete="off" value="">
+                        </div>
+                        <!-- Message « trop de demandes » : rempli par assets/js/pages/contact.js, juste au-dessus du bouton -->
+                        <div class="form-notice" id="quote-notice" role="alert"></div>
                         <div class="form-actions">
-                            <button class="btn btn-solid" type="submit" aria-describedby="quote-privacy">Préparer mon e-mail <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-                            <p class="field-help" id="quote-privacy">Aucune donnée n'est enregistrée par ce site : votre demande part depuis votre propre messagerie.</p>
+                            <button class="btn btn-solid" type="submit" aria-describedby="quote-privacy"><span data-submit-label>Envoyer ma demande</span> <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                            <p class="field-help" id="quote-privacy">Votre demande est transmise par e-mail au studio ; elle n'est pas enregistrée sur ce site.</p>
+                            <p class="quote-status" id="quote-status" role="status"></p>
                         </div>
                     </form>
 
                     <!-- Après validation : affiché par assets/js/pages/contact.js -->
                     <div class="quote-result" id="quote-result" hidden>
-                        <p class="quote-result-msg" id="quote-result-msg" tabindex="-1">Votre messagerie s'ouvre avec votre demande <span class="nowrap">pré-remplie</span>. Envoyez cet e-mail pour me transmettre votre demande.</p>
+                        <p class="quote-result-msg" id="quote-result-msg" tabindex="-1"><span class="quote-result-notice" id="quote-result-notice" hidden></span>Votre messagerie s'ouvre avec votre demande <span class="nowrap">pré-remplie</span>. Envoyez cet e-mail pour me transmettre votre demande.</p>
                         <div>
                             <p class="quote-result-label" id="quote-text-label">Votre demande</p>
                             <pre class="quote-text" id="quote-text" aria-labelledby="quote-text-label" tabindex="0"></pre>
@@ -161,6 +171,11 @@
                             <a class="link-arrow" id="quote-reopen" href="mailto:denkirseifeddine@gmail.com">Rouvrir ma messagerie <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
                             <button class="link-arrow" id="quote-edit" type="button"><svg class="arrow arrow-back" aria-hidden="true"><use href="#i-arrow"/></svg> Modifier ma demande</button>
                         </div>
+                    </div>
+
+                    <!-- Demande reçue par le serveur : message rempli par assets/js/pages/contact.js -->
+                    <div class="quote-sent" id="quote-sent" hidden>
+                        <p class="quote-result-msg" id="quote-sent-msg" tabindex="-1"></p>
                     </div>
                 </div>
 

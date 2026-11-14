@@ -65,10 +65,11 @@ Une pull request par lot, validée avant le lot suivant.
 - [x] Tests i18n (`scripts/test-i18n.mjs`, intégration continue).
 
 ## Lot 7 — Devis
-- [ ] Choisir un endpoint sécurisé (Laravel ou fournisseur de formulaire approprié).
-- [ ] Ajouter validation serveur, anti-spam et consentement.
-- [ ] Tester confirmation, erreurs et notifications.
-- [ ] Ne pas stocker des données sensibles dans localStorage.
+- [x] Choisir un endpoint sécurisé : fonction serveur Vercel provisoire `api/quote` + Resend, en attendant Laravel.
+- [x] Ajouter validation serveur, anti-spam (origine, pot de miel, délai, limitation de débit) et consentement.
+- [x] Tester confirmation, erreurs et repli sur l'e-mail pré-rempli (tests Node et navigateur).
+- [ ] Configurer les variables d'environnement dans Vercel et vérifier un envoi réel.
+- [x] Ne pas stocker des données sensibles dans localStorage.
 
 ## Lot 8 — Backend
 - [ ] Décider si le catalogue justifie une API.

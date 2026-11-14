@@ -109,6 +109,14 @@ export default {
 
     // ---------- Contact et e-mail de demande de devis ----------
     'contact.solutionMessage': 'Je suis intéressé(e) par la solution : {name}.',
+    // Envoi de la demande de devis (lot 7)
+    'contact.submitMail': 'Préparer mon e-mail',
+    'contact.privacyMail': 'Aucune donnée n\'est enregistrée par ce site : votre demande part depuis votre propre messagerie.',
+    'contact.sending': 'Envoi en cours…',
+    'contact.sent': 'Votre demande a bien été reçue (référence {reference}). Je vous réponds par e-mail.',
+    'contact.sentNoReference': 'Votre demande a bien été reçue. Je vous réponds par e-mail.',
+    'contact.rateLimited': 'Trop de demandes en peu de temps. Réessayez dans quelques minutes ou écrivez directement à {email}.',
+    'contact.fallbackNotice': 'L\'envoi direct n\'est pas disponible pour le moment.',
     'quote.subject': 'Demande de devis',
     'quote.subjectWithNeed': '{subject} — {need}',
     'quote.line': '{label} : {value}',

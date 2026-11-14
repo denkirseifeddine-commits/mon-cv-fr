@@ -106,6 +106,14 @@ export default {
 
     // ---------- Contact and quote request e-mail ----------
     'contact.solutionMessage': 'I am interested in the solution: {name}.',
+    // Envoi de la demande de devis (lot 7)
+    'contact.submitMail': 'Prepare my email',
+    'contact.privacyMail': 'No data is stored by this site: your request is sent from your own email client.',
+    'contact.sending': 'Sending…',
+    'contact.sent': 'Your request has been received (reference {reference}). I will reply by email.',
+    'contact.sentNoReference': 'Your request has been received. I will reply by email.',
+    'contact.rateLimited': 'Too many requests in a short time. Try again in a few minutes or write directly to {email}.',
+    'contact.fallbackNotice': 'Direct sending is not available right now.',
     'quote.subject': 'Quote request',
     'quote.subjectWithNeed': '{subject} — {need}',
     'quote.line': '{label}: {value}',

@@ -1,29 +1,59 @@
 /*
  * Page de contact : validation du formulaire de demande de devis, puis
- * préparation de l'e-mail par le service de devis et affichage du résultat.
+ * envoi par le service de devis (fonction serveur api/quote sur Vercel,
+ * e-mail pré-rempli sur GitHub Pages ou en repli) et affichage du résultat.
  *
- * Les textes (erreurs, résumé, retours de copie) sont dans le HTML de la
- * page : ce script ne fait qu'afficher ou masquer. Le message pré-rempli
- * vient des dictionnaires i18n (contact.solutionMessage), l'e-mail est
- * rédigé dans la langue de la page (quote-service.js). Aucune donnée n'est
- * conservée (ni localStorage, ni cookie).
+ * Les textes des champs (erreurs, résumé, retours de copie) sont dans le
+ * HTML de la page. Les messages d'envoi (en cours, envoyé, trop de
+ * demandes, repli) et le message pré-rempli viennent des dictionnaires i18n
+ * (clés contact.*) ; l'e-mail pré-rempli est rédigé dans la langue de la
+ * page (quote-service.js). Tout texte est inséré avec textContent.
+ * Aucune donnée n'est conservée (ni localStorage, ni cookie).
+ *
+ * Anti-spam : champ pot de miel `website` (invisible, hors tabulation) et
+ * temps passé sur le formulaire (`elapsedMs`), vérifiés par le serveur.
  */
 import '../main.js';
-import { submitQuote } from '../services/quote-service.js';
+import { submitQuote, prepareMailDraft, canSendDirectly } from '../services/quote-service.js';
+import { CONTACT } from '../config/navigation.js';
 import { getSolutionBySlug, localized } from '../services/catalog-service.js';
 import { getQuestionnaire, findQuestion, optionLabel } from '../services/questionnaire-service.js';
 import { t } from '../i18n/index.js';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const PHONE_PATTERN = /^[0-9 +().-]*$/;
+const SLUG_PATTERN = /^[a-z0-9-]{1,80}$/;
+// Temps minimal sur le formulaire exigé par le serveur (3 s), avec une marge
+const MIN_ELAPSED_MS = 3200;
 
-// Champs validés, dans l'ordre d'affichage (le premier en erreur reçoit le focus)
+const length = (value) => [...value.trim()].length;
+
+// Champs validés, dans l'ordre d'affichage (le premier en erreur reçoit le focus).
+// Mêmes règles que le serveur (api/_lib/quote-core.mjs). `server` : nom du champ dans la réponse 422.
 const RULES = [
-    { id: 'q-name', valid: (el) => el.value.trim() !== '' },
-    { id: 'q-email', valid: (el) => EMAIL_PATTERN.test(el.value.trim()) },
-    { id: 'q-need', valid: (el) => el.value !== '' },
-    { id: 'q-message', valid: (el) => el.value.trim() !== '' },
-    { id: 'q-consent', valid: (el) => el.checked },
+    { id: 'q-name', server: 'name', valid: (el) => length(el.value) >= 2 && length(el.value) <= 100 },
+    { id: 'q-email', server: 'email', valid: (el) => EMAIL_PATTERN.test(el.value.trim()) && el.value.trim().length <= 254 },
+    { id: 'q-phone', server: 'phone', valid: (el) => PHONE_PATTERN.test(el.value.trim()) && length(el.value) <= 40 },
+    { id: 'q-need', server: 'need', valid: (el) => el.value !== '' },
+    { id: 'q-budget', server: 'budget', valid: (el) => length(el.value) <= 100 },
+    { id: 'q-message', server: 'message', valid: (el) => length(el.value) >= 10 && length(el.value) <= 5000 },
+    { id: 'q-consent', server: 'consent', valid: (el) => el.checked },
 ];
+
+const wait = (ms) => new Promise((resolve) => { setTimeout(resolve, ms); });
+
+/*
+ * Écrit un texte du dictionnaire dans `el` : chaque {nom} est remplacé par
+ * le nœud nodes[nom] (lien, <bdi>…), le reste en texte (jamais de HTML).
+ */
+function fillTemplate(el, template, nodes = {}) {
+    el.textContent = '';
+    template.split(/(\{\w+\})/).forEach((part) => {
+        const name = part.startsWith('{') && part.endsWith('}') ? part.slice(1, -1) : null;
+        if (name && nodes[name]) el.append(nodes[name]);
+        else if (part) el.append(document.createTextNode(part));
+    });
+}
 
 const form = document.getElementById('quote-form');
 if (form) {
@@ -100,6 +130,26 @@ function initQuoteForm(form) {
     const copyButton = document.getElementById('quote-copy');
     const copyStatus = document.getElementById('quote-copy-status');
     const editButton = document.getElementById('quote-edit');
+    const resultNotice = document.getElementById('quote-result-notice');
+    const notice = document.getElementById('quote-notice');
+    const status = document.getElementById('quote-status');
+    const sent = document.getElementById('quote-sent');
+    const sentMsg = document.getElementById('quote-sent-msg');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const submitLabel = submitButton.querySelector('[data-submit-label]');
+    const privacy = document.getElementById('quote-privacy');
+    const trap = form.elements.website;
+
+    // Copie statique (GitHub Pages) : la demande part de la messagerie du visiteur
+    const direct = canSendDirectly();
+    if (!direct) {
+        submitLabel.textContent = t('contact.submitMail');
+        privacy.textContent = t('contact.privacyMail');
+    }
+    const idleLabel = submitLabel.textContent;
+    // Début de la mesure du temps passé sur le formulaire
+    const startedAt = performance.now();
+    let pending = false;
 
     const fields = RULES.map((rule) => {
         const el = document.getElementById(rule.id);
@@ -191,6 +241,31 @@ function initQuoteForm(form) {
         return select.value ? select.options[select.selectedIndex].text.trim() : '';
     }
 
+    function setPending(on) {
+        pending = on;
+        submitButton.disabled = on;
+        submitLabel.textContent = on ? t('contact.sending') : idleLabel;
+        if (on) form.setAttribute('aria-busy', 'true');
+        else form.removeAttribute('aria-busy');
+        status.textContent = on ? t('contact.sending') : '';
+    }
+
+    // Message « trop de demandes » (role="alert"), avec le lien vers l'adresse du studio
+    function showNotice(template) {
+        notice.textContent = '';
+        if (!template) return;
+        const link = document.createElement('a');
+        link.href = `mailto:${CONTACT.email}`;
+        const address = document.createElement('bdi');
+        address.textContent = CONTACT.email;
+        link.append(address);
+        requestAnimationFrame(() => {
+            const text = document.createElement('p');
+            fillTemplate(text, template, { email: link });
+            notice.append(text);
+        });
+    }
+
     function payloadFrom() {
         const data = new FormData(form);
         const need = form.elements.need;
@@ -206,12 +281,30 @@ function initQuoteForm(form) {
             budget: String(data.get('budget') || ''),
             message: String(data.get('message') || ''),
             consent: form.elements.consent.checked,
+            solution: solutionSlug(),
+            website: trap ? trap.value : '',
+            elapsedMs: Math.round(performance.now() - startedAt),
         };
+    }
+
+    function solutionSlug() {
+        const slug = new URLSearchParams(window.location.search).get('solution') || '';
+        return SLUG_PATTERN.test(slug) ? slug : '';
+    }
+
+    // Erreurs renvoyées par le serveur (422) : rattachées aux champs du formulaire
+    function showServerErrors(names) {
+        const invalid = fields.filter((field) => names.includes(field.server));
+        fields.forEach((field) => setInvalid(field, invalid.includes(field)));
+        renderSummary(invalid);
+        invalid[0].el.focus();
     }
 
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
+        if (pending) return;
         submitted = true;
+        showNotice('');
         const invalid = fields.filter((field) => !check(field));
         renderSummary(invalid);
         if (invalid.length) {
@@ -219,11 +312,54 @@ function initQuoteForm(form) {
             return;
         }
 
-        const response = await submitQuote(payloadFrom());
-        if (response.status === 'mail-draft') showResult(response);
+        setPending(true);
+        let payload = payloadFrom();
+        let response;
+        try {
+            // Envoi trop rapide (formulaire pré-rempli) : la demande attend la fin du délai minimal
+            if (direct && payload.elapsedMs < MIN_ELAPSED_MS) {
+                await wait(MIN_ELAPSED_MS - payload.elapsedMs);
+                payload = payloadFrom();
+            }
+            response = await submitQuote(payload);
+        } catch (error) {
+            response = prepareMailDraft(payload, { fallback: true });
+        }
+        setPending(false);
+
+        if (response.status === 'sent') {
+            showSent(response.reference);
+        } else if (response.status === 'invalid') {
+            const known = response.fields.filter((name) => fields.some((field) => field.server === name));
+            // Erreur sur un champ non modifiable (liste, langue, solution) : repli sur l'e-mail pré-rempli
+            if (known.length && known.length === response.fields.length) showServerErrors(known);
+            else showResult(prepareMailDraft(payload, { fallback: true }));
+        } else if (response.status === 'rate-limited') {
+            showNotice(t('contact.rateLimited'));
+            submitButton.focus();
+        } else {
+            showResult(response);
+        }
     });
 
-    function showResult({ mailto, text }) {
+    function showSent(reference) {
+        if (reference) {
+            const ref = document.createElement('bdi');
+            ref.textContent = reference;
+            fillTemplate(sentMsg, t('contact.sent'), { reference: ref });
+        } else {
+            sentMsg.textContent = t('contact.sentNoReference');
+        }
+        renderSummary([]);
+        form.hidden = true;
+        result.hidden = true;
+        sent.hidden = false;
+        sentMsg.focus();
+    }
+
+    function showResult({ mailto, text, fallback }) {
+        resultNotice.textContent = fallback ? `${t('contact.fallbackNotice')} ` : '';
+        resultNotice.hidden = !fallback;
         lastText = text;
         quoteText.textContent = text;
         reopen.href = mailto;
