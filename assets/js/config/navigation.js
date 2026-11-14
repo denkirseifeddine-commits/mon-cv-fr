@@ -1,26 +1,32 @@
 /*
  * Source unique des liens et des coordonnées affichés par l'en-tête
- * et le pied de page. Les href sont relatifs à la racine du site :
- * les composants les préfixent avec siteRoot() (voir utils/site-root.js).
+ * et le pied de page. Les href sont relatifs au dossier de la langue :
+ * les composants les préfixent avec siteRoot() + localePrefix()
+ * (voir pageHref). Les libellés sont des clés des dictionnaires
+ * (i18n/messages/*.js), lues avec label().
  *
  * NAV liste les pages du site, dans l'ordre du menu ; l'en-tête passe
  * en menu compact quand la barre ne tient plus.
+ * `lang` : page qui n'existe que dans cette langue (le CV, en français) ;
+ * son lien mène toujours à cette version et porte hreflang.
  */
+import { t, localePrefix } from '../i18n/index.js';
+
 export const NAV = [
-    { id: 'accueil', label: 'Accueil', href: 'index.html' },
-    { id: 'portfolio', label: 'Portfolio', href: 'portfolio/' },
-    { id: 'services', label: 'Services', href: 'services/' },
-    { id: 'solutions', label: 'Solutions', href: 'solutions/' },
-    { id: 'automatisations', label: 'Automatisations', href: 'automatisations/' },
-    { id: 'trouver', label: 'Trouver ma solution', href: 'trouver-ma-solution/' },
-    { id: 'cv', label: 'CV', href: 'cv.html' },
+    { id: 'accueil', labelKey: 'nav.home', href: 'index.html' },
+    { id: 'portfolio', labelKey: 'nav.portfolio', href: 'portfolio/' },
+    { id: 'services', labelKey: 'nav.services', href: 'services/' },
+    { id: 'solutions', labelKey: 'nav.solutions', href: 'solutions/' },
+    { id: 'automatisations', labelKey: 'nav.automations', href: 'automatisations/' },
+    { id: 'trouver', labelKey: 'nav.finder', href: 'trouver-ma-solution/' },
+    { id: 'cv', labelKey: 'nav.cv', href: 'cv.html', lang: 'fr' },
 ];
 
-export const CTA = { id: 'contact', label: 'Demander un devis', href: 'contact/' };
+export const CTA = { id: 'contact', labelKey: 'nav.cta', href: 'contact/' };
 
 export const BRAND = {
     name: 'Seif Eddine Denkir',
-    role: 'Digital Solution Studio',
+    roleKey: 'brand.role',
     href: 'index.html',
 };
 
@@ -28,18 +34,17 @@ export const CONTACT = {
     email: 'denkirseifeddine@gmail.com',
     phone: '+216 21 327 315',
     phoneHref: 'tel:+21621327315',
-    city: 'Tunis, Tunisie',
+    cityKey: 'contact.city',
     linkedin: 'https://www.linkedin.com/in/seif-eddine-denkir',
 };
 
-// Libellés d'interface des composants (à traduire avec le reste du contenu)
-export const LABELS = {
-    mainNav: 'Navigation principale',
-    menu: 'Menu',
-    menuNav: 'Menu du site',
-    footerNav: 'Navigation du pied de page',
-    footerNavTitle: 'Navigation',
-    footerContactTitle: 'Contact',
-    backToTop: 'Revenir en haut',
-    linkedin: 'Profil LinkedIn',
-};
+// Libellé traduit d'une entrée (NAV, CTA)
+export function label(item) {
+    return t(item.labelKey);
+}
+
+// Adresse relative à la racine du site : dans le dossier de la langue de la
+// page, sauf pour une page qui n'existe que dans une langue (`lang`)
+export function pageHref(item) {
+    return (item.lang ? localePrefix(item.lang) : localePrefix()) + item.href;
+}

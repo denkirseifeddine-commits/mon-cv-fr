@@ -9,10 +9,14 @@
       "featured": true,
       "name": "ATDDS",
       "category": {
-        "fr": "Site associatif bilingue"
+        "fr": "Site associatif bilingue",
+        "en": "Bilingual non-profit website",
+        "ar": "موقع جمعياتي ثنائي اللغة"
       },
       "summary": {
-        "fr": "Site WordPress en français et en arabe de l'Association Tunisienne de Défense du Droit à la Santé : présentation de l'association, activités, publications et espace communauté."
+        "fr": "Site WordPress en français et en arabe de l'Association Tunisienne de Défense du Droit à la Santé : présentation de l'association, activités, publications et espace communauté.",
+        "en": "WordPress website in French and Arabic for the Association Tunisienne de Défense du Droit à la Santé: presentation of the association, activities, publications and community area.",
+        "ar": "موقع WordPress باللغتين الفرنسية والعربية للجمعية التونسية للدفاع عن الحق في الصحة: التعريف بالجمعية، الأنشطة، المنشورات وفضاء المجتمع."
       },
       "client": "Association Tunisienne de Défense du Droit à la Santé",
       "period": null,
@@ -39,10 +43,14 @@
       "featured": true,
       "name": "Meubles Chabbouh",
       "category": {
-        "fr": "Boutique en ligne"
+        "fr": "Boutique en ligne",
+        "en": "Online shop",
+        "ar": "متجر إلكتروني"
       },
       "summary": {
-        "fr": "Boutique WooCommerce de meubles en Tunisie : catalogue par pièce, panier et commande, avec livraison partout en Tunisie et paiement à la réception."
+        "fr": "Boutique WooCommerce de meubles en Tunisie : catalogue par pièce, panier et commande, avec livraison partout en Tunisie et paiement à la réception.",
+        "en": "WooCommerce furniture shop in Tunisia: catalog by room, cart and checkout, with delivery throughout Tunisia and payment on delivery.",
+        "ar": "متجر WooCommerce للأثاث في تونس: كتالوج حسب الغرفة، سلة شراء وطلب، مع التوصيل إلى كامل أنحاء تونس والدفع عند الاستلام."
       },
       "client": "Meubles Chabbouh",
       "period": null,
@@ -68,10 +76,14 @@
       "featured": false,
       "name": "Rybsen",
       "category": {
-        "fr": "Refonte d'une marque Greentech"
+        "fr": "Refonte d'une marque Greentech",
+        "en": "Redesign for a Greentech brand",
+        "ar": "إعادة تصميم موقع علامة تجارية في مجال Greentech"
       },
       "summary": {
-        "fr": "Direction technique et graphique de la refonte complète du site, de l'interface à la mise en production."
+        "fr": "Direction technique et graphique de la refonte complète du site, de l'interface à la mise en production.",
+        "en": "Technical and design lead on the complete website redesign, from the interface to production release.",
+        "ar": "الإدارة التقنية والفنية لإعادة التصميم الكاملة للموقع، من الواجهة إلى الإطلاق في بيئة الإنتاج."
       },
       "client": "Kwantic",
       "period": "2025",
@@ -93,10 +105,14 @@
       "featured": false,
       "name": "Boutiques Sylius",
       "category": {
-        "fr": "E-commerce haut de gamme"
+        "fr": "E-commerce haut de gamme",
+        "en": "High-end e-commerce",
+        "ar": "تجارة إلكترونية راقية"
       },
       "summary": {
-        "fr": "Développement de boutiques sur mesure avec Sylius et Symfony, et débogage des environnements Docker."
+        "fr": "Développement de boutiques sur mesure avec Sylius et Symfony, et débogage des environnements Docker.",
+        "en": "Development of custom shops with Sylius and Symfony, and debugging of Docker environments.",
+        "ar": "تطوير متاجر حسب الطلب باستخدام Sylius وSymfony، وتصحيح أخطاء بيئات Docker."
       },
       "client": "Kwantic",
       "period": "2025",
@@ -122,10 +138,14 @@
       "featured": false,
       "name": "Audit SEO",
       "category": {
-        "fr": "Maillage interne et redirections"
+        "fr": "Maillage interne et redirections",
+        "en": "Internal linking and redirects",
+        "ar": "الروابط الداخلية وإعادة التوجيه"
       },
       "summary": {
-        "fr": "Audit technique approfondi et correction des anomalies de maillage, avec plus de 400 redirections remises en ordre."
+        "fr": "Audit technique approfondi et correction des anomalies de maillage, avec plus de 400 redirections remises en ordre.",
+        "en": "In-depth technical audit and correction of internal linking issues, with more than 400 redirects put back in order.",
+        "ar": "تدقيق تقني معمّق وتصحيح خلل الروابط الداخلية، مع إعادة تنظيم أكثر من 400 عملية إعادة توجيه."
       },
       "client": "Kwantic",
       "period": "2025",
@@ -147,10 +167,14 @@
       "featured": false,
       "name": "ESVS Library",
       "category": {
-        "fr": "Plateforme e-learning"
+        "fr": "Plateforme e-learning",
+        "en": "E-learning platform",
+        "ar": "منصة تعليم إلكتروني"
       },
       "summary": {
-        "fr": "Conception d'un LMS sur WordPress avec LearnDash et des Custom Post Types pour organiser cours et ressources."
+        "fr": "Conception d'un LMS sur WordPress avec LearnDash et des Custom Post Types pour organiser cours et ressources.",
+        "en": "Design of an LMS on WordPress with LearnDash and Custom Post Types to organize courses and resources.",
+        "ar": "تصميم نظام إدارة تعلّم (LMS) على WordPress باستخدام LearnDash وCustom Post Types لتنظيم الدروس والموارد."
       },
       "client": "Indépendant",
       "period": "2023–2024",
@@ -175,10 +199,14 @@
       "featured": false,
       "name": "Musée de l'Île d'Oléron",
       "category": {
-        "fr": "Maintenance et sur-mesure"
+        "fr": "Maintenance et sur-mesure",
+        "en": "Maintenance and custom work",
+        "ar": "الصيانة والتطوير حسب الطلب"
       },
       "summary": {
-        "fr": "Maintenance technique du site et développement de fonctionnalités sur mesure pour le musée."
+        "fr": "Maintenance technique du site et développement de fonctionnalités sur mesure pour le musée.",
+        "en": "Technical maintenance of the website and development of custom features for the museum.",
+        "ar": "الصيانة التقنية للموقع وتطوير وظائف حسب الطلب لفائدة المتحف."
       },
       "client": "Indépendant",
       "period": "2023–2024",
@@ -200,10 +228,14 @@
       "featured": false,
       "name": "OrbitAI et TSI",
       "category": {
-        "fr": "Identités visuelles"
+        "fr": "Identités visuelles",
+        "en": "Visual identities",
+        "ar": "الهويات البصرية"
       },
       "summary": {
-        "fr": "Création et modernisation de logos et d'identités pour deux entreprises du secteur IT."
+        "fr": "Création et modernisation de logos et d'identités pour deux entreprises du secteur IT.",
+        "en": "Creation and modernization of logos and identities for two IT companies.",
+        "ar": "إنشاء وتحديث الشعارات والهويات البصرية لشركتين في قطاع تكنولوجيا المعلومات."
       },
       "client": "Indépendant",
       "period": "2023–2024",

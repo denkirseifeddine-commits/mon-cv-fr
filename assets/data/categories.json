@@ -10,7 +10,9 @@
     },
     "status": "draft",
     "description": {
-      "fr": "Concevoir et mettre en ligne des sites vitrines et institutionnels, faciles à mettre à jour."
+      "fr": "Concevoir et mettre en ligne des sites vitrines et institutionnels, faciles à mettre à jour.",
+      "en": "Design and launch showcase and corporate websites that are easy to update.",
+      "ar": "تصميم مواقع تعريفية ومؤسساتية سهلة التحديث ونشرها على الإنترنت."
     }
   },
   {
@@ -24,7 +26,9 @@
     },
     "status": "draft",
     "description": {
-      "fr": "Créer des boutiques en ligne : catalogue, panier, commandes et gestion au quotidien."
+      "fr": "Créer des boutiques en ligne : catalogue, panier, commandes et gestion au quotidien.",
+      "en": "Build online shops: catalog, cart, orders and day-to-day management.",
+      "ar": "إنشاء متاجر إلكترونية: كتالوج المنتجات، سلة الشراء، الطلبات والإدارة اليومية."
     }
   },
   {
@@ -34,11 +38,13 @@
     "label": {
       "fr": "CRM",
       "en": "CRM",
-      "ar": "إدارة العملاء"
+      "ar": "إدارة علاقات العملاء (CRM)"
     },
     "status": "draft",
     "description": {
-      "fr": "Gérer ses contacts, ses prospects et le suivi commercial dans un outil dédié."
+      "fr": "Gérer ses contacts, ses prospects et le suivi commercial dans un outil dédié.",
+      "en": "Manage contacts, prospects and sales follow-up in a dedicated tool.",
+      "ar": "إدارة جهات الاتصال والعملاء المحتملين والمتابعة التجارية في أداة خاصة."
     }
   },
   {
@@ -52,7 +58,9 @@
     },
     "status": "draft",
     "description": {
-      "fr": "Automatiser les e-mails, les relances et les messages adressés à ses clients ou prospects."
+      "fr": "Automatiser les e-mails, les relances et les messages adressés à ses clients ou prospects.",
+      "en": "Automate emails, follow-ups and messages sent to customers or prospects.",
+      "ar": "أتمتة رسائل البريد الإلكتروني والتذكيرات والرسائل الموجّهة إلى العملاء أو العملاء المحتملين."
     }
   },
   {
@@ -62,11 +70,13 @@
     "label": {
       "fr": "Assistants IA",
       "en": "AI assistants",
-      "ar": "مساعدات الذكاء الاصطناعي"
+      "ar": "مساعدون بالذكاء الاصطناعي"
     },
     "status": "draft",
     "description": {
-      "fr": "Mettre en place des assistants qui répondent aux questions fréquentes à partir de vos contenus."
+      "fr": "Mettre en place des assistants qui répondent aux questions fréquentes à partir de vos contenus.",
+      "en": "Set up assistants that answer frequently asked questions based on your content.",
+      "ar": "إعداد مساعدين يجيبون عن الأسئلة الشائعة انطلاقًا من محتواك."
     }
   },
   {
@@ -80,7 +90,9 @@
     },
     "status": "draft",
     "description": {
-      "fr": "Proposer de petits outils en ligne, utilisables par plusieurs clients, pour un usage précis."
+      "fr": "Proposer de petits outils en ligne, utilisables par plusieurs clients, pour un usage précis.",
+      "en": "Offer small online tools, usable by several customers, for a specific purpose.",
+      "ar": "توفير أدوات صغيرة على الإنترنت يستخدمها عدة عملاء لغرض محدّد."
     }
   },
   {
@@ -94,7 +106,9 @@
     },
     "status": "draft",
     "description": {
-      "fr": "Regrouper les indicateurs et les tableaux de bord pour suivre l'activité de l'entreprise."
+      "fr": "Regrouper les indicateurs et les tableaux de bord pour suivre l'activité de l'entreprise.",
+      "en": "Bring together indicators and dashboards to monitor the company's activity.",
+      "ar": "تجميع المؤشرات ولوحات المتابعة لمتابعة نشاط المؤسسة."
     }
   },
   {
@@ -104,11 +118,13 @@
     "label": {
       "fr": "Applications sur mesure",
       "en": "Custom applications",
-      "ar": "تطبيقات مخصصة"
+      "ar": "تطبيقات حسب الطلب"
     },
     "status": "draft",
     "description": {
-      "fr": "Développer des applications métier adaptées aux processus propres à une entreprise."
+      "fr": "Développer des applications métier adaptées aux processus propres à une entreprise.",
+      "en": "Develop business applications tailored to a company's own processes.",
+      "ar": "تطوير تطبيقات أعمال ملائمة للإجراءات الخاصة بكل مؤسسة."
     }
   }
 ]

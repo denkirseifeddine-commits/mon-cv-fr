@@ -80,10 +80,26 @@ Paramètres de la page Contact (lot 5, lus dans `assets/js/pages/contact.js`) :
 - Le résultat d'une solution transmet `contact/?solution=<slug>&delai=<deadline>&budget=<budget>`.
 - Un code inconnu est ignoré. Un champ déjà rempli n'est jamais remplacé.
 
+En place depuis le lot 6 « Internationalisation » :
+- Arborescence : le français est à la racine ; `en/` et `ar/` reprennent les mêmes dossiers et les mêmes noms (`en/services/`, `ar/trouver-ma-solution/`…), chacun avec son `index.html`. Sont traduits : accueil, portfolio, services, automatisations, contact, trouver-ma-solution, solutions et solutions/fiche. `cv.html` et `design-system/` restent en français.
+- Chaque page traduite déclare `<html lang="en|ar" dir="ltr|rtl" data-root="…">`. La langue se déduit du dossier ; `data-root` donne la profondeur de la racine (`../` dans `en/`, `../../` dans `en/services/`). Les ressources (CSS, JavaScript, JSON, images) restent dans `assets/` à la racine : aucune copie. Les liens internes vont vers la page de même langue, sauf le CV, toujours `cv.html`.
+- Module `assets/js/i18n/index.js` :
+  - `LOCALES` : fr, en, ar, avec le sens d'écriture (`dir`), le préfixe d'adresse et l'étiquette BCP 47 utilisée par `Intl` (`ar-TN-u-nu-latn` : chiffres occidentaux en arabe) ;
+  - `locale()` et `dir()` : langue de la page (`<html lang>`, repli sur fr) ; `localePrefix()` : `""`, `"en/"` ou `"ar/"` ;
+  - `t(clé, paramètres)` : texte du dictionnaire, repli sur le français puis sur la clé ; `{nom}` est remplacé sans interprétation de `$` ;
+  - `tn(clé, n, paramètres)` : forme `.one`, `.two`, `.few`, `.many` ou `.other` choisie par `Intl.PluralRules` ;
+  - `localized(objet)` : texte `{ fr, en, ar }` dans la langue de la page, repli sur le français ;
+  - `alternateUrl(code)` : adresse relative de la page courante dans une autre langue, paramètres d'adresse et ancre conservés.
+- Dictionnaires `assets/js/i18n/messages/fr.js`, `en.js` et `ar.js` : objets plats « clé pointée » → texte, mêmes clés dans les trois fichiers. `scripts/test-i18n.mjs` vérifie les clés, les paramètres `{nom}`, la présence des textes en et ar, et la complétude des textes JSON `{ fr, en, ar }`.
+- Textes générés en JavaScript : passés par `t()` dans la navigation (`config/navigation.js`), l'en-tête et le pied de page, la fiche et les cartes de solution (`solution-view.js`, `solution.js`), le questionnaire (`finder.js`), la page Contact et l'e-mail de devis (`quote-service.js`). Le compteur du catalogue lit ses deux formes dans le HTML (`data-count-one`, `data-count-many`).
+- Données : `localized` de `catalog-service.js` ; `filterSolutions` et `sortSolutions` prennent une langue facultative (langue de la page par défaut) ; les libellés de `questionnaire-service.js` suivent la langue de la page. `getSolutionBySlug` n'a pas encore de paramètre de langue.
+- Sélecteur de langue (`components/site-header.js`) : liens FR, EN et ع dans la barre et dans le menu compact. Chaque lien porte `lang`, `hreflang` et un `aria-label` au nom de la langue (Français, English, العربية) ; la langue de la page est marquée `aria-current="true"`. Chaque lien mène à la même page dans l'autre langue (`alternateUrl`), avec les paramètres `?s=`, `?categorie=` et `?q=` conservés. Aucune redirection selon le navigateur et aucun `localStorage` : la langue est portée par l'adresse, donc tous les liens d'une page restent dans sa langue.
+- Mot géant (`assets/js/motion/giant.js`, appelé par `main.js`) : en arabe, le mot n'est pas découpé en lettres, l'écriture étant liée. Le module l'enveloppe dans un seul `<span class="giant-whole">`, mesure sa largeur dans la police chargée et écrit `--fit` (avec `--fit-col` ou `--fit-part` selon la page) pour qu'il remplisse la largeur. La mesure est refaite une fois les polices chargées. Les mots découpés en lettres (français, anglais) ne sont pas modifiés.
+- RTL (`dir="rtl"`) : propriétés logiques (`margin-inline`, `padding-inline`, `inset-inline`, `border-inline-start`, `text-align: start`). Sous `[dir="rtl"]`, la flèche « suivant » (`.arrow`) est retournée et les rares règles physiques restantes sont inversées (par exemple `.side-l` dans `editorial.css`). Les polices arabes sont définies sous `:root:lang(ar)` dans `tokens.css` et chargées seulement sur les pages `ar/` ; `:lang(ar)` retire capitales, espacement des lettres et italique.
+- hreflang, canonical et sitemap : voir « SEO ».
+
 À créer dans les lots suivants :
 - `assets/js/services/` : préférences
-- `assets/js/components/` : sélecteur de langue
-- `assets/i18n/` : traductions
 
 ## Pages et adresses
 Chaque nouvelle page vit dans un dossier (`solutions/index.html`) et se lie aux autres par des chemins relatifs (`../assets/...`). L'adresse est alors la même sur Vercel et sur GitHub Pages, sans réglage.
@@ -136,8 +152,10 @@ Le dépôt est servi sous `/mon-cv-fr/` sur GitHub Pages et à la racine sur Ver
 ## SEO
 - `index.html` et `cv.html` portent une URL canonique vers le domaine Vercel : le miroir GitHub Pages n'est donc pas vu comme un doublon.
 - Pour les solutions publiées, des fichiers HTML statiques individuels, plus robustes pour l'indexation qu'une page remplie par JavaScript.
-- `sitemap.xml` ne liste que des URL qui existent.
-- Tant qu'aucune solution n'est publiée, `solutions/` et `solutions/fiche/` sont en `noindex` et absents de `sitemap.xml`.
+- `sitemap.xml` ne liste que des URL qui existent. Les pages indexables existent en français, en anglais et en arabe : chaque `<url>` porte ses alternatives `xhtml:link` (fr, en, ar, x-default). `cv.html`, qui n'existe qu'en français, n'en porte pas.
+- Chaque page traduite déclare `<link rel="alternate" hreflang>` pour fr, en, ar et x-default (x-default pointe vers la version française), et sa canonical dans sa propre langue. Les déclarations sont réciproques.
+- `scripts/check-site.py` vérifie ces règles : `lang` (fr, en ou ar) et `dir` cohérents, langue conforme au dossier, URL hreflang du domaine public existantes, réciprocité, présence et cible du x-default.
+- Tant qu'aucune solution n'est publiée, `solutions/` et `solutions/fiche/` sont en `noindex` (dans les trois langues) et absents de `sitemap.xml`.
 - Données structurées et `og:image` à ajouter quand le contenu réel existe.
 
 ## Backend futur

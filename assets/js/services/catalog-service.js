@@ -16,8 +16,9 @@
  * Node par un simple import de ce module.
  */
 import { siteRoot } from '../utils/site-root.js';
+import { DEFAULT_LOCALE, locale as pageLocale } from '../i18n/index.js';
 
-export const DEFAULT_LOCALE = 'fr';
+export { DEFAULT_LOCALE };
 
 // Statuts jamais affichés dans le catalogue public
 const HIDDEN_STATUSES = new Set(['draft', 'archived']);
@@ -26,11 +27,12 @@ const HIDDEN_STATUSES = new Set(['draft', 'archived']);
 const STATUS_RANK = { published: 0, exemple: 1 };
 
 /*
- * Texte dans la langue demandée. Accepte une chaîne simple ou un objet
- * { fr: '…', en: '…' } ; repli sur le français puis sur la première valeur.
+ * Texte dans la langue demandée (par défaut celle de la page, "fr" sous Node).
+ * Accepte une chaîne simple ou un objet { fr: '…', en: '…', ar: '…' } ;
+ * repli sur le français puis sur la première valeur.
  * Renvoie '' pour une valeur absente.
  */
-export function localized(value, locale = DEFAULT_LOCALE) {
+export function localized(value, locale = pageLocale()) {
     if (value == null) return '';
     if (typeof value === 'string') return value;
     if (typeof value !== 'object') return String(value);
@@ -40,11 +42,14 @@ export function localized(value, locale = DEFAULT_LOCALE) {
 
 // Minuscules, sans accents ; tout ce qui n'est ni lettre ni chiffre (apostrophes,
 // traits d'union, ponctuation, parenthèses) devient une espace :
-// « Téléphone » → « telephone », « rendez-vous » → « rendez vous », « (CRM) » → « crm »
+// « Téléphone » → « telephone », « rendez-vous » → « rendez vous », « (CRM) » → « crm ».
+// Arabe : voyelles brèves, chadda et tatwil retirés, alifs (أ إ آ) ramenés à ا.
 export function normalizeText(value) {
     return String(value ?? '')
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[\u064B-\u065F\u0670\u0640]/g, '')
+        .replace(/[\u0622\u0623\u0625]/g, '\u0627')
         .toLowerCase()
         .replace(/[^\p{L}\p{N}]+/gu, ' ')
         .trim();
@@ -69,12 +74,13 @@ function searchableText(solution, locale) {
 /*
  * Filtre pur.
  * - category : id de catégorie ; '' / 'all' / absent = toutes.
- * - query : recherche insensible à la casse et aux accents ; chaque mot cherché
+ * - query : recherche insensible à la casse et aux accents (dans la langue
+ *   `locale`, par défaut celle de la page) ; chaque mot cherché
  *   doit commencer un mot de l'un des champs (« prise » trouve « prise de
  *   rendez-vous » mais pas « entreprise »).
  * Les solutions en brouillon ou archivées sont toujours exclues.
  */
-export function filterSolutions(solutions, { category = 'all', query = '', locale = DEFAULT_LOCALE } = {}) {
+export function filterSolutions(solutions, { category = 'all', query = '', locale = pageLocale() } = {}) {
     const words = normalizeText(query).split(' ').filter(Boolean);
     const allCategories = !category || category === 'all';
     return (Array.isArray(solutions) ? solutions : []).filter((solution) => {
@@ -90,7 +96,7 @@ export function filterSolutions(solutions, { category = 'all', query = '', local
  * Tri pur (renvoie un nouveau tableau) : published avant exemple (puis les
  * autres statuts), puis ordre de la catégorie, puis nom.
  */
-export function sortSolutions(solutions, categories = [], locale = DEFAULT_LOCALE) {
+export function sortSolutions(solutions, categories = [], locale = pageLocale()) {
     const order = new Map((Array.isArray(categories) ? categories : []).map((c) => [c.id, Number(c.order) || 0]));
     const rank = (s) => STATUS_RANK[s.status] ?? 2;
     const catOrder = (s) => (order.has(s.categoryId) ? order.get(s.categoryId) : Number.MAX_SAFE_INTEGER);
@@ -128,7 +134,7 @@ export async function getCategories() {
     return [...categories].sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
 }
 
-// Solutions visibles, filtrées ({ category, query }) puis triées
+// Solutions visibles, filtrées ({ category, query, locale }) puis triées, dans la langue de la page par défaut
 export async function getSolutions(filters = {}) {
     const [solutions, categories] = await Promise.all([loadJson('solutions.json'), getCategories()]);
     return sortSolutions(filterSolutions(solutions, filters), categories, filters.locale);

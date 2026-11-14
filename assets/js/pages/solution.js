@@ -10,30 +10,21 @@
 import '../main.js';
 import { getCategories, getSolutionBySlug, localized } from '../services/catalog-service.js';
 import {
-    SOLUTION_TEXT, badgeHtml, solutionName, priceLabel, delayLabel, quoteHref, rootUrl,
+    badgeHtml, solutionName, priceLabel, delayLabel, quoteHref, rootUrl, localHref,
 } from '../components/solution-view.js';
+import { t } from '../i18n/index.js';
 import { escapeHtml } from '../utils/html.js';
-import { siteRoot } from '../utils/site-root.js';
 import { arrowIcon } from '../components/icons.js';
 
-// Libellés propres à la fiche (à déplacer dans assets/i18n/ avec les traductions)
-const FICHE_TEXT = {
-    exampleNote: 'Cette fiche est un exemple : elle montre comment une solution sera présentée. Elle n\'est pas encore commercialisée.',
-    sections: {
-        problem: 'Le besoin',
-        description: 'La solution',
-        features: SOLUTION_TEXT.features,
-        technologies: SOLUTION_TEXT.technologies,
-        requirements: 'Prérequis',
-        deliverables: 'Ce qui est livré',
-        options: 'Options',
-    },
-    screenshots: 'Captures d\'écran',
-    recap: 'En bref',
-    exampleQuote: 'Solution non commercialisée : votre demande de devis porte sur un projet équivalent, adapté à votre besoin.',
-    notFoundKicker: 'Fiche introuvable',
-    errorKicker: 'Erreur de chargement',
-    backToCatalog: 'Voir le catalogue',
+// Titre de chaque section (clés des dictionnaires i18n)
+const SECTION_KEYS = {
+    problem: 'fiche.section.problem',
+    description: 'fiche.section.description',
+    features: 'solution.features',
+    technologies: 'solution.technologies',
+    requirements: 'fiche.section.requirements',
+    deliverables: 'fiche.section.deliverables',
+    options: 'fiche.section.options',
 };
 
 const root = document.getElementById('fiche');
@@ -48,11 +39,11 @@ async function initSheet(container) {
     try {
         [solution, categories] = await Promise.all([getSolutionBySlug(slug), getCategories()]);
     } catch (error) {
-        renderMessage(container, FICHE_TEXT.errorKicker, container.dataset.error);
+        renderMessage(container, t('fiche.errorKicker'), container.dataset.error);
         return;
     }
     if (!solution) {
-        renderMessage(container, FICHE_TEXT.notFoundKicker, container.dataset.notFound);
+        renderMessage(container, t('fiche.notFoundKicker'), container.dataset.notFound);
         document.title = container.dataset.titleNotFound + container.dataset.titleSuffix;
         return;
     }
@@ -70,8 +61,8 @@ function renderMessage(container, kicker, text) {
                 <h1 class="empty-title">${escapeHtml(text)}</h1>
             </div>
             <div class="empty-actions">
-                <a class="btn btn-solid" href="${escapeHtml(siteRoot())}solutions/">${escapeHtml(FICHE_TEXT.backToCatalog)} ${arrowIcon()}</a>
-                <a class="link-arrow" href="${escapeHtml(siteRoot())}contact/">${escapeHtml(SOLUTION_TEXT.askQuote)} ${arrowIcon()}</a>
+                <a class="btn btn-solid" href="${escapeHtml(localHref('solutions/'))}">${escapeHtml(t('fiche.backToCatalog'))} ${arrowIcon()}</a>
+                <a class="link-arrow" href="${escapeHtml(localHref('contact/'))}">${escapeHtml(t('solution.askQuote'))} ${arrowIcon()}</a>
             </div>
         </div>`;
 }
@@ -86,7 +77,7 @@ function block(key, index, body) {
     const id = `fiche-${key}`;
     return `
         <section class="fiche-block" aria-labelledby="${id}">
-            <h2 class="fiche-block-title" id="${id}"><span class="fiche-num" aria-hidden="true">${String(index).padStart(2, '0')}</span>${escapeHtml(FICHE_TEXT.sections[key])}</h2>
+            <h2 class="fiche-block-title" id="${id}"><span class="fiche-num" aria-hidden="true">${String(index).padStart(2, '0')}</span>${escapeHtml(t(SECTION_KEYS[key]))}</h2>
             <div class="fiche-block-body">${body}</div>
         </section>`;
 }
@@ -98,12 +89,12 @@ function paragraph(value) {
 
 function bulletList(values) {
     const items = texts(values);
-    return items.length ? `<ul class="fiche-list" role="list">${items.map((t) => `<li>${escapeHtml(t)}</li>`).join('')}</ul>` : '';
+    return items.length ? `<ul class="fiche-list" role="list">${items.map((v) => `<li>${escapeHtml(v)}</li>`).join('')}</ul>` : '';
 }
 
 function techList(values) {
     const items = texts(values);
-    return items.length ? `<ul class="tech-list fiche-tech" role="list">${items.map((t) => `<li>${escapeHtml(t)}</li>`).join('')}</ul>` : '';
+    return items.length ? `<ul class="tech-list fiche-tech" role="list">${items.map((v) => `<li>${escapeHtml(v)}</li>`).join('')}</ul>` : '';
 }
 
 function optionList(values) {
@@ -120,7 +111,7 @@ function shotsHtml(solution) {
     const shots = list(solution.screenshots).filter((s) => s && rootUrl(s.src));
     if (!shots.length) return '';
     return `
-        <section class="fiche-shots" aria-label="${escapeHtml(FICHE_TEXT.screenshots)}">
+        <section class="fiche-shots" aria-label="${escapeHtml(t('fiche.screenshots'))}">
             ${shots.map((s) => `<figure class="fiche-shot"><img src="${escapeHtml(rootUrl(s.src))}" alt="${escapeHtml(localized(s.alt))}" loading="lazy" decoding="async"></figure>`).join('')}
         </section>`;
 }
@@ -128,8 +119,8 @@ function shotsHtml(solution) {
 // Démonstration : lien seulement pour une solution publiée avec une adresse https
 function demoHtml(solution) {
     const url = typeof solution.demoUrl === 'string' ? solution.demoUrl : '';
-    if (solution.status !== 'published' || !/^https:\/\//i.test(url)) return escapeHtml(SOLUTION_TEXT.noDemo);
-    return `<a class="text-link" href="${escapeHtml(url)}" rel="noopener">${escapeHtml(SOLUTION_TEXT.viewDemo)}</a>`;
+    if (solution.status !== 'published' || !/^https:\/\//i.test(url)) return escapeHtml(t('solution.noDemo'));
+    return `<a class="text-link" href="${escapeHtml(url)}" rel="noopener">${escapeHtml(t('solution.viewDemo'))}</a>`;
 }
 
 function sheetHtml(solution, categoryLabel) {
@@ -148,7 +139,7 @@ function sheetHtml(solution, categoryLabel) {
         <header class="fiche-head">
             <div class="fiche-flag">
                 ${badgeHtml(solution)}
-                ${isExample ? `<p class="fiche-flag-text">${escapeHtml(FICHE_TEXT.exampleNote)}</p>` : ''}
+                ${isExample ? `<p class="fiche-flag-text">${escapeHtml(t('fiche.exampleNote'))}</p>` : ''}
             </div>
             ${categoryLabel ? `<p class="solution-cat fiche-cat">${escapeHtml(categoryLabel)}</p>` : ''}
             <h1 class="fiche-title">${escapeHtml(solutionName(solution))}</h1>
@@ -157,14 +148,14 @@ function sheetHtml(solution, categoryLabel) {
 
         <div class="fiche-layout">
             <aside class="fiche-recap" aria-labelledby="fiche-recap-title">
-                <h2 class="fiche-recap-title" id="fiche-recap-title">${escapeHtml(FICHE_TEXT.recap)}</h2>
+                <h2 class="fiche-recap-title" id="fiche-recap-title">${escapeHtml(t('fiche.recap'))}</h2>
                 <dl>
-                    <div><dt>${escapeHtml(SOLUTION_TEXT.price)}</dt><dd>${escapeHtml(priceLabel(solution))}</dd></div>
-                    <div><dt>${escapeHtml(SOLUTION_TEXT.delay)}</dt><dd>${escapeHtml(delayLabel(solution))}</dd></div>
-                    <div><dt>${escapeHtml(SOLUTION_TEXT.demo)}</dt><dd>${demoHtml(solution)}</dd></div>
+                    <div><dt>${escapeHtml(t('solution.price'))}</dt><dd>${escapeHtml(priceLabel(solution))}</dd></div>
+                    <div><dt>${escapeHtml(t('solution.delay'))}</dt><dd>${escapeHtml(delayLabel(solution))}</dd></div>
+                    <div><dt>${escapeHtml(t('solution.demo'))}</dt><dd>${demoHtml(solution)}</dd></div>
                 </dl>
-                <a class="btn btn-solid fiche-quote" href="${escapeHtml(quoteHref(solution))}">${escapeHtml(SOLUTION_TEXT.askQuote)} ${arrowIcon()}</a>
-                ${isExample ? `<p class="fiche-recap-note">${escapeHtml(FICHE_TEXT.exampleQuote)}</p>` : ''}
+                <a class="btn btn-solid fiche-quote" href="${escapeHtml(quoteHref(solution))}">${escapeHtml(t('solution.askQuote'))} ${arrowIcon()}</a>
+                ${isExample ? `<p class="fiche-recap-note">${escapeHtml(t('fiche.exampleQuote'))}</p>` : ''}
             </aside>
 
             <div class="fiche-body">

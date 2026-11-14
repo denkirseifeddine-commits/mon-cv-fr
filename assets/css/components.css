@@ -29,20 +29,41 @@
 .top-nav { display: flex; gap: clamp(18px, 3vw, 40px); }
 .top-nav a { position: relative; padding: 4px 0; white-space: nowrap; }
 .top-nav a::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 1px;
     background: var(--accent);
     transform: scaleX(0); transform-origin: right;
     transition: transform .5s var(--ease);
 }
 .top-nav a:hover::after, .top-nav a[aria-current="page"]::after { transform: scaleX(1); transform-origin: left; }
+[dir="rtl"] .top-nav a::after { transform-origin: left; }
+[dir="rtl"] .top-nav a:hover::after, [dir="rtl"] .top-nav a[aria-current="page"]::after { transform-origin: right; }
 .top-cta { display: inline-flex; align-items: center; gap: 14px; white-space: nowrap; }
 .top-cta .arrow { color: var(--accent-deep); }
+
+/* Sélecteur de langue : FR, EN, ع. Cibles de 44 px ; la marge négative garde
+   la hauteur de la barre (la zone cliquable déborde sur son rembourrage). */
+.top-lang, .menu-lang { display: flex; align-items: center; }
+.top-lang { margin-block: -9px; }
+.lang-link {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 44px; min-height: 44px; padding: 0 6px;
+    font-weight: 600; color: var(--muted);
+    text-decoration: none;
+    transition: color .35s var(--ease);
+}
+.lang-link:hover { color: var(--ink); }
+.lang-link[aria-current="true"] { color: var(--accent-deep); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.4em; }
+.lang-link:focus-visible { outline-offset: -2px; }
+/* « ع » : lettre arabe, un peu plus grande que les capitales latines */
+.lang-link:lang(ar) { font-family: 'IBM Plex Sans Arabic', var(--sans); font-size: 1.0625rem; line-height: 1; }
+/* Dans le panneau du menu compact : sous le bouton de devis */
+.menu-lang { margin-top: 20px; gap: 4px; margin-inline-start: -6px; font-size: 0.8125rem; }
 
 /* Bouton et panneau du menu : affichés seulement en mode compact (classe posée par site-header.js) */
 .top-toggle, .top-panel { display: none; }
 
 .top.is-compact { padding-block: 9px; }
-.top.is-compact .top-nav { display: none; }
+.top.is-compact .top-nav, .top.is-compact .top-lang { display: none; }
 .top.is-compact .top-brand, .top.is-compact .top-cta { min-height: 44px; }
 .top.is-compact .top-cta { margin-inline-start: auto; }
 
@@ -62,7 +83,7 @@
 .top-toggle:hover, .top-toggle[aria-expanded="true"] { border-color: var(--accent); }
 .top-toggle-icon { position: relative; width: 18px; height: 9px; flex: none; }
 .top-toggle-icon::before, .top-toggle-icon::after {
-    content: ""; position: absolute; left: 0; right: 0; height: 1.5px;
+    content: ""; position: absolute; inset-inline: 0; height: 1.5px;
     background: currentColor;
     transition: transform .45s var(--ease), top .45s var(--ease);
 }
@@ -74,7 +95,7 @@
 
 .top.is-compact .top-panel {
     display: block;
-    position: absolute; top: 100%; left: 0; right: 0;
+    position: absolute; top: 100%; inset-inline: 0;
     height: calc(100vh - 100%);
     height: calc(100dvh - 100%);
     overflow-y: auto; overscroll-behavior: contain;
@@ -107,6 +128,7 @@
 .menu-link:hover, .menu-link[aria-current="page"] { color: var(--accent-deep); }
 .menu-link-label { transition: transform .6s var(--ease); }
 .menu-link:hover .menu-link-label { transform: translateX(10px); }
+[dir="rtl"] .menu-link:hover .menu-link-label { transform: translateX(-10px); }
 .menu-num {
     min-width: 2.5ch;
     font-family: var(--sans); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.14em;
@@ -161,6 +183,8 @@
     transition: background-size .5s var(--ease);
 }
 .footer-links a:hover span, .footer-contact a:hover span, .footer-links a[aria-current="page"] span { background-size: 100% 1px; }
+/* Soulignement tracé depuis le début de la ligne (droite en arabe) */
+[dir="rtl"] .footer-links a span, [dir="rtl"] .footer-contact a span { background-position: 100% 100%; }
 .footer-contact li { display: flex; align-items: center; gap: 12px; }
 .footer-contact svg { width: 18px; height: 18px; color: var(--accent-deep); flex: none; }
 .footer-contact a, .footer-contact span { overflow-wrap: anywhere; }

@@ -19,21 +19,24 @@
  * }
  */
 import { CONTACT } from '../config/navigation.js';
+import { t, locale as pageLocale } from '../i18n/index.js';
 
-// Textes de l'e-mail préparé (à déplacer dans assets/i18n/ avec les traductions)
-export const QUOTE_TEXT = {
-    subject: 'Demande de devis',
-    labels: {
-        name: 'Nom',
-        email: 'E-mail',
-        phone: 'Téléphone',
-        need: 'Type de besoin',
-        deadline: 'Délai souhaité',
-        budget: 'Budget indicatif',
-        message: 'Message',
-    },
-    consent: 'J\'accepte d\'être recontacté au sujet de ma demande.',
-};
+const FIELDS = ['name', 'email', 'phone', 'need', 'deadline', 'budget', 'message'];
+
+/*
+ * Textes de l'e-mail préparé dans une langue ("fr", "en", "ar") : objet,
+ * libellés des champs et phrase de consentement (dictionnaires i18n).
+ */
+export function quoteText(locale = pageLocale()) {
+    return {
+        subject: t('quote.subject', null, locale),
+        labels: Object.fromEntries(FIELDS.map((key) => [key, t(`quote.label.${key}`, null, locale)])),
+        consent: t('quote.consent', null, locale),
+        line: (label, value) => t('quote.line', { label, value }, locale),
+        heading: (label) => t('quote.heading', { label }, locale),
+        subjectWithNeed: (subject, need) => t('quote.subjectWithNeed', { subject, need }, locale),
+    };
+}
 
 function clean(value) {
     return typeof value === 'string' ? value.trim() : '';
@@ -42,13 +45,15 @@ function clean(value) {
 /*
  * Fonction pure : construit l'objet, le texte et le lien mailto: de la demande.
  * Seuls les champs remplis apparaissent dans le texte.
+ * `locale` : langue de l'e-mail (par défaut celle de la page, "fr" sous Node).
  * Le texte utilise des fins de ligne \n ; le lien mailto: les encode en
  * %0D%0A (RFC 6068), et l'objet comme le corps sont encodés en UTF-8.
  */
-export function buildQuote(payload, { to = CONTACT.email, text: t = QUOTE_TEXT } = {}) {
+export function buildQuote(payload, { to = CONTACT.email, locale = pageLocale() } = {}) {
     const p = payload || {};
+    const txt = quoteText(locale);
     const needLabel = clean(p.needLabel) || clean(p.need);
-    const subject = needLabel ? `${t.subject} — ${needLabel}` : t.subject;
+    const subject = needLabel ? txt.subjectWithNeed(txt.subject, needLabel) : txt.subject;
 
     const rows = [
         ['name', clean(p.name)],
@@ -59,10 +64,10 @@ export function buildQuote(payload, { to = CONTACT.email, text: t = QUOTE_TEXT }
         ['budget', clean(p.budget)],
     ].filter(([, value]) => value !== '');
 
-    const lines = rows.map(([key, value]) => `${t.labels[key]} : ${value}`);
+    const lines = rows.map(([key, value]) => txt.line(txt.labels[key], value));
     const message = clean(p.message).replace(/\r\n?/g, '\n');
-    if (message) lines.push('', `${t.labels.message} :`, message);
-    if (p.consent) lines.push('', t.consent);
+    if (message) lines.push('', txt.heading(txt.labels.message), message);
+    if (p.consent) lines.push('', txt.consent);
 
     const text = lines.join('\n');
     const body = text.replace(/\n/g, '\r\n');
@@ -76,9 +81,10 @@ export function buildQuote(payload, { to = CONTACT.email, text: t = QUOTE_TEXT }
  * Renvoie { status: 'mail-draft', mailto, text } : la demande n'est pas
  * envoyée, c'est au visiteur d'envoyer l'e-mail préparé.
  * `open` peut être remplacé (tests) ; par défaut, navigation vers le lien mailto:.
+ * `locale` : langue de l'e-mail, par défaut celle de la page.
  */
-export async function submitQuote(payload, { open = (url) => window.location.assign(url) } = {}) {
-    const { mailto, text } = buildQuote(payload);
+export async function submitQuote(payload, { open = (url) => window.location.assign(url), locale = pageLocale() } = {}) {
+    const { mailto, text } = buildQuote(payload, { locale });
     open(mailto);
     return { status: 'mail-draft', mailto, text };
 }

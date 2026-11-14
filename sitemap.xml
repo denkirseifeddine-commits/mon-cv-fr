@@ -1,25 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <!-- N'ajouter que des URL qui existent réellement et répondent en HTTP 200. -->
   <url>
     <loc>https://mon-cv-fr.vercel.app/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/en/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/ar/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/"/>
   </url>
   <url>
     <loc>https://mon-cv-fr.vercel.app/cv.html</loc>
   </url>
   <url>
     <loc>https://mon-cv-fr.vercel.app/portfolio/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/portfolio/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/en/portfolio/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/portfolio/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/ar/portfolio/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/portfolio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/portfolio/"/>
   </url>
   <url>
     <loc>https://mon-cv-fr.vercel.app/services/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/services/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/services/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/services/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/en/services/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/services/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/services/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/services/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/ar/services/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/services/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/services/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/services/"/>
   </url>
   <url>
     <loc>https://mon-cv-fr.vercel.app/automatisations/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/automatisations/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/automatisations/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/automatisations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/automatisations/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/en/automatisations/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/automatisations/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/automatisations/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/automatisations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/automatisations/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/ar/automatisations/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/automatisations/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/automatisations/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/automatisations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/automatisations/"/>
   </url>
   <url>
     <loc>https://mon-cv-fr.vercel.app/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/contact/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/contact/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/en/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/contact/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/contact/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/ar/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/contact/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/contact/"/>
   </url>
   <url>
     <loc>https://mon-cv-fr.vercel.app/trouver-ma-solution/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/trouver-ma-solution/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/trouver-ma-solution/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/trouver-ma-solution/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/trouver-ma-solution/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/en/trouver-ma-solution/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/trouver-ma-solution/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/trouver-ma-solution/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/trouver-ma-solution/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/trouver-ma-solution/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/ar/trouver-ma-solution/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/trouver-ma-solution/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/trouver-ma-solution/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/trouver-ma-solution/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/trouver-ma-solution/"/>
   </url>
 </urlset>

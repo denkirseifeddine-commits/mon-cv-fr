@@ -38,6 +38,9 @@
 }
 /* Sans capture mobile : navigateur seul, centré */
 .mock-single .browser { --bx: 0%; width: 82%; }
+/* Droite à gauche : navigateur décalé vers la droite, téléphone à gauche (composition en miroir) */
+[dir="rtl"] .browser { --bx: 4%; }
+[dir="rtl"] .mock-single .browser { --bx: 0%; }
 .bar { display: flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; background: #ECE7DF; }
 .bar i { width: 7px; height: 7px; border-radius: 50%; background: #C9C0B3; flex: none; }
 .bar span {
@@ -53,7 +56,7 @@
     transition: transform 6s cubic-bezier(.45, 0, .55, 1);
 }
 .phone {
-    position: absolute; right: 7%; bottom: 9%;
+    position: absolute; inset-inline-end: 7%; bottom: 9%;
     width: 19%;
     border: 5px solid #111; border-radius: 16px;
     background: #111;

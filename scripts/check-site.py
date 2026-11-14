@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Vérifie le site statique : liens internes, ancres, JSON, fichiers d'entrée,
-imports relatifs des modules JavaScript et références des fichiers CSS.
+imports relatifs des modules JavaScript, références des fichiers CSS, langue des
+pages (lang, dir, dossier) et liens hreflang (existence, réciprocité, x-default).
 
 Lancement : python3 scripts/check-site.py (depuis n'importe où).
 Bibliothèque standard uniquement. Code de sortie 1 s'il y a au moins une erreur.
@@ -43,17 +44,37 @@ REFERENCE_CSS = re.compile(
     re.IGNORECASE)
 
 
+# Langues du site : valeurs admises pour <html lang>
+LANGUES = ("fr", "en", "ar")
+# Langues qui ont leur propre dossier au premier niveau (le français est à la racine)
+LANGUES_DOSSIER = ("en", "ar")
+# Pages sans contrôle de langue : HTML autonome, CV français, outil interne
+PAGES_SANS_LANGUE = {"404.html", "cv.html"}
+DOSSIER_SANS_LANGUE = "design-system/"
+# Préfixe des URL hreflang et du sitemap (production)
+BASE_PUBLIQUE = "https://mon-cv-fr.vercel.app/"
+
+
 class Analyseur(HTMLParser):
-    """Collecte les id et les attributs href/src, avec leur numéro de ligne."""
+    """Collecte les id, les attributs href/src (avec leur numéro de ligne), les attributs
+    lang/dir de la balise <html> et les <link rel="alternate" hreflang>."""
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.ids = set()
         self.liens = []  # liste de (ligne, valeur)
+        self.html = None  # (ligne, attributs) de la balise <html>, None si absente
+        self.hreflang = []  # liste de (ligne, code, href)
 
     def handle_starttag(self, tag, attrs):
         # Gère aussi les balises auto-fermantes (<use/>, <img/>) via handle_startendtag
         ligne = self.getpos()[0]
+        if tag == "html" and self.html is None:
+            self.html = (ligne, {nom: valeur for nom, valeur in attrs if valeur is not None})
+        if tag == "link":
+            attributs = {nom: valeur for nom, valeur in attrs if valeur is not None}
+            if "alternate" in attributs.get("rel", "").lower().split() and "hreflang" in attributs:
+                self.hreflang.append((ligne, attributs["hreflang"].strip(), attributs.get("href", "").strip()))
         for nom, valeur in attrs:
             if valeur is None:
                 continue
@@ -73,19 +94,27 @@ class Verificateur:
         self.imports_verifies = 0
         self.fichiers_css = 0
         self.references_css = 0
-        self._cache = {}  # chemin -> (ids, liens), pour ne lire chaque fichier qu'une fois
+        self.pages_langue = 0  # pages dont la langue a été vérifiée
+        self.pages_hreflang = 0  # pages qui déclarent des hreflang
+        self.liens_hreflang = 0  # liens <link hreflang> vérifiés
+        self._cache = {}  # chemin -> Analyseur, pour ne lire chaque fichier qu'une fois
 
     def signaler(self, niveau, chemin, ligne, message):
         self.problemes.append((niveau, chemin.relative_to(ROOT).as_posix(), ligne, message))
 
-    def analyser(self, chemin):
-        """Retourne (ids, liens) d'un fichier HTML, avec mise en cache."""
+    def analyser_complet(self, chemin):
+        """Retourne l'Analyseur d'un fichier HTML, avec mise en cache."""
         if chemin not in self._cache:
             analyseur = Analyseur()
             analyseur.feed(chemin.read_text(encoding="utf-8", errors="replace"))
             analyseur.close()
-            self._cache[chemin] = (analyseur.ids, analyseur.liens)
+            self._cache[chemin] = analyseur
         return self._cache[chemin]
+
+    def analyser(self, chemin):
+        """Retourne (ids, liens) d'un fichier HTML, avec mise en cache."""
+        analyseur = self.analyser_complet(chemin)
+        return analyseur.ids, analyseur.liens
 
     def verifier_lien(self, source, ligne, valeur):
         """Vérifie une valeur href/src trouvée dans le fichier source."""
@@ -214,6 +243,115 @@ class Verificateur:
                     self.signaler("ERREUR", source, ligne, f"cible introuvable : {valeur}")
 
 
+    def verifier_langue(self, source):
+        """Vérifie <html lang> (fr, en ou ar), la langue selon le dossier et l'attribut dir."""
+        analyseur = self.analyser_complet(source)
+        rel = source.relative_to(ROOT).as_posix()
+        if analyseur.html is None:
+            self.signaler("ERREUR", source, 0, "balise <html> introuvable")
+            return
+        ligne, attributs = analyseur.html
+        self.pages_langue += 1
+        lang = attributs.get("lang", "").strip()
+        if lang not in LANGUES:
+            self.signaler("ERREUR", source, ligne,
+                          f"attribut lang absent ou invalide (fr, en ou ar attendu) : {lang or '(vide)'}")
+            return
+        attendue = langue_attendue(rel)
+        if lang != attendue:
+            self.signaler("ERREUR", source, ligne,
+                          f"lang=\"{lang}\" incohérent avec le dossier (\"{attendue}\" attendu)")
+        dir_attendu = "rtl" if lang == "ar" else "ltr"
+        dir_page = attributs.get("dir", "").strip()
+        if dir_page != dir_attendu:
+            self.signaler("ERREUR", source, ligne,
+                          f"dir=\"{dir_page or '(absent)'}\" incohérent avec lang=\"{lang}\" (\"{dir_attendu}\" attendu)")
+
+    def resoudre_hreflang(self, href):
+        """Fichier local désigné par une URL hreflang du domaine public, ou None si aucun fichier n'existe."""
+        if not href.startswith(BASE_PUBLIQUE):
+            return None
+        relatif = unquote(urlsplit(href).path)[1:]
+        cible = Path(os.path.normpath(ROOT / relatif))
+        if not relatif or relatif.endswith("/"):
+            cible = cible / "index.html"
+        return cible if cible.is_file() else None
+
+    def annonce_en_retour(self, cible, code, source):
+        """Vrai si la page cible déclare hreflang=code vers la page source."""
+        for _, code_cible, href in self.analyser_complet(cible).hreflang:
+            pointe = self.resoudre_hreflang(href)
+            if code_cible == code and pointe is not None and pointe.resolve() == source.resolve():
+                return True
+        return False
+
+    def verifier_hreflang(self, source):
+        """Vérifie les <link rel="alternate" hreflang> : URL locales existantes, réciprocité, x-default."""
+        analyseur = self.analyser_complet(source)
+        if not analyseur.hreflang:
+            return
+        self.pages_hreflang += 1
+        rel = source.relative_to(ROOT).as_posix()
+        lang_source = analyseur.html[1].get("lang", "").strip() if analyseur.html else ""
+        cibles = {}  # code -> (ligne, chemin local)
+        for ligne, code, href in analyseur.hreflang:
+            self.liens_hreflang += 1
+            if code not in LANGUES and code != "x-default":
+                self.signaler("ERREUR", source, ligne, f"hreflang inconnu : {code}")
+                continue
+            if code in cibles:
+                self.signaler("ERREUR", source, ligne, f"hreflang {code} déclaré plusieurs fois")
+                continue
+            if not href.startswith(BASE_PUBLIQUE):
+                self.signaler("ERREUR", source, ligne, f"hreflang {code} : URL hors de {BASE_PUBLIQUE} : {href}")
+                continue
+            cible = self.resoudre_hreflang(href)
+            if cible is None:
+                self.signaler("ERREUR", source, ligne, f"hreflang {code} : cible introuvable : {href}")
+                continue
+            cibles[code] = (ligne, cible)
+
+        # x-default doit exister et pointer vers la version française de la page
+        if "x-default" not in cibles:
+            self.signaler("ERREUR", source, analyseur.hreflang[0][0], "hreflang x-default absent")
+        else:
+            ligne, cible = cibles["x-default"]
+            attendu = ROOT / sans_prefixe_langue(rel)
+            if cible.resolve() != attendu.resolve():
+                self.signaler("ERREUR", source, ligne,
+                              f"x-default doit pointer vers la version française "
+                              f"({sans_prefixe_langue(rel)}), pas vers {cible.relative_to(ROOT).as_posix()}")
+
+        # Réciprocité : si A annonce B, B doit annoncer A avec le hreflang de la langue de A
+        if lang_source not in LANGUES:
+            return
+        for code, (ligne, cible) in cibles.items():
+            if code in ("x-default", lang_source) or cible.resolve() == source.resolve():
+                continue
+            if not self.annonce_en_retour(cible, lang_source, source):
+                self.signaler("ERREUR", source, ligne,
+                              f"réciprocité absente : {cible.relative_to(ROOT).as_posix()} doit annoncer "
+                              f"{rel} avec hreflang=\"{lang_source}\"")
+
+
+def langue_attendue(rel):
+    """Langue attendue d'une page d'après son dossier : en/… → en, ar/… → ar, le reste → fr."""
+    premier = rel.split("/", 1)[0]
+    return premier if premier in LANGUES_DOSSIER else "fr"
+
+
+def sans_prefixe_langue(rel):
+    """Chemin de la version française d'une page : en/services/index.html → services/index.html."""
+    langue = langue_attendue(rel)
+    return rel if langue == "fr" else rel[len(langue) + 1:]
+
+
+def page_traduite(source):
+    """Vrai si la page doit porter une langue (hors 404.html, cv.html et design-system/)."""
+    rel = source.relative_to(ROOT).as_posix()
+    return rel not in PAGES_SANS_LANGUE and not rel.startswith(DOSSIER_SANS_LANGUE)
+
+
 def masquer_commentaires_ligne(texte):
     """Remplace les lignes commençant par // par des lignes vides (les numéros de ligne sont conservés)."""
     return "\n".join("" if ligne.lstrip().startswith("//") else ligne for ligne in texte.split("\n"))
@@ -243,6 +381,9 @@ def main():
         _, liens = verif.analyser(fichier)
         for ligne, valeur in liens:
             verif.verifier_lien(fichier, ligne, valeur)
+        if page_traduite(fichier):
+            verif.verifier_langue(fichier)
+        verif.verifier_hreflang(fichier)
 
     verif.verifier_json()
     verif.verifier_entrees()
@@ -258,6 +399,8 @@ def main():
           f"{verif.fichiers_js} fichier(s) JS, {verif.imports_verifies} import(s), "
           f"{verif.fichiers_css} fichier(s) CSS, {verif.references_css} référence(s) CSS, "
           f"{erreurs} erreur(s), {avertissements} avertissement(s)")
+    print(f"{verif.pages_langue} page(s) à langue vérifiée, {verif.pages_hreflang} page(s) avec hreflang, "
+          f"{verif.liens_hreflang} lien(s) hreflang vérifié(s)")
     return 1 if erreurs else 0
 
 
