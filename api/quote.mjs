@@ -24,7 +24,6 @@ import {
     MAX_BODY_BYTES,
     RESEND_ENDPOINT,
     buildResendPayload,
-    byteLength,
     clientIp,
     corsHeaders,
     createRateLimiter,
@@ -33,10 +32,13 @@ import {
     isLikelyBot,
     makeReference,
     parseAllowedOrigins,
+    readLimitedText,
     validateQuote,
 } from './_lib/quote-core.mjs';
 
-const SEND_TIMEOUT_MS = 10000;
+// Délai maximal de l'appel à Resend : sous la durée maximale d'une fonction Vercel (10 s au minimum selon l'offre)
+// et sous le délai du navigateur (15 s), pour que le visiteur reçoive toujours la réponse 502 et le repli
+const SEND_TIMEOUT_MS = 8000;
 
 function logError(code, detail) {
     // Code d'erreur seulement (et statut HTTP de Resend) : aucune donnée personnelle
@@ -92,13 +94,14 @@ export function createHandler({
         if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) {
             return reply(413, { error: 'payload-too-large' });
         }
-        let raw = '';
-        try {
-            raw = await request.text();
-        } catch (error) {
-            return reply(422, { error: 'invalid', fields: [] });
+        // Lecture bornée : interrompue dès 20 Ko, même si Content-Length est absent ou faux
+        const read = await readLimitedText(request, MAX_BODY_BYTES);
+        if (!read.ok) {
+            return read.reason === 'too-large'
+                ? reply(413, { error: 'payload-too-large' })
+                : reply(422, { error: 'invalid', fields: [] });
         }
-        if (byteLength(raw) > MAX_BODY_BYTES) return reply(413, { error: 'payload-too-large' });
+        const raw = read.text;
 
         let body = null;
         try {

@@ -85,7 +85,7 @@ La demande est validée puis envoyée par e-mail au propriétaire. **Rien n'est 
 | `website` | pot de miel : doit rester vide |
 | `elapsedMs` | temps passé sur le formulaire (ms), mesuré par le navigateur |
 
-Les codes autorisés (`need`, `deadline`) sont écrits dans `quote-core.mjs` (copie de `assets/data/questionnaire.json`, à tenir à jour). Les retours à la ligne et caractères de contrôle sont refusés dans tous les champs courts (protection contre l'injection d'en-têtes). Les champs inconnus sont ignorés.
+Les codes autorisés (`need`, `deadline`) sont écrits dans `quote-core.mjs` (copie de `assets/data/questionnaire.json`, à tenir à jour). Les retours à la ligne et caractères de contrôle (U+2028, U+2029 et U+0085 compris) sont refusés dans tous les champs courts (protection contre l'injection d'en-têtes). Les caractères invisibles de mise en forme bidirectionnelle (U+202A à U+202E, U+2066 à U+2069) sont retirés des champs courts avant validation : ils ne peuvent pas inverser l'affichage de l'objet de l'e-mail. Les champs inconnus sont ignorés.
 
 ### Réponses
 Toutes les réponses sont en JSON avec `Cache-Control: no-store` (la réponse 204 à `OPTIONS` n'a pas de corps). Ordre des contrôles : origine, type de contenu, taille, lecture du JSON, limitation de débit, pot de miel et délai, validation, configuration, envoi.
@@ -97,16 +97,16 @@ Toutes les réponses sont en JSON avec `Cache-Control: no-store` (la réponse 20
 | 204 | — | `OPTIONS` d'une origine autorisée |
 | 403 | `{ "error": "forbidden-origin" }` | `Origin` absent ou hors de `ALLOWED_ORIGINS` |
 | 405 | `{ "error": "method-not-allowed" }` | autre méthode que `POST` et `OPTIONS` (en-tête `Allow: POST, OPTIONS`) |
-| 413 | `{ "error": "payload-too-large" }` | corps de plus de 20 Ko |
+| 413 | `{ "error": "payload-too-large" }` | corps de plus de 20 Ko (`Content-Length` annoncé, ou lecture du corps interrompue dès que la limite est franchie) |
 | 415 | `{ "error": "unsupported-media-type" }` | `Content-Type` autre que `application/json` |
 | 422 | `{ "error": "invalid", "fields": ["email", "message"] }` | champs refusés, dans l'ordre du formulaire ; JSON illisible : `fields` vide |
 | 429 | `{ "error": "rate-limited" }` | plus de 5 demandes en 10 minutes pour la même IP (en-tête `Retry-After`) |
-| 502 | `{ "error": "send-failed" }` | Resend répond autre chose que 2xx, ou erreur réseau |
+| 502 | `{ "error": "send-failed" }` | Resend répond autre chose que 2xx, erreur réseau, ou pas de réponse de Resend en 8 s |
 | 503 | `{ "error": "not-configured" }` | `RESEND_API_KEY` ou `QUOTE_TO_EMAIL` absente |
 
 CORS : `Access-Control-Allow-Origin` (l'origine reçue), `Access-Control-Allow-Methods: POST, OPTIONS`, `Access-Control-Allow-Headers: Content-Type`, `Vary: Origin`, uniquement pour une origine autorisée.
 
-Limitation de débit : au mieux, en mémoire de l'instance de la fonction (IP lue dans `x-forwarded-for`, sinon `x-real-ip` ; pas de limitation si aucune IP n'est connue). Elle n'est ni globale ni durable : plusieurs instances ont chacune leur compteur, remis à zéro à leur arrêt. Une limitation globale viendra avec Laravel et Redis.
+Limitation de débit : au mieux, en mémoire de l'instance de la fonction (IP lue dans `x-real-ip`, posé par Vercel, sinon premier élément de `x-forwarded-for`, que Vercel remplace par l'adresse du client ; pas de limitation si aucune IP n'est connue ; 5 000 adresses suivies au plus, les plus anciennes sont oubliées au-delà). Les demandes ignorées (pot de miel, délai) et refusées (422) comptent aussi. Elle n'est ni globale ni durable : plusieurs instances ont chacune leur compteur, remis à zéro à leur arrêt. Une limitation globale viendra avec Laravel et Redis.
 
 ### E-mail envoyé
 `POST https://api.resend.com/emails` avec `Authorization: Bearer RESEND_API_KEY` et `{ from, to: [QUOTE_TO_EMAIL], reply_to: <e-mail du visiteur>, subject, text, html }`. L'e-mail est en français, destiné au propriétaire uniquement (pas d'accusé de réception au visiteur) ; il indique la langue du visiteur. Objet : `Demande de devis — <libellé du besoin> — <nom> [<référence>]`. Le corps existe en texte brut et en HTML ; toute valeur du visiteur est échappée dans le HTML.

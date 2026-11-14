@@ -55,6 +55,14 @@ function charCount(value) {
 const CONTROL_CHARS = /[\u0000-\u001f\u007f\u0085\u2028\u2029]/;
 // Le message accepte les retours à la ligne et les tabulations, pas les autres caractères de contrôle
 const MESSAGE_CONTROL_CHARS = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/;
+/*
+ * Caractères de mise en forme bidirectionnelle (incorporations, forçages et
+ * isolats : U+202A à U+202E, U+2066 à U+2069). Invisibles, ils peuvent
+ * inverser l'affichage de l'objet de l'e-mail ou d'une ligne du résumé
+ * (usurpation visuelle) : ils sont retirés des champs courts avant validation.
+ * Les marques U+200E, U+200F et U+061C, légitimes dans un texte arabe, sont conservées.
+ */
+const BIDI_FORMAT_CHARS = /[\u202a-\u202e\u2066-\u2069]/g;
 
 const EMAIL_PATTERN = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*\.[A-Za-z]{2,63}$/;
 const PHONE_PATTERN = /^[0-9 +().-]+$/;
@@ -109,15 +117,54 @@ export function byteLength(text) {
     return new TextEncoder().encode(text).length;
 }
 
-// IP du visiteur : premier élément de x-forwarded-for, sinon x-real-ip ; '' si inconnue
+/*
+ * IP du visiteur, clé de la limitation de débit ; '' si inconnue.
+ * x-real-ip d'abord : cet en-tête est posé par la plateforme (Vercel) et ne
+ * contient qu'une adresse. Sinon, premier élément de x-forwarded-for (Vercel
+ * remplace cet en-tête par l'adresse du client ; derrière un autre proxy, le
+ * premier élément peut être fourni par le client et n'est pas fiable).
+ * Longueur bornée : la valeur sert de clé en mémoire.
+ */
+export const MAX_IP_LENGTH = 64;
 export function clientIp(getHeader) {
-    const forwarded = getHeader('x-forwarded-for');
-    if (forwarded) {
-        const first = forwarded.split(',')[0].trim();
-        if (first) return first;
-    }
     const real = getHeader('x-real-ip');
-    return real ? real.trim() : '';
+    const forwarded = getHeader('x-forwarded-for');
+    const value = (real && real.trim()) || (forwarded ? forwarded.split(',')[0].trim() : '');
+    return value.slice(0, MAX_IP_LENGTH);
+}
+
+/*
+ * Lit le corps d'une requête sans dépasser `maxBytes` : la lecture du flux
+ * est interrompue dès que la limite est franchie (un Content-Length absent
+ * ou mensonger ne permet pas de faire lire un corps énorme).
+ * Renvoie { ok: true, text } ou { ok: false, reason: 'too-large' | 'unreadable' }.
+ */
+export async function readLimitedText(request, maxBytes = MAX_BODY_BYTES) {
+    try {
+        if (!request.body || typeof request.body.getReader !== 'function') {
+            const text = await request.text();
+            return byteLength(text) > maxBytes ? { ok: false, reason: 'too-large' } : { ok: true, text };
+        }
+        const reader = request.body.getReader();
+        const chunks = [];
+        let total = 0;
+        for (;;) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            total += value.byteLength;
+            if (total > maxBytes) {
+                try { await reader.cancel(); } catch (error) { /* flux déjà fermé */ }
+                return { ok: false, reason: 'too-large' };
+            }
+            chunks.push(value);
+        }
+        const bytes = new Uint8Array(total);
+        let offset = 0;
+        for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+        return { ok: true, text: new TextDecoder().decode(bytes) };
+    } catch (error) {
+        return { ok: false, reason: 'unreadable' };
+    }
 }
 
 /*
@@ -153,7 +200,8 @@ export function validateQuote(body) {
 
     // Champ texte court : chaîne sans retour à la ligne, longueur bornée après nettoyage
     const short = (key, { required = false, min = 0, max, test } = {}) => {
-        const raw = has(body, key) ? body[key] : undefined;
+        let raw = has(body, key) ? body[key] : undefined;
+        if (typeof raw === 'string') raw = raw.replace(BIDI_FORMAT_CHARS, '');
         if (raw == null || (typeof raw === 'string' && raw.trim() === '')) {
             if (required) fields.push(key);
             else quote[key] = '';
@@ -204,6 +252,8 @@ export function validateQuote(body) {
  * Limitation au mieux, en mémoire de l'instance : elle n'est pas partagée
  * entre les instances de la fonction ni conservée après leur arrêt
  * (une limitation globale viendra avec Laravel et Redis).
+ * La Map ne dépasse jamais `maxKeys` clés : au-delà, les clés expirées puis
+ * les plus anciennes sont supprimées.
  * `now` : horloge injectable (ms). hit(key) enregistre une demande et
  * renvoie { allowed, retryAfterSeconds }.
  */
@@ -221,7 +271,14 @@ export function createRateLimiter({ limit = RATE_LIMIT, windowMs = RATE_WINDOW_M
     return {
         hit(key) {
             const time = now();
-            if (hits.size > maxKeys) prune(time);
+            if (hits.size >= maxKeys && !hits.has(key)) {
+                prune(time);
+                // Toujours trop de clés actives : les plus anciennes sont oubliées (mémoire bornée)
+                for (const oldest of hits.keys()) {
+                    if (hits.size < maxKeys) break;
+                    hits.delete(oldest);
+                }
+            }
             const recent = (hits.get(key) || []).filter((t) => time - t < windowMs);
             if (recent.length >= limit) {
                 hits.set(key, recent);

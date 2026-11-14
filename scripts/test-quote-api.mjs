@@ -511,6 +511,202 @@ await test('erreur réseau (fetch lève une exception) → 502 send-failed', asy
     assert.equal(r.headers.get('cache-control'), 'no-store');
 });
 
+// ---------- Durcissement (relecture de sécurité) ----------
+
+await test('origine : préfixe, suffixe, autre schéma, « null » → 403 (comparaison exacte)', async () => {
+    for (const origine of [`${ORIGINE_DEFAUT}.evil.example.test`, `${ORIGINE_DEFAUT}@evil.example.test`, `https://evil.example.test/?${ORIGINE_DEFAUT}`,
+        'http://mon-cv-fr.vercel.app', `${ORIGINE_DEFAUT}:8443`, 'https://xmon-cv-fr.vercel.app', 'null']) {
+        const r = await demande({}, { origine });
+        assert.equal(r.status, 403, `${origine} : statut ${r.status}`);
+        assert.equal(r.headers.get('access-control-allow-origin'), null, `${origine} : en-tête CORS présent`);
+    }
+    assert.equal(appels.length, 0);
+});
+
+await test('champs courts : U+2028, U+2029, U+0085, NUL et tabulation refusés (nom, e-mail, budget)', async () => {
+    for (const champ of ['name', 'email', 'budget']) {
+        for (const c of [' ', ' ', '\u0085', '\u0000', '\t']) {
+            await attendre422({ [champ]: `${VALIDE[champ]}${c}x` }, champ);
+        }
+    }
+});
+
+await test('caractères bidi (U+202A à U+202E, U+2066 à U+2069) retirés du nom et du budget : absents de l\'objet et du corps', async () => {
+    const r = await demande({ name: 'Ali‮gpj.exe⁦⁩', budget: '‪500‬' });
+    assert.equal(r.status, 200, `statut ${r.status}`);
+    const envoi = JSON.parse(envoiResend().corps);
+    for (const partie of [envoi.subject, envoi.text, envoi.html]) {
+        assert.doesNotMatch(partie, /[‪-‮⁦-⁩]/);
+    }
+    assert.ok(envoi.subject.includes('Aligpj.exe'), envoi.subject);
+});
+
+await test('reply_to impossible à détourner : listes d\'adresses, nom affiché, chevrons → 422 email', async () => {
+    for (const email of ['a@example.test, evil@example.test', 'a@example.test;evil@example.test', 'A <a@example.test>', '<a@example.test>',
+        'a@example.test evil@example.test', 'a@example.test?bcc=evil@example.test']) {
+        await attendre422({ email }, 'email');
+    }
+});
+
+await test('champs to, cc, bcc, from, subject, html fournis par le client : ignorés', async () => {
+    const r = await demande({ to: 'evil@example.test', cc: 'evil@example.test', bcc: 'evil@example.test', from: 'evil@example.test', reply_to: 'evil@example.test', subject: 'spam', html: '<b>spam</b>' });
+    assert.equal(r.status, 200);
+    const envoi = JSON.parse(envoiResend().corps);
+    assert.deepEqual(Object.keys(envoi).sort(), ['from', 'html', 'reply_to', 'subject', 'text', 'to']);
+    assert.deepEqual(envoi.to, [DESTINATAIRE]);
+    assert.equal(envoi.reply_to, VALIDE.email);
+    assert.equal(envoi.from, EXPEDITEUR_DEFAUT);
+    assert.doesNotMatch(JSON.stringify(envoi), /evil@example\.test|spam/);
+});
+
+await test('e-mail HTML : nom et budget échappés (guillemets, apostrophes, chevrons)', async () => {
+    const r = await demande({ name: '"><img src=x onerror=alert(1)>', budget: '\' onmouseover=\'x\' <svg/onload=1>' });
+    assert.equal(r.status, 200);
+    const { html } = JSON.parse(envoiResend().corps);
+    assert.doesNotMatch(html, /<img|<svg/);
+    assert.ok(html.includes('&quot;&gt;&lt;img src=x onerror=alert(1)&gt;'), 'nom non échappé');
+    assert.ok(html.includes('&#39; onmouseover=&#39;x&#39; &lt;svg/onload=1&gt;'), 'budget non échappé');
+});
+
+await test('types inattendus (tableau, objet, nombre) à la place d\'une chaîne → 422 sur le champ', async () => {
+    for (const champ of ['name', 'email', 'phone', 'need', 'deadline', 'budget', 'message', 'solution', 'locale']) {
+        for (const valeur of [['Camille Test'], { toString: 'x' }, 1234567890]) {
+            await attendre422({ [champ]: valeur }, champ);
+        }
+    }
+});
+
+await test('corps JSON qui n\'est pas un objet, ou malformé → 422 ou 200 sans référence, jamais d\'envoi ni de 5xx', async () => {
+    for (const corps of ['{', '', 'null', '[]', '"texte"', '42', '[{"name":"x"}]']) {
+        const r = await POST(requete({ corps }));
+        assert.ok(r.status === 422 || r.status === 200, `${corps} : statut ${r.status}`);
+        assert.equal((await r.json()).reference, undefined);
+    }
+    assert.equal(appels.length, 0);
+});
+
+await test('__proto__ et constructor dans le corps : aucune pollution, champs hérités non pris en compte', async () => {
+    const corps = '{"__proto__":{"name":"Nom Pollué","email":"a@example.test","need":"website","message":"un message assez long","consent":true,"pollue":1},'
+        + '"constructor":{"prototype":{"pollue":1}},"elapsedMs":5000}';
+    const r = await POST(requete({ corps }));
+    assert.equal(r.status, 422, `statut ${r.status}`);
+    const { fields } = await r.json();
+    for (const champ of ['name', 'email', 'need', 'message', 'consent']) assert.ok(fields.includes(champ), `fields : ${JSON.stringify(fields)}`);
+    assert.equal({}.pollue, undefined);
+    assert.equal(appels.length, 0);
+    for (const code of ['__proto__', 'constructor', 'toString', 'hasOwnProperty']) {
+        await attendre422({ need: code }, 'need');
+        await attendre422({ deadline: code }, 'deadline');
+    }
+});
+
+await test('taille : la lecture du corps s\'arrête à la limite (flux sans Content-Length) → 413', async () => {
+    let octets = 0;
+    const bloc = new Uint8Array(4096).fill(97);
+    const flux = new ReadableStream({
+        pull(c) {
+            octets += bloc.length;
+            if (octets > 8 * 1024 * 1024) c.close();
+            else c.enqueue(bloc);
+        },
+    });
+    const r = await POST(new Request(URL_FONCTION, {
+        method: 'POST', duplex: 'half', body: flux,
+        headers: { origin: ORIGINE_DEFAUT, 'content-type': 'application/json', 'x-forwarded-for': nouvelleIp() },
+    }));
+    assert.equal(r.status, 413, `statut ${r.status}`);
+    assert.ok(octets < 256 * 1024, `${octets} octets lus : la lecture n'est pas bornée`);
+    assert.equal(appels.length, 0);
+});
+
+await test('taille : limite en octets (caractères multi-octets) et Content-Length mensonger → 413', async () => {
+    const corps = JSON.stringify({ ...VALIDE, message: 'é'.repeat(4000), remplissage: '€'.repeat(5000) });
+    assert.ok(corps.length < 20 * 1024, 'le corps doit compter moins de 20 480 caractères');
+    const r = await POST(new Request(URL_FONCTION, {
+        method: 'POST', body: corps,
+        headers: { origin: ORIGINE_DEFAUT, 'content-type': 'application/json', 'content-length': '10', 'x-forwarded-for': nouvelleIp() },
+    }));
+    assert.equal(r.status, 413, `statut ${r.status}`);
+});
+
+await test('limitation de débit : x-forwarded-for « client, proxy » → la première adresse sert de clé', async () => {
+    const ip = nouvelleIp();
+    let r;
+    for (let i = 1; i <= 6; i++) {
+        r = await demande({}, { ip: `${ip}, 172.16.0.${i}` });
+        await r.json();
+    }
+    assert.equal(r.status, 429, `6e demande : statut ${r.status}`);
+});
+
+await test('limitation de débit : x-real-ip (posé par la plateforme) prime sur un x-forwarded-for variable', async () => {
+    const reelle = nouvelleIp();
+    let r;
+    for (let i = 1; i <= 6; i++) {
+        r = await POST(new Request(URL_FONCTION, {
+            method: 'POST', body: JSON.stringify(VALIDE),
+            headers: { origin: ORIGINE_DEFAUT, 'content-type': 'application/json', 'x-real-ip': reelle, 'x-forwarded-for': `198.51.100.${i}` },
+        }));
+        await r.json();
+    }
+    assert.equal(r.status, 429, `6e demande : statut ${r.status}`);
+});
+
+await test('limitation de débit : les demandes ignorées (pot de miel) comptent aussi → 429 à la 6e', async () => {
+    const ip = nouvelleIp();
+    let r;
+    for (let i = 1; i <= 6; i++) {
+        r = await demande({ website: 'https://spam.example.test' }, { ip });
+        await r.json();
+    }
+    assert.equal(r.status, 429, `6e demande : statut ${r.status}`);
+    assert.equal(appels.length, 0);
+});
+
+await test('limitation de débit : mémoire bornée (20 000 adresses distinctes) et clé d\'IP tronquée', async () => {
+    const { createRateLimiter, clientIp } = await import(new URL('../api/_lib/quote-core.mjs', import.meta.url).href);
+    const limiteur = createRateLimiter({ now: () => 1000 });
+    for (let i = 0; i < 20000; i++) limiteur.hit(`ip-${i}`);
+    assert.ok(limiteur.size <= 5000, `${limiteur.size} clés en mémoire`);
+    assert.ok(clientIp((nom) => (nom === 'x-forwarded-for' ? '9'.repeat(5000) : null)).length <= 64);
+});
+
+await test('Resend lent : l\'appel sortant porte un signal d\'abandon (délai borné)', async () => {
+    let signal = null;
+    const fetchSimule = globalThis.fetch;
+    globalThis.fetch = async (cible, init = {}) => { signal = init.signal ?? null; return fetchSimule(cible, init); };
+    try {
+        const r = await demande();
+        assert.equal(r.status, 200);
+        assert.ok(signal instanceof AbortSignal, 'aucun signal passé à fetch');
+    } finally {
+        globalThis.fetch = fetchSimule;
+    }
+});
+
+await test('aucune fuite : clé, destinataire et détail de Resend absents des réponses et des journaux', async () => {
+    const journaux = [];
+    const consoleInitiale = console.error;
+    console.error = (...args) => journaux.push(args.join(' '));
+    try {
+        const corps = [];
+        reponseResend = () => new Response(`{"message":"clé ${CLE_TEST} refusée pour ${DESTINATAIRE}"}`, { status: 401 });
+        corps.push(await (await demande()).text());
+        reponseResend = () => { throw new Error(`échec Bearer ${CLE_TEST} vers ${DESTINATAIRE}`); };
+        corps.push(await (await demande()).text());
+        reglerEnv({ RESEND_API_KEY: undefined });
+        corps.push(await (await demande()).text());
+        const tout = corps.concat(journaux).join('\n');
+        for (const secret of [CLE_TEST, DESTINATAIRE, VALIDE.email, VALIDE.name, VALIDE.message]) {
+            assert.ok(!tout.includes(secret), `fuite : ${secret}`);
+        }
+        assert.doesNotMatch(tout, /\n\s+at /);
+        assert.deepEqual(corps.slice(0, 2), ['{"error":"send-failed"}', '{"error":"send-failed"}']);
+    } finally {
+        console.error = consoleInitiale;
+    }
+});
+
 // ---------- Résumé ----------
 
 globalThis.fetch = FETCH_INITIAL;
