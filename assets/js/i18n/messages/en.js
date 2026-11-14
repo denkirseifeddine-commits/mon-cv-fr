@@ -27,7 +27,7 @@ export default {
     'solution.status.exemple': 'Example, not for sale',
     'solution.status.published': 'Available',
     'solution.price': 'Price',
-    'solution.onQuote': 'On quotation',
+    'solution.onQuote': 'Quote on request',
     'solution.delay': 'Lead time',
     'solution.toDefine': 'To be defined',
     'solution.days.one': '{n} day',

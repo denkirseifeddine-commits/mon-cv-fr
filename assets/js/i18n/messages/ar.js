@@ -106,7 +106,7 @@ export default {
     'finder.custom.action': 'اطلب عرض سعر لمشروع حسب الطلب',
 
     // ---------- Contact et e-mail de demande de devis ----------
-    'contact.solutionMessage': 'أنا مهتم بالحل: {name}.',
+    'contact.solutionMessage': 'أنا مهتم(ة) بالحل: {name}.',
     'quote.subject': 'طلب عرض سعر',
     'quote.subjectWithNeed': '{subject} — {need}',
     'quote.line': '{label}: {value}',
