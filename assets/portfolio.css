@@ -37,10 +37,11 @@
 }
 .row-title, .row-text, .row-meta { transition: transform .6s var(--ease); }
 .row:hover .row-title { transform: translateX(10px); }
+[dir="rtl"] .row:hover .row-title { transform: translateX(-10px); }
 .row h3 { font-family: var(--serif); font-size: 1.750rem; font-weight: 500; line-height: 1.1; }
 .row-title p { color: var(--accent-deep); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.12em; margin-top: 4px; }
 .row-text { color: var(--muted); max-width: 52ch; }
-.row-meta { color: var(--muted); white-space: nowrap; text-align: right; }
+.row-meta { color: var(--muted); white-space: nowrap; text-align: end; }
 
 /* Expertise */
 .expertise {
@@ -52,10 +53,11 @@
 .skills dl { margin-top: 32px; }
 .skill { position: relative; padding: 14px 0 16px; }
 .skill::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 1px;
     background: var(--accent);
     transform-origin: left;
 }
+[dir="rtl"] .skill::after { transform-origin: right; }
 .skill dd { margin: 4px 0 0; color: var(--muted); font-size: 0.8125rem; }
 
 /* Parcours */
@@ -77,7 +79,7 @@
     .expertise { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .quote { grid-column: 1 / -1; grid-row: 1; max-width: 26em; }
     .row { grid-template-columns: 56px minmax(0, 1fr) auto; }
-    .row-meta { text-align: left; }
+    .row-meta { text-align: start; }
     .row-text { grid-column: 2 / -1; grid-row: 2; }
 }
 

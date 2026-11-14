@@ -67,6 +67,8 @@ textarea.field-input { min-height: 9.5rem; resize: vertical; line-height: 1.6; }
     transform: rotate(45deg);
     pointer-events: none;
 }
+/* Droite à gauche : border-inline-end est la bordure gauche, le chevron est donc tourné dans l'autre sens */
+[dir="rtl"] .select::after { transform: rotate(-45deg); }
 
 /* Erreur : couleur + filet épais + symbole + texte (jamais la couleur seule) */
 .field-input[aria-invalid="true"] {
@@ -125,6 +127,8 @@ textarea.field-input { min-height: 9.5rem; resize: vertical; line-height: 1.6; }
 }
 .check-input:checked, .choice-input[type="checkbox"]:checked { background: var(--ink); }
 .check-input:checked::after, .choice-input[type="checkbox"]:checked::after { transform: rotate(45deg) scale(1); }
+/* La coche ne se retourne pas en arabe : ses propriétés logiques sont lues de gauche à droite */
+[dir="rtl"] .check-input::after, [dir="rtl"] .choice-input[type="checkbox"]::after { direction: ltr; }
 .check-input:focus-visible, .choice-input:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 3px; }
 .check-input[aria-invalid="true"] { border-color: var(--error); }
 .check-text { padding-top: 1px; }

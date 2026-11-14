@@ -38,6 +38,14 @@
 }
 .giant span { display: block; }
 .giant .giant-word { display: flex; overflow: hidden; }
+/* Mot écrit d'un bloc, sans une lettre par <span> (arabe : écriture liée).
+   motion/giant.js l'enveloppe dans .giant-whole et mesure sa largeur en em
+   (--fit) : le mot remplit la largeur quelle que soit sa longueur. */
+.giant.is-whole { font-size: calc(96cqw / var(--fit, 4)); line-height: 1.3; padding-top: 0; }
+/* Points et jambages arabes sous la ligne (ي, ج…) : marge basse dans les
+   conteneurs qui masquent l'entrée du mot (overflow: hidden) */
+.giant.is-whole .giant-word { padding-bottom: 0.18em; }
+.giant.is-whole:not(:has(.giant-word)) { padding-bottom: 0.18em; }
 
 .side {
     position: absolute; top: clamp(60px, 9cqw, 120px);
@@ -47,8 +55,12 @@
     color: var(--muted);
 }
 .side i { display: block; width: 1px; height: 44px; background: var(--muted); }
+/* Textes verticaux : en writing-mode vertical, inset-inline désignerait le haut
+   et le bas ; les côtés sont donc physiques, inversés en arabe (dir="rtl") */
 .side-l { left: calc(var(--gutter) - 34px); transform: rotate(180deg); }
 .side-r { right: calc(var(--gutter) - 34px); top: clamp(240px, 26cqw, 360px); }
+[dir="rtl"] .side-l { left: auto; right: calc(var(--gutter) - 34px); }
+[dir="rtl"] .side-r { right: auto; left: calc(var(--gutter) - 34px); }
 
 .hero-grid {
     position: relative;
@@ -87,7 +99,7 @@
     transform: translateY(-4%);
 }
 .hero-badge {
-    position: absolute; right: 2%; top: 30%;
+    position: absolute; inset-inline-end: 2%; top: 30%;
     width: clamp(128px, 12cqw, 150px); aspect-ratio: 1;
     border-radius: 50%;
     background: var(--bg);
@@ -107,6 +119,9 @@
 }
 .marquee span::after { content: "✳"; font-family: var(--sans); font-style: normal; font-size: 0.5em; color: var(--accent); margin: 0 clamp(20px, 3vw, 44px); }
 @keyframes slide { to { transform: translateX(-50%); } }
+/* Droite à gauche : la piste part de la droite et défile vers la droite */
+[dir="rtl"] .marquee-track { animation-name: slide-rtl; }
+@keyframes slide-rtl { to { transform: translateX(50%); } }
 
 /* ---------- Citation et points d'expertise ---------- */
 .quote { align-self: center; }
@@ -201,7 +216,7 @@
 @media (max-width: 820px) {
     .hero-grid { grid-template-columns: 1fr; }
     .hero-art { order: -1; }
-    .hero-badge { right: 4%; top: auto; bottom: -6%; }
+    .hero-badge { inset-inline-end: 4%; top: auto; bottom: -6%; }
     .hero-intro { padding-top: 12px; }
     .points { padding-inline-start: 0; border-inline-start: 0; }
     .cta-grid { grid-template-columns: 1fr; }

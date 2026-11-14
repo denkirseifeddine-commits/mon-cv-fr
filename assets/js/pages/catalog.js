@@ -10,6 +10,7 @@
 import '../main.js';
 import { getCategories, getSolutions, localized } from '../services/catalog-service.js';
 import { solutionCardHtml } from '../components/solution-view.js';
+import { localeTag } from '../i18n/index.js';
 import { escapeHtml } from '../utils/html.js';
 
 const PARAM_CATEGORY = 'categorie';
@@ -66,7 +67,10 @@ async function initCatalog(root) {
     }
 
     function countText(n) {
-        const template = n > 1 ? root.dataset.countMany : root.dataset.countOne;
+        // Singulier selon la langue de la page : 0 et 1 en français, 1 seulement en anglais
+        let one = n <= 1;
+        try { one = new Intl.PluralRules(localeTag()).select(n) === 'one'; } catch (error) { /* règle française */ }
+        const template = one ? root.dataset.countOne : root.dataset.countMany;
         return template.replace('{n}', String(n));
     }
 

@@ -11,8 +11,9 @@
  *   navigateur revient à l'étape d'avant. Les valeurs lues dans l'adresse
  *   sont validées contre les codes du questionnaire. Rien n'est stocké
  *   (ni localStorage, ni sessionStorage, ni cookie).
- * - Les libellés des questions viennent de questionnaire.json ; un libellé
- *   absent affiche le code.
+ * - Les libellés des questions viennent de questionnaire.json (dans la langue
+ *   de la page) ; un libellé absent affiche le code. Les textes d'interface
+ *   viennent des dictionnaires i18n (clés finder.*).
  */
 import '../main.js';
 import { getCategories, getSolutions, localized } from '../services/catalog-service.js';
@@ -20,65 +21,16 @@ import {
     getQuestionnaire, questionTitle, questionHelp, optionLabel, answerLabel, findQuestion,
 } from '../services/questionnaire-service.js';
 import { recommend, validateAnswers } from '../engine/recommendation-engine.js';
-import { badgeHtml, solutionName, sheetHref, SOLUTION_TEXT } from '../components/solution-view.js';
+import { badgeHtml, solutionName, sheetHref, localHref } from '../components/solution-view.js';
+import { t, tn } from '../i18n/index.js';
 import { escapeHtml } from '../utils/html.js';
-import { siteRoot } from '../utils/site-root.js';
 import { arrowIcon } from '../components/icons.js';
 
-// Libellés d'interface (à déplacer dans assets/i18n/ avec les traductions)
-const FINDER_TEXT = {
-    // Nom court de chaque question (récapitulatif, liste des étapes) ; repli sur le titre
-    names: {
-        need: 'Type de besoin',
-        industry: 'Secteur',
-        goal: 'Objectifs',
-        complexity: 'Ampleur du projet',
-        budget: 'Budget',
-        deadline: 'Délai',
-        customization: 'Adaptation',
-    },
-    stepOf: (n, total) => `Question ${n} sur ${total}`,
-    single: 'Choix unique',
-    multiple: 'Choix multiple',
-    required: 'obligatoire',
-    optional: 'facultatif',
-    errorSingle: 'Choisissez une réponse pour continuer.',
-    errorMultiple: 'Choisissez au moins une réponse pour continuer.',
-    resultsLead: (n) => (n === 1
-        ? 'Une solution du catalogue correspond à vos réponses.'
-        : `${n} solutions du catalogue correspondent à vos réponses.`),
-    resultsNone: 'Aucune solution du catalogue ne correspond suffisamment à vos réponses : une demande sur mesure est la meilleure piste.',
-    resultsExample: 'Les fiches actuelles sont des exemples, pas encore commercialisés : la demande de devis permet de chiffrer un projet équivalent.',
-    rank: (n, total) => `Recommandation ${n} sur ${total}`,
-    match: 'Correspondance',
-    percent: (n) => `${n} %`,
-    why: 'Pourquoi cette solution',
-    // Raisons « Pourquoi cette solution » : {label} = libellé de la réponse
-    reasons: {
-        need: 'Répond à votre besoin : {label}',
-        needUnsure: 'Une piste possible pour un besoin encore à préciser',
-        industry: 'Adaptée à votre secteur : {label}',
-        industryAll: 'Convient à tous les secteurs, dont le vôtre : {label}',
-        goal: 'Répond à votre objectif : {label}',
-        complexity: 'Adaptée à l\'ampleur de votre projet ({label})',
-        complexityUnsure: 'Compatible avec plusieurs niveaux d\'ampleur, à préciser ensemble',
-        customization: 'Correspond au niveau d\'adaptation souhaité ({label})',
-        other: '{label}',
-    },
-    custom: {
-        kicker: 'Demande sur mesure',
-        kickerRecommended: 'Recommandé pour votre projet',
-        title: 'Demande',
-        titleEm: 'sur mesure',
-        reasons: {
-            'no-match': 'Aucune solution du catalogue ne correspond suffisamment à vos réponses : un projet conçu pour vous est la meilleure piste.',
-            custom: 'Vous attendez une solution entièrement adaptée à votre activité : c\'est le principe d\'un développement sur mesure.',
-            advanced: 'Un projet avec des fonctions propres à votre activité se chiffre mieux avec un devis personnalisé.',
-        },
-        default: 'Aucune piste ne vous convient tout à fait, ou vous préférez un accompagnement personnalisé ? Décrivez votre projet : je vous réponds avec une proposition adaptée.',
-        action: 'Demander un devis sur mesure',
-    },
-};
+// Nom court de chaque question (récapitulatif, liste des étapes) : clé finder.name.<id> ;
+// repli sur le titre de la question
+const NAMED_QUESTIONS = new Set(['need', 'industry', 'goal', 'complexity', 'budget', 'deadline', 'customization']);
+// Raisons de la demande sur mesure connues des dictionnaires (finder.custom.reason.<code>)
+const CUSTOM_REASONS = new Set(['no-match', 'custom', 'advanced']);
 
 const PARAM_STEP = 'etape';
 const STEP_RESULTS = 'resultats';
@@ -116,8 +68,8 @@ async function initFinder(root) {
         status.textContent = root.dataset.error + ' ';
         const link = document.createElement('a');
         link.className = 'text-link';
-        link.href = `${siteRoot()}contact/`;
-        link.textContent = SOLUTION_TEXT.askQuote;
+        link.href = localHref('contact/');
+        link.textContent = t('solution.askQuote');
         status.append(link);
         return;
     }
@@ -182,7 +134,7 @@ async function initFinder(root) {
 
     // ---------- Étapes ----------
 
-    const shortName = (question) => FINDER_TEXT.names[question.id] || questionTitle(question);
+    const shortName = (question) => (NAMED_QUESTIONS.has(question.id) ? t(`finder.name.${question.id}`) : questionTitle(question));
 
     function stepsHtml() {
         return questionnaire.map((question, index) => {
@@ -208,13 +160,13 @@ async function initFinder(root) {
         return `
             <fieldset class="choices finder-choices" id="finder-fieldset"${help ? ' aria-describedby="finder-help"' : ''}>
                 <legend class="choices-legend" id="finder-legend" tabindex="-1">
-                    <span class="visually-hidden">${escapeHtml(FINDER_TEXT.stepOf(index + 1, total))}.</span>
+                    <span class="visually-hidden">${escapeHtml(t('finder.stepOf', { n: index + 1, total }))}.</span>
                     <span>${escapeHtml(shortName(question))}</span>
-                    <span class="${question.required ? 'field-req' : 'field-opt'}">${escapeHtml(question.required ? FINDER_TEXT.required : FINDER_TEXT.optional)}</span>
+                    <span class="${question.required ? 'field-req' : 'field-opt'}">${escapeHtml(t(question.required ? 'finder.required' : 'finder.optional'))}</span>
                     <span class="choices-title">${escapeHtml(questionTitle(question))}</span>
                 </legend>
                 ${help ? `<p class="field-help" id="finder-help">${escapeHtml(help)}</p>` : ''}
-                <p class="field-error finder-error" id="finder-error" role="alert" hidden>${escapeHtml(multiple ? FINDER_TEXT.errorMultiple : FINDER_TEXT.errorSingle)}</p>
+                <p class="field-error finder-error" id="finder-error" role="alert" hidden>${escapeHtml(t(multiple ? 'finder.errorMultiple' : 'finder.errorSingle'))}</p>
                 <div class="choices-grid">${options.map((code, i) => choiceHtml(question, code, i)).join('')}</div>
             </fieldset>`;
     }
@@ -267,7 +219,7 @@ async function initFinder(root) {
         stepBox.innerHTML = stepHtml(question, state.step);
         progressN.textContent = String(state.step + 1);
         progressTotal.textContent = String(total);
-        progressType.textContent = question.type === 'multiple' ? FINDER_TEXT.multiple : FINDER_TEXT.single;
+        progressType.textContent = t(question.type === 'multiple' ? 'finder.multiple' : 'finder.single');
         progressBar.max = total;
         progressBar.value = state.step + 1;
         progressBar.textContent = `${state.step + 1} / ${total}`;
@@ -283,18 +235,17 @@ async function initFinder(root) {
     function reasonText(reason, solution) {
         const question = findQuestion(questionnaire, reason.questionId);
         const label = optionLabel(question, reason.code);
-        const t = FINDER_TEXT.reasons;
-        let template;
+        let key;
         switch (reason.questionId) {
-            case 'need': template = reason.code === 'unsure' ? t.needUnsure : t.need; break;
-            case 'industry': template = (solution.match?.industries || []).length ? t.industry : t.industryAll; break;
-            case 'goal': template = t.goal; break;
-            case 'complexity': template = reason.code === 'unsure' ? t.complexityUnsure : t.complexity; break;
-            case 'customization': template = t.customization; break;
-            default: template = t.other;
+            case 'need': key = reason.code === 'unsure' ? 'needUnsure' : 'need'; break;
+            case 'industry': key = (solution.match?.industries || []).length ? 'industry' : 'industryAll'; break;
+            case 'goal': key = 'goal'; break;
+            case 'complexity': key = reason.code === 'unsure' ? 'complexityUnsure' : 'complexity'; break;
+            case 'customization': key = 'customization'; break;
+            default: key = 'other';
         }
-        // Fonction de remplacement : un libellé contenant « $ » est inséré tel quel
-        return template.replace('{label}', () => label);
+        // t() insère le libellé tel quel (un « $ » n'est pas interprété)
+        return t(`finder.reason.${key}`, { label });
     }
 
     // Lien de devis : réponses utiles transmises à la page Contact (codes connus seulement)
@@ -302,7 +253,7 @@ async function initFinder(root) {
         const query = new URLSearchParams();
         Object.entries(params).forEach(([key, value]) => { if (value) query.set(key, value); });
         const text = query.toString();
-        return `${siteRoot()}contact/${text ? `?${text}` : ''}`;
+        return localHref(`contact/${text ? `?${text}` : ''}`);
     }
 
     function recoHtml(entry, index, count) {
@@ -311,7 +262,7 @@ async function initFinder(root) {
         const id = `finder-reco-${index + 1}`;
         const category = categoryLabel.get(solution.categoryId) || '';
         const desc = localized(solution.shortDescription);
-        const hidden = `<span class="visually-hidden">${escapeHtml(SOLUTION_TEXT.forSolution(name))}</span>`;
+        const hidden = `<span class="visually-hidden">${escapeHtml(t('solution.forSolution', { name }))}</span>`;
         const quote = contactHref({ solution: solution.slug, delai: state.answers.deadline, budget: state.answers.budget });
         const why = reasons.map((reason) => `<li>${escapeHtml(reasonText(reason, solution))}</li>`).join('');
         const value = Math.max(0, Math.min(100, Number(percent) || 0));
@@ -319,42 +270,41 @@ async function initFinder(root) {
             <li class="reco finder-reco" aria-labelledby="${id}">
                 <span class="num" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
                 <div class="reco-head">
-                    <p class="reco-rank">${escapeHtml(FINDER_TEXT.rank(index + 1, count))}</p>
+                    <p class="reco-rank">${escapeHtml(t('finder.rank', { n: index + 1, total: count }))}</p>
                     <h3 class="reco-name" id="${id}">${escapeHtml(name)}</h3>
                     ${desc ? `<p class="reco-desc">${escapeHtml(desc)}</p>` : ''}
                     ${category ? `<span class="solution-cat">${escapeHtml(category)}</span>` : ''}
                     ${badgeHtml(solution)}
                     <div class="reco-match">
-                        <p class="reco-match-text">${escapeHtml(FINDER_TEXT.match)} : <strong>${escapeHtml(FINDER_TEXT.percent(value))}</strong></p>
+                        <p class="reco-match-text">${escapeHtml(t('finder.match'))} <strong>${escapeHtml(t('finder.percent', { n: value }))}</strong></p>
                         <span class="reco-match-bar" aria-hidden="true"><span style="--p: ${value}%"></span></span>
                     </div>
                 </div>
                 <div class="reco-why">
-                    <h4 class="reco-why-title">${escapeHtml(FINDER_TEXT.why)}</h4>
+                    <h4 class="reco-why-title">${escapeHtml(t('finder.why'))}</h4>
                     ${why ? `<ul>${why}</ul>` : ''}
                     <div class="reco-actions">
-                        <a class="link-arrow" href="${escapeHtml(sheetHref(solution))}">${escapeHtml(SOLUTION_TEXT.viewSheet)}${hidden} ${arrowIcon()}</a>
-                        <a class="link-arrow" href="${escapeHtml(quote)}">${escapeHtml(SOLUTION_TEXT.askQuote)}${hidden} ${arrowIcon()}</a>
+                        <a class="link-arrow" href="${escapeHtml(sheetHref(solution))}">${escapeHtml(t('solution.viewSheet'))}${hidden} ${arrowIcon()}</a>
+                        <a class="link-arrow" href="${escapeHtml(quote)}">${escapeHtml(t('solution.askQuote'))}${hidden} ${arrowIcon()}</a>
                     </div>
                 </div>
             </li>`;
     }
 
     function customHtml(customQuote) {
-        const t = FINDER_TEXT.custom;
         const recommended = customQuote.recommended;
-        const sentences = customQuote.reasons.map((reason) => t.reasons[reason]).filter(Boolean);
-        const text = sentences.length ? sentences : [t.default];
+        const sentences = customQuote.reasons.filter((reason) => CUSTOM_REASONS.has(reason)).map((reason) => t(`finder.custom.reason.${reason}`));
+        const text = sentences.length ? sentences : [t('finder.custom.default')];
         const href = contactHref({ besoin: state.answers.need, delai: state.answers.deadline, budget: state.answers.budget });
         return `
             <article class="finder-custom${recommended ? ' is-recommended' : ''}" aria-labelledby="finder-custom-title">
                 <div class="finder-custom-body">
-                    <p class="finder-custom-kicker">${escapeHtml(recommended ? t.kickerRecommended : t.kicker)}</p>
-                    <h3 class="finder-custom-title" id="finder-custom-title">${escapeHtml(t.title)} <em>${escapeHtml(t.titleEm)}</em></h3>
+                    <p class="finder-custom-kicker">${escapeHtml(t(recommended ? 'finder.custom.kickerRecommended' : 'finder.custom.kicker'))}</p>
+                    <h3 class="finder-custom-title" id="finder-custom-title">${escapeHtml(t('finder.custom.title'))} <em>${escapeHtml(t('finder.custom.titleEm'))}</em></h3>
                     ${text.map((sentence) => `<p>${escapeHtml(sentence)}</p>`).join('')}
                 </div>
                 <div class="finder-custom-actions">
-                    <a class="btn btn-solid" href="${escapeHtml(href)}">${escapeHtml(t.action)} ${arrowIcon()}</a>
+                    <a class="btn btn-solid" href="${escapeHtml(href)}">${escapeHtml(t('finder.custom.action'))} ${arrowIcon()}</a>
                 </div>
             </article>`;
     }
@@ -372,8 +322,8 @@ async function initFinder(root) {
         quiz.hidden = true;
         results.hidden = false;
 
-        const lead = [found.length ? FINDER_TEXT.resultsLead(found.length) : FINDER_TEXT.resultsNone];
-        if (found.some((entry) => entry.solution.status === 'exemple')) lead.push(FINDER_TEXT.resultsExample);
+        const lead = [found.length ? tn('finder.resultsLead', found.length) : t('finder.resultsNone')];
+        if (found.some((entry) => entry.solution.status === 'exemple')) lead.push(t('finder.resultsExample'));
         resultsLead.textContent = lead.join(' ');
         recapList.innerHTML = recapHtml();
 

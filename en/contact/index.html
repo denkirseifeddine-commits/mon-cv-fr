@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-root="../../" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Digital Solution Studio</title>
+    <meta name="description" content="Let's talk about your project: describe your need in a few lines and receive a first reply by email.">
+    <link rel="canonical" href="https://mon-cv-fr.vercel.app/en/contact/">
+    <link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/contact/">
+    <link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/contact/">
+    <link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/contact/">
+    <link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/contact/">
+    <meta name="theme-color" content="#F4EFE6">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contact — Digital Solution Studio">
+    <meta property="og:description" content="Let's talk about your project: describe your need in a few lines and receive a first reply by email.">
+    <meta property="og:url" content="https://mon-cv-fr.vercel.app/en/contact/">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="ar_TN">
+    <meta property="og:site_name" content="Digital Solution Studio">
+    <meta name="twitter:card" content="summary">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <script>document.documentElement.className = 'js';</script>
+    <script nomodule>document.documentElement.className = 'no-js';</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/tokens.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/forms.css">
+    <link rel="stylesheet" href="../../assets/css/pages.css">
+</head>
+<body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-arrow" viewBox="0 0 48 12"><path d="M0 6h46M40 1l6 5-6 5" fill="none" stroke="currentColor" stroke-width="1.2"/></symbol>
+        <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    </svg>
+
+    <div class="progress" aria-hidden="true"></div>
+    <a class="skip" href="#top">Skip to content</a>
+
+    <!-- En-tête commun : contenu de secours, remplacé par assets/js/components/site-header.js -->
+    <header class="top" data-site-header>
+        <a class="top-brand" href="../index.html">
+            <svg class="star" aria-hidden="true"><use href="#i-star"/></svg>
+            <span>Digital Solution Studio</span>
+        </a>
+        <a class="top-cta" href="../contact/">Request a quote <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </header>
+
+    <main id="top">
+        <!-- En-tête de page -->
+        <section class="page-head" aria-labelledby="page-title">
+            <p class="page-giant" aria-hidden="true" style="--fit: 3.196"><span class="page-giant-part"><span style="--i:0">C</span><span style="--i:1">O</span><span style="--i:2">N</span><span style="--i:3">T</span><span style="--i:4">A</span><span style="--i:5">C</span><span style="--i:6">T</span></span></p>
+            <div class="page-intro">
+                <h1 class="page-title" id="page-title"><span class="mask"><span>Let's talk about <em>your project</em></span></span></h1>
+                <p class="page-lead">Describe your need in a few lines. You receive a first reply by <span class="nowrap">email</span>.</p>
+            </div>
+        </section>
+
+        <!-- Demande de devis + coordonnées -->
+        <section class="section" id="devis" aria-labelledby="devis-title">
+            <div class="quote-layout">
+                <div class="quote-main">
+                    <h2 id="devis-title"><span>Quote</span> <em>request</em></h2>
+
+                    <noscript>
+                        <p class="form-noscript">This form needs JavaScript to prepare your email. Write to me directly at <a href="mailto:denkirseifeddine@gmail.com?subject=Quote%20request">denkirseifeddine@gmail.com</a>.</p>
+                    </noscript>
+
+                    <!-- Résumé des erreurs : rempli par assets/js/pages/contact.js -->
+                    <div class="form-summary" id="quote-summary" role="alert" data-title-one="The form contains 1 error:" data-title-many="The form contains {n} errors:"></div>
+
+                    <!-- Sans module JavaScript, l'action mailto: sert de repli ; contact.js l'intercepte -->
+                    <form class="form quote-form" id="quote-form" action="mailto:denkirseifeddine@gmail.com" method="post" enctype="text/plain" aria-labelledby="devis-title" novalidate>
+                        <div class="form-row">
+                            <div class="field">
+                                <label class="field-label" for="q-name">Name <span class="field-req">required</span></label>
+                                <input class="field-input" id="q-name" name="name" type="text" autocomplete="name" required>
+                                <p class="field-error" id="q-name-error" hidden>Enter your name.</p>
+                            </div>
+                            <div class="field">
+                                <label class="field-label" for="q-email">Email <span class="field-req">required</span></label>
+                                <input class="field-input" id="q-email" name="email" type="email" autocomplete="email" spellcheck="false" required>
+                                <p class="field-error" id="q-email-error" hidden>Enter a valid email address.</p>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="field">
+                                <label class="field-label" for="q-phone">Phone <span class="field-opt">optional</span></label>
+                                <input class="field-input" id="q-phone" name="phone" type="tel" autocomplete="tel">
+                            </div>
+                            <div class="field">
+                                <label class="field-label" for="q-need">Type of need <span class="field-req">required</span></label>
+                                <div class="select">
+                                    <select class="field-input" id="q-need" name="need" required>
+                                        <option value="">Choose…</option>
+                                        <option value="website">Website</option>
+                                        <option value="ecommerce">E-commerce</option>
+                                        <option value="automation">Automation</option>
+                                        <option value="crm">CRM</option>
+                                        <option value="application">Application</option>
+                                        <option value="ai">AI assistant</option>
+                                        <option value="unsure">I don't know yet</option>
+                                    </select>
+                                </div>
+                                <p class="field-error" id="q-need-error" hidden>Choose a type of need.</p>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="field">
+                                <label class="field-label" for="q-deadline">Desired timeframe <span class="field-opt">optional</span></label>
+                                <div class="select">
+                                    <select class="field-input" id="q-deadline" name="deadline">
+                                        <option value="">Choose…</option>
+                                        <option value="urgent">Urgent</option>
+                                        <option value="1-2-weeks">1 to 2 weeks</option>
+                                        <option value="1-month">1 month</option>
+                                        <option value="flexible">Flexible</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="field-label" for="q-budget">Indicative budget <span class="field-opt">optional</span></label>
+                                <input class="field-input" id="q-budget" name="budget" type="text" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="q-message">Message <span class="field-req">required</span></label>
+                            <textarea class="field-input" id="q-message" name="message" rows="6" required></textarea>
+                            <p class="field-error" id="q-message-error" hidden>Describe your need in a few words.</p>
+                        </div>
+                        <div class="field">
+                            <label class="check">
+                                <input class="check-input" id="q-consent" type="checkbox" name="consent" value="oui" required>
+                                <span class="check-text">I agree to be contacted about my request.</span>
+                            </label>
+                            <p class="field-error" id="q-consent-error" hidden>Check this box to continue.</p>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-solid" type="submit" aria-describedby="quote-privacy">Prepare my email <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                            <p class="field-help" id="quote-privacy">No data is stored by this site: your request is sent from your own email client.</p>
+                        </div>
+                    </form>
+
+                    <!-- Après validation : affiché par assets/js/pages/contact.js -->
+                    <div class="quote-result" id="quote-result" hidden>
+                        <p class="quote-result-msg" id="quote-result-msg" tabindex="-1">Your email client opens with your request <span class="nowrap">pre-filled</span>. Send this email to submit your request.</p>
+                        <div>
+                            <p class="quote-result-label" id="quote-text-label">Your request</p>
+                            <pre class="quote-text" id="quote-text" aria-labelledby="quote-text-label" tabindex="0"></pre>
+                        </div>
+                        <div class="quote-tools">
+                            <button class="btn btn-solid" id="quote-copy" type="button" data-copied="Message copied" data-selected="Message selected: copy it with Ctrl+C (⌘+C on Mac).">Copy the message</button>
+                            <p class="copy-status" id="quote-copy-status" role="status"></p>
+                        </div>
+                        <p class="quote-fallback">No email client set up? Copy this message and send it to <a href="mailto:denkirseifeddine@gmail.com">denkirseifeddine@gmail.com</a>.</p>
+                        <div class="quote-links">
+                            <a class="link-arrow" id="quote-reopen" href="mailto:denkirseifeddine@gmail.com">Reopen my email client <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+                            <button class="link-arrow" id="quote-edit" type="button"><svg class="arrow arrow-back" aria-hidden="true"><use href="#i-arrow"/></svg> Edit my request</button>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="coords" aria-labelledby="coords-title">
+                    <h3 class="coords-title" id="coords-title">Contact details</h3>
+                    <dl>
+                        <div>
+                            <dt>Email</dt>
+                            <dd><a class="text-link" href="mailto:denkirseifeddine@gmail.com">denkirseifeddine@gmail.com</a></dd>
+                        </div>
+                        <div>
+                            <dt>Phone</dt>
+                            <dd><a class="text-link" href="tel:+21621327315">+216 21 327 315</a></dd>
+                        </div>
+                        <div>
+                            <dt>City</dt>
+                            <dd>Tunis, Tunisia</dd>
+                        </div>
+                        <div>
+                            <dt>LinkedIn</dt>
+                            <dd><a class="text-link" href="https://www.linkedin.com/in/seif-eddine-denkir" target="_blank" rel="noopener">LinkedIn profile</a></dd>
+                        </div>
+                    </dl>
+                    <p class="coords-cv"><a class="link-arrow" href="../../cv.html" hreflang="fr">View the CV (FR) <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pied de page commun : contenu de secours, remplacé par assets/js/components/site-footer.js -->
+    <footer class="footer" data-site-footer>
+        <div class="footer-bottom">
+            <p>© 2026 Seif Eddine Denkir</p>
+            <a href="#top">Back to top</a>
+        </div>
+    </footer>
+
+    <script type="module" src="../../assets/js/pages/contact.js"></script>
+</body>
+</html>

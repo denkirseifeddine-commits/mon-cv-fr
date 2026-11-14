@@ -6,30 +6,30 @@
     "categoryId": "websites",
     "featured": true,
     "updatedAt": "2026-11-13",
-    "name": { "fr": "Site vitrine" },
-    "shortDescription": { "fr": "Un site institutionnel clair, facile à mettre à jour, pour présenter votre activité." },
-    "problem": { "fr": "Vous souhaitez présenter votre activité en ligne sans dépendre d'un développeur pour modifier chaque page." },
-    "description": { "fr": "Le site présente votre activité, vos services et vos coordonnées sur des pages bien organisées. Il est construit sur WordPress, avec une interface d'administration pour publier vos textes et vos images. Un formulaire de contact permet aux visiteurs de vous écrire directement." },
+    "name": { "fr": "Site vitrine", "en": "Showcase website", "ar": "موقع تعريفي" },
+    "shortDescription": { "fr": "Un site institutionnel clair, facile à mettre à jour, pour présenter votre activité.", "en": "A clear, easy-to-update corporate website to present your business.", "ar": "موقع مؤسساتي واضح وسهل التحديث للتعريف بنشاطك." },
+    "problem": { "fr": "Vous souhaitez présenter votre activité en ligne sans dépendre d'un développeur pour modifier chaque page.", "en": "You want to present your business online without relying on a developer to change every page.", "ar": "ترغب في التعريف بنشاطك على الإنترنت دون الحاجة إلى مطوّر لتعديل كل صفحة." },
+    "description": { "fr": "Le site présente votre activité, vos services et vos coordonnées sur des pages bien organisées. Il est construit sur WordPress, avec une interface d'administration pour publier vos textes et vos images. Un formulaire de contact permet aux visiteurs de vous écrire directement.", "en": "The website presents your business, your services and your contact details on well-organized pages. It is built on WordPress, with an administration interface to publish your texts and images. A contact form lets visitors write to you directly.", "ar": "يعرض الموقع نشاطك وخدماتك وبيانات الاتصال بك في صفحات منظّمة. وهو مبني على WordPress، مع واجهة إدارة لنشر نصوصك وصورك. ويتيح نموذج الاتصال للزوار مراسلتك مباشرة." },
     "features": [
-      { "fr": "Pages de présentation : activité, services, équipe et coordonnées" },
-      { "fr": "Formulaire de contact relié à votre adresse e-mail" },
-      { "fr": "Mise à jour des contenus depuis l'administration WordPress" },
-      { "fr": "Mise en page adaptée aux téléphones et aux tablettes" },
-      { "fr": "Structure des pages et balises de base pour le référencement" }
+      { "fr": "Pages de présentation : activité, services, équipe et coordonnées", "en": "Presentation pages: business, services, team and contact details", "ar": "صفحات تعريفية: النشاط، الخدمات، الفريق وبيانات الاتصال" },
+      { "fr": "Formulaire de contact relié à votre adresse e-mail", "en": "Contact form linked to your email address", "ar": "نموذج اتصال مرتبط بعنوان بريدك الإلكتروني" },
+      { "fr": "Mise à jour des contenus depuis l'administration WordPress", "en": "Content updates from the WordPress administration", "ar": "تحديث المحتوى من لوحة إدارة WordPress" },
+      { "fr": "Mise en page adaptée aux téléphones et aux tablettes", "en": "Layout adapted to phones and tablets", "ar": "تصميم ملائم للهواتف والأجهزة اللوحية" },
+      { "fr": "Structure des pages et balises de base pour le référencement", "en": "Page structure and basic tags for SEO", "ar": "بنية الصفحات والوسوم الأساسية لتحسين الظهور في محركات البحث (SEO)" }
     ],
     "technologies": ["WordPress", "Elementor Pro", "ACF Pro"],
     "requirements": [
-      { "fr": "Les textes et les images à publier, ou une idée de leur contenu" },
-      { "fr": "Une charte graphique existante, ou les couleurs et le style souhaités" }
+      { "fr": "Les textes et les images à publier, ou une idée de leur contenu", "en": "The texts and images to publish, or an idea of their content", "ar": "النصوص والصور المراد نشرها، أو فكرة عن محتواها" },
+      { "fr": "Une charte graphique existante, ou les couleurs et le style souhaités", "en": "An existing brand guide, or the desired colors and style", "ar": "دليل هوية بصرية موجود، أو الألوان والأسلوب المرغوب فيهما" }
     ],
     "deliverables": [
-      { "fr": "Un site installé et paramétré, avec les pages convenues ensemble" },
-      { "fr": "Une prise en main de l'interface d'administration" }
+      { "fr": "Un site installé et paramétré, avec les pages convenues ensemble", "en": "A website installed and configured, with the pages agreed together", "ar": "موقع مثبَّت ومُعدّ، يضمّ الصفحات المتّفق عليها معًا" },
+      { "fr": "Une prise en main de l'interface d'administration", "en": "An introduction to the administration interface", "ar": "تدريب على استخدام واجهة الإدارة" }
     ],
     "options": [
       {
-        "name": { "fr": "Rédaction des textes" },
-        "description": { "fr": "Rédaction des pages à partir des informations que vous fournissez." }
+        "name": { "fr": "Rédaction des textes", "en": "Copywriting", "ar": "كتابة النصوص" },
+        "description": { "fr": "Rédaction des pages à partir des informations que vous fournissez.", "en": "Writing of the pages based on the information you provide.", "ar": "كتابة الصفحات انطلاقًا من المعلومات التي تقدّمها." }
       }
     ],
     "deliveryDays": null,
@@ -44,7 +44,7 @@
       "complexity": ["simple", "intermediate"],
       "customization": ["ready", "some-changes"]
     },
-    "notice": { "fr": "Exemple, non commercialisé" }
+    "notice": { "fr": "Exemple, non commercialisé", "en": "Example, not for sale", "ar": "مثال، غير متاح للبيع" }
   },
   {
     "id": "exemple-boutique-en-ligne",
@@ -53,30 +53,30 @@
     "categoryId": "ecommerce",
     "featured": true,
     "updatedAt": "2026-11-13",
-    "name": { "fr": "Boutique en ligne" },
-    "shortDescription": { "fr": "Une boutique avec catalogue, panier et commande, gérée depuis un espace d'administration." },
-    "problem": { "fr": "Vous voulez vendre vos produits directement en ligne, avec une gestion simple des commandes." },
-    "description": { "fr": "La boutique présente vos produits par catégories, avec photos et descriptions. Les clients constituent leur panier et passent commande en quelques étapes. Vous suivez les commandes et les stocks depuis l'administration." },
+    "name": { "fr": "Boutique en ligne", "en": "Online shop", "ar": "متجر إلكتروني" },
+    "shortDescription": { "fr": "Une boutique avec catalogue, panier et commande, gérée depuis un espace d'administration.", "en": "A shop with catalog, cart and checkout, managed from an administration area.", "ar": "متجر يضمّ كتالوجًا وسلة شراء وطلبات، يُدار من فضاء إدارة." },
+    "problem": { "fr": "Vous voulez vendre vos produits directement en ligne, avec une gestion simple des commandes.", "en": "You want to sell your products directly online, with simple order management.", "ar": "ترغب في بيع منتجاتك مباشرة عبر الإنترنت، مع إدارة بسيطة للطلبات." },
+    "description": { "fr": "La boutique présente vos produits par catégories, avec photos et descriptions. Les clients constituent leur panier et passent commande en quelques étapes. Vous suivez les commandes et les stocks depuis l'administration.", "en": "The shop presents your products by category, with photos and descriptions. Customers fill their cart and place an order in a few steps. You track orders and stock from the administration.", "ar": "يعرض المتجر منتجاتك حسب الأصناف، مع الصور والأوصاف. يملأ العملاء سلة الشراء ويقدّمون طلبهم في بضع خطوات. وتتابع الطلبات والمخزون من لوحة الإدارة." },
     "features": [
-      { "fr": "Catalogue par catégories, avec fiches produits, photos et descriptions" },
-      { "fr": "Panier et processus de commande" },
-      { "fr": "Suivi des commandes et des stocks depuis l'administration" },
-      { "fr": "Comptes clients et historique des commandes" },
-      { "fr": "Notifications par e-mail lors d'une commande" }
+      { "fr": "Catalogue par catégories, avec fiches produits, photos et descriptions", "en": "Catalog by category, with product pages, photos and descriptions", "ar": "كتالوج حسب الأصناف، مع صفحات المنتجات والصور والأوصاف" },
+      { "fr": "Panier et processus de commande", "en": "Cart and checkout process", "ar": "سلة الشراء ومسار الطلب" },
+      { "fr": "Suivi des commandes et des stocks depuis l'administration", "en": "Order and stock tracking from the administration", "ar": "متابعة الطلبات والمخزون من لوحة الإدارة" },
+      { "fr": "Comptes clients et historique des commandes", "en": "Customer accounts and order history", "ar": "حسابات العملاء وسجلّ الطلبات" },
+      { "fr": "Notifications par e-mail lors d'une commande", "en": "Email notifications when an order is placed", "ar": "إشعارات بالبريد الإلكتروني عند كل طلب" }
     ],
     "technologies": ["WooCommerce", "WordPress", "Elementor Pro"],
     "requirements": [
-      { "fr": "La liste des produits, avec descriptions, prix et photos" },
-      { "fr": "Les conditions générales de vente et les modalités de livraison" }
+      { "fr": "La liste des produits, avec descriptions, prix et photos", "en": "The product list, with descriptions, prices and photos", "ar": "قائمة المنتجات، مع الأوصاف والأسعار والصور" },
+      { "fr": "Les conditions générales de vente et les modalités de livraison", "en": "The general terms of sale and delivery terms", "ar": "الشروط العامة للبيع وشروط التوصيل" }
     ],
     "deliverables": [
-      { "fr": "Une boutique installée, avec le catalogue initial" },
-      { "fr": "Une notice d'utilisation de l'administration" }
+      { "fr": "Une boutique installée, avec le catalogue initial", "en": "A shop installed, with the initial catalog", "ar": "متجر مثبَّت مع الكتالوج الأولي" },
+      { "fr": "Une notice d'utilisation de l'administration", "en": "A user guide for the administration", "ar": "دليل استخدام لوحة الإدارة" }
     ],
     "options": [
       {
-        "name": { "fr": "Import du catalogue" },
-        "description": { "fr": "Reprise des produits à partir d'un fichier tableur fourni par vos soins." }
+        "name": { "fr": "Import du catalogue", "en": "Catalog import", "ar": "استيراد الكتالوج" },
+        "description": { "fr": "Reprise des produits à partir d'un fichier tableur fourni par vos soins.", "en": "Import of products from a spreadsheet file you provide.", "ar": "نقل المنتجات انطلاقًا من ملف جدول بيانات تقدّمه." }
       }
     ],
     "deliveryDays": null,
@@ -91,7 +91,7 @@
       "complexity": ["simple", "intermediate"],
       "customization": ["ready", "some-changes"]
     },
-    "notice": { "fr": "Exemple, non commercialisé" }
+    "notice": { "fr": "Exemple, non commercialisé", "en": "Example, not for sale", "ar": "مثال، غير متاح للبيع" }
   },
   {
     "id": "exemple-crm-suivi-contacts",
@@ -100,30 +100,30 @@
     "categoryId": "crm",
     "featured": false,
     "updatedAt": "2026-11-13",
-    "name": { "fr": "CRM de suivi des contacts" },
-    "shortDescription": { "fr": "Un outil pour suivre vos contacts, vos prospects et vos échanges commerciaux." },
-    "problem": { "fr": "Vos contacts et vos échanges sont dispersés dans des fichiers et des messageries, ce qui rend le suivi commercial difficile." },
-    "description": { "fr": "L'outil regroupe les contacts et leur historique d'échanges au même endroit. Chaque prospect avance dans les étapes de votre processus de vente, avec des rappels pour les actions à mener. Les utilisateurs autorisés accèdent aux mêmes informations." },
+    "name": { "fr": "CRM de suivi des contacts", "en": "Contact tracking CRM", "ar": "نظام CRM لمتابعة جهات الاتصال" },
+    "shortDescription": { "fr": "Un outil pour suivre vos contacts, vos prospects et vos échanges commerciaux.", "en": "A tool to track your contacts, your prospects and your sales exchanges.", "ar": "أداة لمتابعة جهات الاتصال والعملاء المحتملين والمراسلات التجارية الخاصة بك." },
+    "problem": { "fr": "Vos contacts et vos échanges sont dispersés dans des fichiers et des messageries, ce qui rend le suivi commercial difficile.", "en": "Your contacts and exchanges are scattered across files and messaging tools, which makes sales follow-up difficult.", "ar": "جهات الاتصال والمراسلات الخاصة بك موزّعة بين الملفات وتطبيقات المراسلة، ما يجعل المتابعة التجارية صعبة." },
+    "description": { "fr": "L'outil regroupe les contacts et leur historique d'échanges au même endroit. Chaque prospect avance dans les étapes de votre processus de vente, avec des rappels pour les actions à mener. Les utilisateurs autorisés accèdent aux mêmes informations.", "en": "The tool brings contacts and their exchange history together in one place. Each prospect moves through the stages of your sales process, with reminders for the actions to take. Authorized users access the same information.", "ar": "تجمع الأداة جهات الاتصال وسجلّ المراسلات معها في مكان واحد. يتقدّم كل عميل محتمل عبر مراحل مسار البيع لديك، مع تذكيرات بالإجراءات الواجب القيام بها. ويطّلع المستخدمون المخوَّلون على المعلومات نفسها." },
     "features": [
-      { "fr": "Fiches contacts avec historique des échanges" },
-      { "fr": "Suivi des prospects par étapes de vente" },
-      { "fr": "Rappels et tâches à réaliser" },
-      { "fr": "Recherche et filtres sur les contacts" },
-      { "fr": "Export des données au format tableur" }
+      { "fr": "Fiches contacts avec historique des échanges", "en": "Contact records with exchange history", "ar": "بطاقات جهات الاتصال مع سجلّ المراسلات" },
+      { "fr": "Suivi des prospects par étapes de vente", "en": "Prospect tracking by sales stage", "ar": "متابعة العملاء المحتملين حسب مراحل البيع" },
+      { "fr": "Rappels et tâches à réaliser", "en": "Reminders and to-do tasks", "ar": "تذكيرات ومهام للإنجاز" },
+      { "fr": "Recherche et filtres sur les contacts", "en": "Contact search and filters", "ar": "البحث في جهات الاتصال وتصفيتها" },
+      { "fr": "Export des données au format tableur", "en": "Data export to spreadsheet format", "ar": "تصدير البيانات بصيغة جدول بيانات" }
     ],
     "technologies": ["Symfony", "PHP", "API REST"],
     "requirements": [
-      { "fr": "La liste des informations à suivre pour chaque contact" },
-      { "fr": "Les étapes de votre processus commercial" }
+      { "fr": "La liste des informations à suivre pour chaque contact", "en": "The list of information to track for each contact", "ar": "قائمة المعلومات المراد متابعتها لكل جهة اتصال" },
+      { "fr": "Les étapes de votre processus commercial", "en": "The stages of your sales process", "ar": "مراحل مسار البيع لديك" }
     ],
     "deliverables": [
-      { "fr": "Un outil installé et configuré selon votre processus" },
-      { "fr": "Un accès protégé par identifiant pour chaque utilisateur" }
+      { "fr": "Un outil installé et configuré selon votre processus", "en": "A tool installed and configured to match your process", "ar": "أداة مثبَّتة ومُعدّة وفق مسار عملك" },
+      { "fr": "Un accès protégé par identifiant pour chaque utilisateur", "en": "Login-protected access for each user", "ar": "دخول محميّ باسم مستخدم لكل مستخدم" }
     ],
     "options": [
       {
-        "name": { "fr": "Import initial des contacts" },
-        "description": { "fr": "Reprise des contacts existants à partir d'un fichier tableur." }
+        "name": { "fr": "Import initial des contacts", "en": "Initial contact import", "ar": "الاستيراد الأولي لجهات الاتصال" },
+        "description": { "fr": "Reprise des contacts existants à partir d'un fichier tableur.", "en": "Import of existing contacts from a spreadsheet file.", "ar": "نقل جهات الاتصال الحالية انطلاقًا من ملف جدول بيانات." }
       }
     ],
     "deliveryDays": null,
@@ -138,7 +138,7 @@
       "complexity": ["intermediate", "advanced"],
       "customization": ["some-changes", "custom"]
     },
-    "notice": { "fr": "Exemple, non commercialisé" }
+    "notice": { "fr": "Exemple, non commercialisé", "en": "Example, not for sale", "ar": "مثال، غير متاح للبيع" }
   },
   {
     "id": "exemple-relances-emails-automatiques",
@@ -147,30 +147,30 @@
     "categoryId": "marketing-automation",
     "featured": true,
     "updatedAt": "2026-11-13",
-    "name": { "fr": "Relances et e-mails automatiques" },
-    "shortDescription": { "fr": "Des messages envoyés automatiquement selon des événements ou des délais que vous définissez." },
-    "problem": { "fr": "Vous devez relancer vos prospects ou vos clients, mais les envois manuels prennent du temps et sont souvent oubliés." },
-    "description": { "fr": "Un scénario envoie des e-mails au moment voulu, à partir de modèles que vous validez. Chaque envoi est suivi, et les destinataires peuvent se désinscrire simplement. Les relances restent cohérentes d'un contact à l'autre." },
+    "name": { "fr": "Relances et e-mails automatiques", "en": "Automated follow-ups and emails", "ar": "تذكيرات ورسائل بريد إلكتروني آلية" },
+    "shortDescription": { "fr": "Des messages envoyés automatiquement selon des événements ou des délais que vous définissez.", "en": "Messages sent automatically based on events or time intervals that you define.", "ar": "رسائل تُرسَل آليًا حسب أحداث أو آجال تحدّدها." },
+    "problem": { "fr": "Vous devez relancer vos prospects ou vos clients, mais les envois manuels prennent du temps et sont souvent oubliés.", "en": "You need to follow up with your prospects or customers, but manual sending takes time and is often forgotten.", "ar": "تحتاج إلى تذكير عملائك أو عملائك المحتملين، لكن الإرسال اليدوي يستغرق وقتًا وكثيرًا ما يُنسى." },
+    "description": { "fr": "Un scénario envoie des e-mails au moment voulu, à partir de modèles que vous validez. Chaque envoi est suivi, et les destinataires peuvent se désinscrire simplement. Les relances restent cohérentes d'un contact à l'autre.", "en": "A workflow sends emails at the right time, based on templates that you approve. Each sending is tracked, and recipients can unsubscribe easily. Follow-ups remain consistent from one contact to the next.", "ar": "يُرسل سيناريو آلي رسائل البريد الإلكتروني في الوقت المطلوب، انطلاقًا من نماذج توافق عليها. تُتابَع كل عملية إرسال، ويمكن للمستلمين إلغاء الاشتراك بسهولة. وتبقى التذكيرات متّسقة من جهة اتصال إلى أخرى." },
     "features": [
-      { "fr": "Envois automatiques déclenchés par un événement ou un délai" },
-      { "fr": "Modèles de messages personnalisables" },
-      { "fr": "Personnalisation avec le prénom et les informations du contact" },
-      { "fr": "Suivi des messages envoyés" },
-      { "fr": "Désinscription simple pour les destinataires" }
+      { "fr": "Envois automatiques déclenchés par un événement ou un délai", "en": "Automatic sending triggered by an event or a time interval", "ar": "إرسال آلي يُطلقه حدث أو أجل محدّد" },
+      { "fr": "Modèles de messages personnalisables", "en": "Customizable message templates", "ar": "نماذج رسائل قابلة للتخصيص" },
+      { "fr": "Personnalisation avec le prénom et les informations du contact", "en": "Personalization with the contact's first name and details", "ar": "تخصيص الرسائل باسم جهة الاتصال ومعلوماتها" },
+      { "fr": "Suivi des messages envoyés", "en": "Tracking of sent messages", "ar": "متابعة الرسائل المرسَلة" },
+      { "fr": "Désinscription simple pour les destinataires", "en": "Easy unsubscribe for recipients", "ar": "إلغاء اشتراك سهل للمستلمين" }
     ],
     "technologies": ["WordPress", "PHP", "API REST"],
     "requirements": [
-      { "fr": "Les modèles de messages, rédigés ou validés par vos soins" },
-      { "fr": "La liste des événements qui doivent déclencher un envoi" }
+      { "fr": "Les modèles de messages, rédigés ou validés par vos soins", "en": "The message templates, written or approved by you", "ar": "نماذج الرسائل، تكتبها أو توافق عليها" },
+      { "fr": "La liste des événements qui doivent déclencher un envoi", "en": "The list of events that should trigger a sending", "ar": "قائمة الأحداث التي يجب أن تُطلق عملية إرسال" }
     ],
     "deliverables": [
-      { "fr": "Le scénario de relance configuré et testé" },
-      { "fr": "Une notice décrivant les déclencheurs et les modèles" }
+      { "fr": "Le scénario de relance configuré et testé", "en": "The follow-up workflow, configured and tested", "ar": "سيناريو التذكير مُعدّ ومُختبَر" },
+      { "fr": "Une notice décrivant les déclencheurs et les modèles", "en": "A guide describing the triggers and templates", "ar": "دليل يصف المُشغِّلات والنماذج" }
     ],
     "options": [
       {
-        "name": { "fr": "Connexion à un outil existant" },
-        "description": { "fr": "Échange de données entre le scénario et l'outil de gestion des contacts que vous utilisez déjà." }
+        "name": { "fr": "Connexion à un outil existant", "en": "Connection to an existing tool", "ar": "الربط بأداة موجودة" },
+        "description": { "fr": "Échange de données entre le scénario et l'outil de gestion des contacts que vous utilisez déjà.", "en": "Data exchange between the workflow and the contact management tool you already use.", "ar": "تبادل البيانات بين السيناريو وأداة إدارة جهات الاتصال التي تستخدمها حاليًا." }
       }
     ],
     "deliveryDays": null,
@@ -185,7 +185,7 @@
       "complexity": ["simple", "intermediate"],
       "customization": ["some-changes", "custom"]
     },
-    "notice": { "fr": "Exemple, non commercialisé" }
+    "notice": { "fr": "Exemple, non commercialisé", "en": "Example, not for sale", "ar": "مثال، غير متاح للبيع" }
   },
   {
     "id": "exemple-assistant-questions-frequentes",
@@ -194,30 +194,30 @@
     "categoryId": "ai-assistants",
     "featured": false,
     "updatedAt": "2026-11-13",
-    "name": { "fr": "Assistant de questions fréquentes" },
-    "shortDescription": { "fr": "Un assistant de discussion qui répond aux questions courantes à partir de vos contenus." },
-    "problem": { "fr": "Vos visiteurs posent souvent les mêmes questions, et votre équipe passe du temps à y répondre." },
-    "description": { "fr": "L'assistant s'affiche sur votre site et répond à partir des documents et des informations que vous fournissez. Lorsqu'une demande dépasse son périmètre, il oriente le visiteur vers votre équipe. Les questions posées restent consultables pour améliorer les réponses." },
+    "name": { "fr": "Assistant de questions fréquentes", "en": "FAQ assistant", "ar": "مساعد الأسئلة الشائعة" },
+    "shortDescription": { "fr": "Un assistant de discussion qui répond aux questions courantes à partir de vos contenus.", "en": "A chat assistant that answers common questions based on your content.", "ar": "مساعد محادثة يجيب عن الأسئلة المتداولة انطلاقًا من محتواك." },
+    "problem": { "fr": "Vos visiteurs posent souvent les mêmes questions, et votre équipe passe du temps à y répondre.", "en": "Your visitors often ask the same questions, and your team spends time answering them.", "ar": "كثيرًا ما يطرح زوّارك الأسئلة نفسها، ويقضي فريقك وقتًا في الإجابة عنها." },
+    "description": { "fr": "L'assistant s'affiche sur votre site et répond à partir des documents et des informations que vous fournissez. Lorsqu'une demande dépasse son périmètre, il oriente le visiteur vers votre équipe. Les questions posées restent consultables pour améliorer les réponses.", "en": "The assistant appears on your website and answers based on the documents and information you provide. When a request goes beyond its scope, it directs the visitor to your team. The questions asked remain available for review to improve the answers.", "ar": "يظهر المساعد على موقعك ويجيب انطلاقًا من الوثائق والمعلومات التي تقدّمها. وعندما يتجاوز طلبٌ نطاقه، يوجّه الزائر نحو فريقك. وتبقى الأسئلة المطروحة متاحة للاطلاع عليها بهدف تحسين الإجابات." },
     "features": [
-      { "fr": "Bulle de discussion intégrée au site" },
-      { "fr": "Réponses fondées sur les documents et les informations fournis" },
-      { "fr": "Orientation vers votre équipe pour les demandes complexes" },
-      { "fr": "Historique des questions posées, consultable depuis l'administration" },
-      { "fr": "Activation et désactivation depuis l'administration" }
+      { "fr": "Bulle de discussion intégrée au site", "en": "Chat bubble built into the website", "ar": "فقاعة محادثة مدمجة في الموقع" },
+      { "fr": "Réponses fondées sur les documents et les informations fournis", "en": "Answers based on the documents and information provided", "ar": "إجابات مبنية على الوثائق والمعلومات المقدَّمة" },
+      { "fr": "Orientation vers votre équipe pour les demandes complexes", "en": "Referral to your team for complex requests", "ar": "توجيه الطلبات المعقّدة نحو فريقك" },
+      { "fr": "Historique des questions posées, consultable depuis l'administration", "en": "History of questions asked, viewable from the administration", "ar": "سجلّ الأسئلة المطروحة، يمكن الاطلاع عليه من لوحة الإدارة" },
+      { "fr": "Activation et désactivation depuis l'administration", "en": "Activation and deactivation from the administration", "ar": "التفعيل والإيقاف من لوحة الإدارة" }
     ],
     "technologies": ["JavaScript", "API REST", "PHP"],
     "requirements": [
-      { "fr": "Les documents de référence : fiches produits, conditions, questions fréquentes" },
-      { "fr": "Les règles d'orientation vers votre équipe" }
+      { "fr": "Les documents de référence : fiches produits, conditions, questions fréquentes", "en": "The reference documents: product sheets, terms, frequently asked questions", "ar": "الوثائق المرجعية: بطاقات المنتجات، الشروط، الأسئلة الشائعة" },
+      { "fr": "Les règles d'orientation vers votre équipe", "en": "The rules for referral to your team", "ar": "قواعد التوجيه نحو فريقك" }
     ],
     "deliverables": [
-      { "fr": "Un assistant configuré sur vos contenus" },
-      { "fr": "Une notice d'administration" }
+      { "fr": "Un assistant configuré sur vos contenus", "en": "An assistant configured on your content", "ar": "مساعد مُعدّ على أساس محتواك" },
+      { "fr": "Une notice d'administration", "en": "An administration guide", "ar": "دليل الإدارة" }
     ],
     "options": [
       {
-        "name": { "fr": "Mise à jour des contenus" },
-        "description": { "fr": "Actualisation des informations de référence lorsque votre offre évolue." }
+        "name": { "fr": "Mise à jour des contenus", "en": "Content updates", "ar": "تحديث المحتوى" },
+        "description": { "fr": "Actualisation des informations de référence lorsque votre offre évolue.", "en": "Updating of the reference information when your offer changes.", "ar": "تحديث المعلومات المرجعية عند تطوّر عرضك." }
       }
     ],
     "deliveryDays": null,
@@ -232,7 +232,7 @@
       "complexity": ["intermediate", "advanced"],
       "customization": ["some-changes", "custom"]
     },
-    "notice": { "fr": "Exemple, non commercialisé" }
+    "notice": { "fr": "Exemple, non commercialisé", "en": "Example, not for sale", "ar": "مثال، غير متاح للبيع" }
   },
   {
     "id": "exemple-prise-rendez-vous",
@@ -241,30 +241,30 @@
     "categoryId": "mini-saas",
     "featured": false,
     "updatedAt": "2026-11-13",
-    "name": { "fr": "Outil de prise de rendez-vous" },
-    "shortDescription": { "fr": "Une page de réservation en ligne, reliée aux disponibilités de votre équipe." },
-    "problem": { "fr": "Les demandes de rendez-vous par téléphone ou par e-mail prennent du temps et entraînent des oublis et des doublons." },
-    "description": { "fr": "Vos clients choisissent un créneau disponible sur une page dédiée. Ils reçoivent une confirmation et un rappel, et peuvent annuler ou déplacer leur rendez-vous. Vous gérez les disponibilités et la liste des rendez-vous depuis un espace d'administration." },
+    "name": { "fr": "Outil de prise de rendez-vous", "en": "Appointment booking tool", "ar": "أداة حجز المواعيد" },
+    "shortDescription": { "fr": "Une page de réservation en ligne, reliée aux disponibilités de votre équipe.", "en": "An online booking page, linked to your team's availability.", "ar": "صفحة حجز عبر الإنترنت، مرتبطة بأوقات توفّر فريقك." },
+    "problem": { "fr": "Les demandes de rendez-vous par téléphone ou par e-mail prennent du temps et entraînent des oublis et des doublons.", "en": "Appointment requests by phone or email take time and lead to missed and duplicate bookings.", "ar": "تستغرق طلبات المواعيد عبر الهاتف أو البريد الإلكتروني وقتًا، وتؤدّي إلى السهو والتكرار." },
+    "description": { "fr": "Vos clients choisissent un créneau disponible sur une page dédiée. Ils reçoivent une confirmation et un rappel, et peuvent annuler ou déplacer leur rendez-vous. Vous gérez les disponibilités et la liste des rendez-vous depuis un espace d'administration.", "en": "Your customers choose an available time slot on a dedicated page. They receive a confirmation and a reminder, and can cancel or reschedule their appointment. You manage availability and the list of appointments from an administration area.", "ar": "يختار عملاؤك موعدًا متاحًا على صفحة خاصة. ويتلقّون تأكيدًا وتذكيرًا، ويمكنهم إلغاء موعدهم أو تغييره. وتدير أوقات التوفّر وقائمة المواعيد من فضاء إدارة." },
     "features": [
-      { "fr": "Calendrier de disponibilités par personne ou par service" },
-      { "fr": "Réservation en ligne depuis une page dédiée" },
-      { "fr": "Confirmation et rappel envoyés par e-mail" },
-      { "fr": "Annulation ou déplacement du rendez-vous par le client" },
-      { "fr": "Liste des rendez-vous à venir dans l'administration" }
+      { "fr": "Calendrier de disponibilités par personne ou par service", "en": "Availability calendar by person or by service", "ar": "رزنامة أوقات التوفّر حسب الشخص أو الخدمة" },
+      { "fr": "Réservation en ligne depuis une page dédiée", "en": "Online booking from a dedicated page", "ar": "الحجز عبر الإنترنت من صفحة خاصة" },
+      { "fr": "Confirmation et rappel envoyés par e-mail", "en": "Confirmation and reminder sent by email", "ar": "تأكيد وتذكير يُرسَلان بالبريد الإلكتروني" },
+      { "fr": "Annulation ou déplacement du rendez-vous par le client", "en": "Cancellation or rescheduling of the appointment by the customer", "ar": "إلغاء الموعد أو تغييره من قِبل العميل" },
+      { "fr": "Liste des rendez-vous à venir dans l'administration", "en": "List of upcoming appointments in the administration", "ar": "قائمة المواعيد القادمة في لوحة الإدارة" }
     ],
     "technologies": ["Symfony", "API REST", "Docker"],
     "requirements": [
-      { "fr": "Les services proposés et leur durée" },
-      { "fr": "Les plages horaires de disponibilité de chaque personne" }
+      { "fr": "Les services proposés et leur durée", "en": "The services offered and their duration", "ar": "الخدمات المقترحة ومدّة كل منها" },
+      { "fr": "Les plages horaires de disponibilité de chaque personne", "en": "Each person's available time slots", "ar": "الفترات الزمنية المتاحة لكل شخص" }
     ],
     "deliverables": [
-      { "fr": "Une page de réservation intégrée à votre site" },
-      { "fr": "Un espace d'administration pour gérer les rendez-vous" }
+      { "fr": "Une page de réservation intégrée à votre site", "en": "A booking page integrated into your website", "ar": "صفحة حجز مدمجة في موقعك" },
+      { "fr": "Un espace d'administration pour gérer les rendez-vous", "en": "An administration area to manage appointments", "ar": "فضاء إدارة لتسيير المواعيد" }
     ],
     "options": [
       {
-        "name": { "fr": "Synchronisation avec un agenda" },
-        "description": { "fr": "Reprise des rendez-vous vers l'agenda que vous utilisez déjà." }
+        "name": { "fr": "Synchronisation avec un agenda", "en": "Calendar synchronization", "ar": "المزامنة مع رزنامة" },
+        "description": { "fr": "Reprise des rendez-vous vers l'agenda que vous utilisez déjà.", "en": "Transfer of appointments to the calendar you already use.", "ar": "نقل المواعيد إلى الرزنامة التي تستخدمها حاليًا." }
       }
     ],
     "deliveryDays": null,
@@ -279,7 +279,7 @@
       "complexity": ["intermediate", "advanced"],
       "customization": ["ready", "some-changes"]
     },
-    "notice": { "fr": "Exemple, non commercialisé" }
+    "notice": { "fr": "Exemple, non commercialisé", "en": "Example, not for sale", "ar": "مثال، غير متاح للبيع" }
   },
   {
     "id": "exemple-tableau-de-bord-activite",
@@ -288,30 +288,30 @@
     "categoryId": "business-tools",
     "featured": false,
     "updatedAt": "2026-11-13",
-    "name": { "fr": "Tableau de bord d'activité" },
-    "shortDescription": { "fr": "Une page qui regroupe les indicateurs clés de votre activité, à partir de vos données." },
-    "problem": { "fr": "Les chiffres de l'activité sont répartis dans plusieurs fichiers, ce qui empêche d'avoir une vue d'ensemble." },
-    "description": { "fr": "Les indicateurs choisis avec vous apparaissent sur une seule page, avec des graphiques et des filtres par période. L'accès est réservé aux personnes autorisées. Le tableau de bord reste simple à lire, même pour une équipe non technique." },
+    "name": { "fr": "Tableau de bord d'activité", "en": "Business dashboard", "ar": "لوحة متابعة النشاط" },
+    "shortDescription": { "fr": "Une page qui regroupe les indicateurs clés de votre activité, à partir de vos données.", "en": "A page that brings together the key indicators of your business, based on your data.", "ar": "صفحة تجمع المؤشرات الرئيسية لنشاطك، انطلاقًا من بياناتك." },
+    "problem": { "fr": "Les chiffres de l'activité sont répartis dans plusieurs fichiers, ce qui empêche d'avoir une vue d'ensemble.", "en": "Business figures are spread across several files, which prevents an overall view.", "ar": "أرقام النشاط موزّعة على عدة ملفات، ما يحول دون الحصول على رؤية شاملة." },
+    "description": { "fr": "Les indicateurs choisis avec vous apparaissent sur une seule page, avec des graphiques et des filtres par période. L'accès est réservé aux personnes autorisées. Le tableau de bord reste simple à lire, même pour une équipe non technique.", "en": "The indicators chosen with you appear on a single page, with charts and filters by period. Access is restricted to authorized people. The dashboard remains easy to read, even for a non-technical team.", "ar": "تظهر المؤشرات التي يتمّ اختيارها معك في صفحة واحدة، مع رسوم بيانية وعوامل تصفية حسب الفترة. ويقتصر الدخول على الأشخاص المخوَّلين. وتبقى لوحة المتابعة سهلة القراءة، حتى بالنسبة إلى فريق غير تقني." },
     "features": [
-      { "fr": "Indicateurs clés regroupés sur une seule page" },
-      { "fr": "Graphiques d'évolution par période" },
-      { "fr": "Filtres par période et par service" },
-      { "fr": "Accès réservé aux personnes autorisées" },
-      { "fr": "Export des données au format tableur" }
+      { "fr": "Indicateurs clés regroupés sur une seule page", "en": "Key indicators gathered on a single page", "ar": "مؤشرات رئيسية مجمّعة في صفحة واحدة" },
+      { "fr": "Graphiques d'évolution par période", "en": "Trend charts by period", "ar": "رسوم بيانية للتطوّر حسب الفترة" },
+      { "fr": "Filtres par période et par service", "en": "Filters by period and by department", "ar": "التصفية حسب الفترة والقسم" },
+      { "fr": "Accès réservé aux personnes autorisées", "en": "Access restricted to authorized people", "ar": "دخول مقتصر على الأشخاص المخوَّلين" },
+      { "fr": "Export des données au format tableur", "en": "Data export to spreadsheet format", "ar": "تصدير البيانات بصيغة جدول بيانات" }
     ],
     "technologies": ["PHP", "JavaScript", "API REST"],
     "requirements": [
-      { "fr": "La liste des indicateurs à suivre" },
-      { "fr": "Les sources de données déjà utilisées, fichiers ou outils" }
+      { "fr": "La liste des indicateurs à suivre", "en": "The list of indicators to track", "ar": "قائمة المؤشرات المراد متابعتها" },
+      { "fr": "Les sources de données déjà utilisées, fichiers ou outils", "en": "The data sources already in use, files or tools", "ar": "مصادر البيانات المستخدمة حاليًا، من ملفات أو أدوات" }
     ],
     "deliverables": [
-      { "fr": "Un tableau de bord installé avec les indicateurs convenus" },
-      { "fr": "Un accès distinct pour chaque utilisateur autorisé" }
+      { "fr": "Un tableau de bord installé avec les indicateurs convenus", "en": "A dashboard installed with the agreed indicators", "ar": "لوحة متابعة مثبَّتة تضمّ المؤشرات المتّفق عليها" },
+      { "fr": "Un accès distinct pour chaque utilisateur autorisé", "en": "Separate access for each authorized user", "ar": "دخول مستقلّ لكل مستخدم مخوَّل" }
     ],
     "options": [
       {
-        "name": { "fr": "Connexion automatique à une source de données" },
-        "description": { "fr": "Mise à jour des indicateurs sans saisie manuelle, à partir d'une source existante." }
+        "name": { "fr": "Connexion automatique à une source de données", "en": "Automatic connection to a data source", "ar": "الربط الآلي بمصدر بيانات" },
+        "description": { "fr": "Mise à jour des indicateurs sans saisie manuelle, à partir d'une source existante.", "en": "Indicator updates without manual entry, from an existing source.", "ar": "تحديث المؤشرات دون إدخال يدوي، انطلاقًا من مصدر موجود." }
       }
     ],
     "deliveryDays": null,
@@ -326,7 +326,7 @@
       "complexity": ["intermediate", "advanced"],
       "customization": ["some-changes", "custom"]
     },
-    "notice": { "fr": "Exemple, non commercialisé" }
+    "notice": { "fr": "Exemple, non commercialisé", "en": "Example, not for sale", "ar": "مثال، غير متاح للبيع" }
   },
   {
     "id": "exemple-application-metier-sur-mesure",
@@ -335,31 +335,31 @@
     "categoryId": "custom-applications",
     "featured": false,
     "updatedAt": "2026-11-13",
-    "name": { "fr": "Application métier sur mesure" },
-    "shortDescription": { "fr": "Une application conçue pour les processus propres à votre entreprise." },
-    "problem": { "fr": "Les outils standards ne couvrent pas certains processus de votre entreprise, et leur gestion reste manuelle ou dispersée." },
-    "description": { "fr": "L'application est définie à partir de vos processus, puis développée par étapes avec des points de validation. Elle propose une interface claire pour les équipes et échange des données par API REST avec vos outils existants. Elle est livrée avec sa documentation technique." },
+    "name": { "fr": "Application métier sur mesure", "en": "Custom business application", "ar": "تطبيق أعمال حسب الطلب" },
+    "shortDescription": { "fr": "Une application conçue pour les processus propres à votre entreprise.", "en": "An application designed for your company's own processes.", "ar": "تطبيق مصمَّم للإجراءات الخاصة بمؤسستك." },
+    "problem": { "fr": "Les outils standards ne couvrent pas certains processus de votre entreprise, et leur gestion reste manuelle ou dispersée.", "en": "Standard tools do not cover some of your company's processes, and their management remains manual or scattered.", "ar": "لا تغطّي الأدوات القياسية بعض إجراءات مؤسستك، فتبقى إدارتها يدوية أو مشتّتة." },
+    "description": { "fr": "L'application est définie à partir de vos processus, puis développée par étapes avec des points de validation. Elle propose une interface claire pour les équipes et échange des données par API REST avec vos outils existants. Elle est livrée avec sa documentation technique.", "en": "The application is defined based on your processes, then developed in stages with validation checkpoints. It offers a clear interface for teams and exchanges data via REST API with your existing tools. It is delivered with its technical documentation.", "ar": "يُحدَّد التطبيق انطلاقًا من إجراءات عملك، ثم يُطوَّر على مراحل مع نقاط للمصادقة. ويوفّر واجهة واضحة للفرق، ويتبادل البيانات عبر API REST مع أدواتك الحالية. ويُسلَّم مع وثائقه التقنية." },
     "features": [
-      { "fr": "Analyse du besoin et découpage des fonctions" },
-      { "fr": "Interface adaptée aux métiers de l'entreprise" },
-      { "fr": "Gestion des droits selon les profils utilisateurs" },
-      { "fr": "Échanges de données avec vos outils existants par API REST" },
-      { "fr": "Déploiement dans un environnement conteneurisé" },
-      { "fr": "Documentation technique du projet" }
+      { "fr": "Analyse du besoin et découpage des fonctions", "en": "Needs analysis and breakdown of features", "ar": "تحليل الاحتياجات وتقسيم الوظائف" },
+      { "fr": "Interface adaptée aux métiers de l'entreprise", "en": "Interface tailored to the company's business functions", "ar": "واجهة ملائمة لمهن المؤسسة" },
+      { "fr": "Gestion des droits selon les profils utilisateurs", "en": "Permission management by user profile", "ar": "إدارة الصلاحيات حسب ملفات المستخدمين" },
+      { "fr": "Échanges de données avec vos outils existants par API REST", "en": "Data exchange with your existing tools via REST API", "ar": "تبادل البيانات مع أدواتك الحالية عبر API REST" },
+      { "fr": "Déploiement dans un environnement conteneurisé", "en": "Deployment in a containerized environment", "ar": "النشر في بيئة حاويات" },
+      { "fr": "Documentation technique du projet", "en": "Technical documentation of the project", "ar": "الوثائق التقنية للمشروع" }
     ],
     "technologies": ["Symfony", "PHP", "JavaScript", "API REST", "Docker"],
     "requirements": [
-      { "fr": "Une description écrite des processus à automatiser ou à centraliser" },
-      { "fr": "Les données existantes à reprendre, si elles existent" }
+      { "fr": "Une description écrite des processus à automatiser ou à centraliser", "en": "A written description of the processes to automate or centralize", "ar": "وصف مكتوب للإجراءات المراد أتمتتها أو تجميعها" },
+      { "fr": "Les données existantes à reprendre, si elles existent", "en": "The existing data to carry over, if any", "ar": "البيانات الحالية المراد نقلها، إن وُجدت" }
     ],
     "deliverables": [
-      { "fr": "Une application livrée et déployée" },
-      { "fr": "Une documentation technique et une notice d'utilisation" }
+      { "fr": "Une application livrée et déployée", "en": "An application delivered and deployed", "ar": "تطبيق مُسلَّم ومنشور" },
+      { "fr": "Une documentation technique et une notice d'utilisation", "en": "Technical documentation and a user guide", "ar": "وثائق تقنية ودليل استخدام" }
     ],
     "options": [
       {
-        "name": { "fr": "Maintenance et évolutions" },
-        "description": { "fr": "Corrections, mises à jour et nouvelles fonctions après la livraison." }
+        "name": { "fr": "Maintenance et évolutions", "en": "Maintenance and improvements", "ar": "الصيانة والتطويرات" },
+        "description": { "fr": "Corrections, mises à jour et nouvelles fonctions après la livraison.", "en": "Fixes, updates and new features after delivery.", "ar": "إصلاحات وتحديثات ووظائف جديدة بعد التسليم." }
       }
     ],
     "deliveryDays": null,
@@ -374,6 +374,6 @@
       "complexity": ["intermediate", "advanced"],
       "customization": ["custom"]
     },
-    "notice": { "fr": "Exemple, non commercialisé" }
+    "notice": { "fr": "Exemple, non commercialisé", "en": "Example, not for sale", "ar": "مثال، غير متاح للبيع" }
   }
 ]

@@ -18,6 +18,8 @@
 /* Une seule ligne sur toute la largeur : la largeur naturelle des trois mots
    en Anton vaut 9,13 em ; les espaces entre les mots absorbent le reste. */
 .hero-studio .giant { font-size: 11.100cqw; letter-spacing: 0; --step: 35ms; }
+/* Mots écrits d'un bloc (arabe, motion/giant.js) : taille tirée de la largeur mesurée */
+.hero-studio .giant.is-whole { font-size: calc(96cqw / var(--fit, 4)); }
 .hero-studio .giant-word:nth-child(2) { --w: 7; }
 .hero-studio .giant-word:nth-child(3) { --w: 15; }
 
@@ -36,7 +38,7 @@
 .hero-studio .hero-art { margin-top: -4.500cqw; }
 .hero-studio .disc { width: min(37cqw, 470px); }
 .hero-studio .monogram { font-size: min(15.500cqw, 196px); }
-.hero-studio .hero-badge { right: -2%; top: auto; bottom: 4%; }
+.hero-studio .hero-badge { inset-inline-end: -2%; top: auto; bottom: 4%; }
 
 /* ---------- Trois offres ---------- */
 .offers {
@@ -59,6 +61,7 @@
     transform: scaleX(0); transform-origin: left;
     transition: transform .8s var(--ease);
 }
+[dir="rtl"] .offer::before { transform-origin: right; }
 .offer:hover::before { transform: scaleX(1); }
 .offer .num { font-size: clamp(3.250rem, 5vw, 4.500rem); }
 .offer-en { margin-top: clamp(24px, 3vw, 40px); color: var(--muted); }
@@ -128,13 +131,14 @@
     .hero-studio .hero-art { margin-top: 0; }
     .hero-studio .disc { width: 52cqw; }
     .hero-studio .monogram { font-size: 22cqw; }
-    .hero-studio .hero-badge { right: 6%; bottom: -4%; }
+    .hero-studio .hero-badge { inset-inline-end: 6%; bottom: -4%; }
     .hero-studio .hero-intro { padding-top: 16px; }
 }
 
 /* Mobile : trois lignes empilées ; « SOLUTION » (3,43 em) occupe la largeur */
 @media (max-width: 600px) {
     .hero-studio .giant { flex-direction: column; font-size: 29cqw; line-height: 0.88; }
+    .hero-studio .giant.is-whole { font-size: calc(96cqw / var(--fit-col, 3)); line-height: 1.2; }
     .hero-studio .hero-art { margin-top: -11cqw; }
     .hero-studio .disc { width: 50cqw; margin-inline: auto 4cqw; }
     .hero-studio .monogram { font-size: 20cqw; }

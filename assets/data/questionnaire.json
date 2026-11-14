@@ -14,19 +14,23 @@
       "unsure"
     ],
     "title": {
-      "fr": "De quoi avez-vous besoin ?"
+      "fr": "De quoi avez-vous besoin ?",
+      "en": "What do you need?",
+      "ar": "ما الذي تحتاجه؟"
     },
     "help": {
-      "fr": "Une seule réponse."
+      "fr": "Une seule réponse.",
+      "en": "One answer only.",
+      "ar": "إجابة واحدة فقط."
     },
     "labels": {
-      "website": { "fr": "Site web" },
-      "ecommerce": { "fr": "E-commerce" },
-      "automation": { "fr": "Automatisation" },
-      "crm": { "fr": "CRM" },
-      "application": { "fr": "Application" },
-      "ai": { "fr": "Assistant IA" },
-      "unsure": { "fr": "Je ne sais pas encore" }
+      "website": { "fr": "Site web", "en": "Website", "ar": "موقع ويب" },
+      "ecommerce": { "fr": "E-commerce", "en": "E-commerce", "ar": "تجارة إلكترونية" },
+      "automation": { "fr": "Automatisation", "en": "Automation", "ar": "أتمتة" },
+      "crm": { "fr": "CRM", "en": "CRM", "ar": "إدارة علاقات العملاء (CRM)" },
+      "application": { "fr": "Application", "en": "Application", "ar": "تطبيق" },
+      "ai": { "fr": "Assistant IA", "en": "AI assistant", "ar": "مساعد بالذكاء الاصطناعي" },
+      "unsure": { "fr": "Je ne sais pas encore", "en": "I don't know yet", "ar": "لا أعرف بعد" }
     },
     "scored": true
   },
@@ -45,19 +49,23 @@
       "other"
     ],
     "title": {
-      "fr": "Dans quel secteur exercez-vous ?"
+      "fr": "Dans quel secteur exercez-vous ?",
+      "en": "Which sector do you work in?",
+      "ar": "في أي قطاع تعمل؟"
     },
     "help": {
-      "fr": "Une seule réponse."
+      "fr": "Une seule réponse.",
+      "en": "One answer only.",
+      "ar": "إجابة واحدة فقط."
     },
     "labels": {
-      "commerce": { "fr": "Commerce" },
-      "restaurant": { "fr": "Restauration" },
-      "association": { "fr": "Association" },
-      "consultant": { "fr": "Consultant ou profession libérale" },
-      "agency": { "fr": "Agence" },
-      "startup": { "fr": "Startup" },
-      "other": { "fr": "Autre secteur" }
+      "commerce": { "fr": "Commerce", "en": "Retail", "ar": "تجارة" },
+      "restaurant": { "fr": "Restauration", "en": "Food service", "ar": "مطاعم" },
+      "association": { "fr": "Association", "en": "Non-profit association", "ar": "جمعية" },
+      "consultant": { "fr": "Consultant ou profession libérale", "en": "Consultant or independent professional", "ar": "مستشار أو مهنة حرة" },
+      "agency": { "fr": "Agence", "en": "Agency", "ar": "وكالة" },
+      "startup": { "fr": "Startup", "en": "Startup", "ar": "شركة ناشئة" },
+      "other": { "fr": "Autre secteur", "en": "Other sector", "ar": "قطاع آخر" }
     },
     "scored": true
   },
@@ -75,18 +83,22 @@
       "centralize"
     ],
     "title": {
-      "fr": "Qu'attendez-vous de ce projet ?"
+      "fr": "Qu'attendez-vous de ce projet ?",
+      "en": "What do you expect from this project?",
+      "ar": "ما الذي تنتظره من هذا المشروع؟"
     },
     "help": {
-      "fr": "Plusieurs réponses possibles."
+      "fr": "Plusieurs réponses possibles.",
+      "en": "Several answers possible.",
+      "ar": "يمكن اختيار عدة إجابات."
     },
     "labels": {
-      "showcase": { "fr": "Présenter mon activité" },
-      "leads": { "fr": "Obtenir des contacts" },
-      "sell": { "fr": "Vendre en ligne" },
-      "manage-customers": { "fr": "Gérer mes clients" },
-      "automate": { "fr": "Automatiser des tâches" },
-      "centralize": { "fr": "Centraliser mes outils" }
+      "showcase": { "fr": "Présenter mon activité", "en": "Present my business", "ar": "التعريف بنشاطي" },
+      "leads": { "fr": "Obtenir des contacts", "en": "Get leads", "ar": "الحصول على جهات اتصال" },
+      "sell": { "fr": "Vendre en ligne", "en": "Sell online", "ar": "البيع عبر الإنترنت" },
+      "manage-customers": { "fr": "Gérer mes clients", "en": "Manage my customers", "ar": "إدارة عملائي" },
+      "automate": { "fr": "Automatiser des tâches", "en": "Automate tasks", "ar": "أتمتة المهام" },
+      "centralize": { "fr": "Centraliser mes outils", "en": "Centralize my tools", "ar": "تجميع أدواتي في مكان واحد" }
     },
     "scored": true
   },
@@ -102,16 +114,20 @@
       "unsure"
     ],
     "title": {
-      "fr": "Quelle ampleur imaginez-vous pour le projet ?"
+      "fr": "Quelle ampleur imaginez-vous pour le projet ?",
+      "en": "What scope do you have in mind for the project?",
+      "ar": "ما حجم المشروع الذي تتصوّره؟"
     },
     "help": {
-      "fr": "Une seule réponse ; une estimation suffit."
+      "fr": "Une seule réponse ; une estimation suffit.",
+      "en": "One answer only; an estimate is enough.",
+      "ar": "إجابة واحدة فقط؛ يكفي تقدير تقريبي."
     },
     "labels": {
-      "simple": { "fr": "Simple : quelques pages ou fonctions de base" },
-      "intermediate": { "fr": "Intermédiaire : plusieurs fonctions liées entre elles" },
-      "advanced": { "fr": "Avancée : fonctions propres à votre activité" },
-      "unsure": { "fr": "Je ne sais pas encore" }
+      "simple": { "fr": "Simple : quelques pages ou fonctions de base", "en": "Simple: a few pages or basic features", "ar": "بسيط: بضع صفحات أو وظائف أساسية" },
+      "intermediate": { "fr": "Intermédiaire : plusieurs fonctions liées entre elles", "en": "Intermediate: several interconnected features", "ar": "متوسط: عدة وظائف مترابطة" },
+      "advanced": { "fr": "Avancée : fonctions propres à votre activité", "en": "Advanced: features specific to your business", "ar": "متقدّم: وظائف خاصة بنشاطك" },
+      "unsure": { "fr": "Je ne sais pas encore", "en": "I don't know yet", "ar": "لا أعرف بعد" }
     },
     "scored": true
   },
@@ -129,18 +145,22 @@
       "undefined"
     ],
     "title": {
-      "fr": "Quel budget envisagez-vous ?"
+      "fr": "Quel budget envisagez-vous ?",
+      "en": "What budget do you have in mind?",
+      "ar": "ما الميزانية التي تخطّط لها؟"
     },
     "help": {
-      "fr": "Montant indicatif en dinars tunisiens (DT), utilisé seulement pour préparer votre demande de devis."
+      "fr": "Montant indicatif en dinars tunisiens (DT), utilisé seulement pour préparer votre demande de devis.",
+      "en": "Indicative amount in Tunisian dinars (TND), used only to prepare your quote request.",
+      "ar": "مبلغ تقريبي بالدينار التونسي (د.ت)، يُستخدم فقط لإعداد طلب عرض السعر الخاص بك."
     },
     "labels": {
-      "under-500": { "fr": "Moins de 500 DT" },
-      "500-1000": { "fr": "500 à 1 000 DT" },
-      "1000-2500": { "fr": "1 000 à 2 500 DT" },
-      "2500-5000": { "fr": "2 500 à 5 000 DT" },
-      "over-5000": { "fr": "Plus de 5 000 DT" },
-      "undefined": { "fr": "Je ne sais pas encore" }
+      "under-500": { "fr": "Moins de 500 DT", "en": "Under 500 TND", "ar": "أقل من 500 د.ت" },
+      "500-1000": { "fr": "500 à 1 000 DT", "en": "500 to 1,000 TND", "ar": "من 500 إلى 1000 د.ت" },
+      "1000-2500": { "fr": "1 000 à 2 500 DT", "en": "1,000 to 2,500 TND", "ar": "من 1000 إلى 2500 د.ت" },
+      "2500-5000": { "fr": "2 500 à 5 000 DT", "en": "2,500 to 5,000 TND", "ar": "من 2500 إلى 5000 د.ت" },
+      "over-5000": { "fr": "Plus de 5 000 DT", "en": "Over 5,000 TND", "ar": "أكثر من 5000 د.ت" },
+      "undefined": { "fr": "Je ne sais pas encore", "en": "I don't know yet", "ar": "لا أعرف بعد" }
     },
     "scored": false
   },
@@ -156,16 +176,20 @@
       "flexible"
     ],
     "title": {
-      "fr": "Dans quel délai souhaitez-vous démarrer ?"
+      "fr": "Dans quel délai souhaitez-vous démarrer ?",
+      "en": "How soon would you like to start?",
+      "ar": "متى ترغب في الانطلاق؟"
     },
     "help": {
-      "fr": "Indicatif, utilisé seulement pour préparer votre demande de devis."
+      "fr": "Indicatif, utilisé seulement pour préparer votre demande de devis.",
+      "en": "Indicative, used only to prepare your quote request.",
+      "ar": "معلومة تقريبية، تُستخدم فقط لإعداد طلب عرض السعر الخاص بك."
     },
     "labels": {
-      "urgent": { "fr": "Urgent" },
-      "1-2-weeks": { "fr": "1 à 2 semaines" },
-      "1-month": { "fr": "1 mois" },
-      "flexible": { "fr": "Flexible" }
+      "urgent": { "fr": "Urgent", "en": "Urgent", "ar": "عاجل" },
+      "1-2-weeks": { "fr": "1 à 2 semaines", "en": "1 to 2 weeks", "ar": "من أسبوع إلى أسبوعين" },
+      "1-month": { "fr": "1 mois", "en": "1 month", "ar": "شهر واحد" },
+      "flexible": { "fr": "Flexible", "en": "Flexible", "ar": "مرن" }
     },
     "scored": false
   },
@@ -180,15 +204,19 @@
       "custom"
     ],
     "title": {
-      "fr": "Quel niveau d'adaptation attendez-vous ?"
+      "fr": "Quel niveau d'adaptation attendez-vous ?",
+      "en": "What level of customization do you expect?",
+      "ar": "ما مستوى التكييف الذي تنتظره؟"
     },
     "help": {
-      "fr": "Une seule réponse ; vous pourrez préciser vos besoins dans la demande de devis."
+      "fr": "Une seule réponse ; vous pourrez préciser vos besoins dans la demande de devis.",
+      "en": "One answer only; you can detail your needs in the quote request.",
+      "ar": "إجابة واحدة فقط؛ يمكنك توضيح احتياجاتك في طلب عرض السعر."
     },
     "labels": {
-      "ready": { "fr": "Prêt à l'emploi, sans modification" },
-      "some-changes": { "fr": "Quelques adaptations" },
-      "custom": { "fr": "Sur mesure, entièrement adapté à mon activité" }
+      "ready": { "fr": "Prêt à l'emploi, sans modification", "en": "Ready to use, no changes", "ar": "جاهز للاستخدام، دون تعديل" },
+      "some-changes": { "fr": "Quelques adaptations", "en": "A few adjustments", "ar": "بعض التعديلات" },
+      "custom": { "fr": "Sur mesure, entièrement adapté à mon activité", "en": "Custom-built, fully tailored to my business", "ar": "حسب الطلب، ومكيَّف بالكامل مع نشاطي" }
     },
     "scored": true
   }

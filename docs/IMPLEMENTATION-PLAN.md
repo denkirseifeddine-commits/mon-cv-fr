@@ -56,11 +56,13 @@ Une pull request par lot, validée avant le lot suivant.
 - [x] Tests unitaires du moteur (`scripts/test-recommendation.mjs`, intégration continue).
 
 ## Lot 6 — Internationalisation
-- [ ] Définir le routage FR/EN/AR.
-- [ ] Externaliser les contenus.
-- [ ] Ajouter le sélecteur de langue.
-- [ ] Ajouter RTL et tester chaque page arabe.
-- [ ] Ajouter `hreflang` et canonicals cohérents.
+- [x] Définir le routage FR/EN/AR (français à la racine, `en/` et `ar/` avec les mêmes dossiers).
+- [x] Externaliser les contenus (`assets/js/i18n/messages/`, données JSON `{ fr, en, ar }`).
+- [x] Ajouter le sélecteur de langue (en-tête : FR, EN, ع).
+- [x] Ajouter RTL (propriétés logiques, flèches, polices arabes).
+- [ ] Tester chaque page arabe au rendu (ordinateur et mobile).
+- [x] Ajouter `hreflang` et canonicals cohérents (pages, sitemap, `scripts/check-site.py`).
+- [x] Tests i18n (`scripts/test-i18n.mjs`, intégration continue).
 
 ## Lot 7 — Devis
 - [ ] Choisir un endpoint sécurisé (Laravel ou fournisseur de formulaire approprié).

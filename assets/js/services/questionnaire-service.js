@@ -9,7 +9,8 @@
  * docs/API-CONTRACT.md) sans que les pages changent.
  *
  * Les fonctions pures (questionTitle, questionHelp, optionLabel, answerLabel)
- * ne touchent ni au DOM ni au réseau. Un libellé absent renvoie le code :
+ * ne touchent ni au DOM ni au réseau. Leur paramètre `locale` est facultatif :
+ * par défaut, langue de la page ("fr" sous Node), repli sur le français. Un libellé absent renvoie le code :
  * la page reste utilisable même si un texte manque.
  */
 import { siteRoot } from '../utils/site-root.js';

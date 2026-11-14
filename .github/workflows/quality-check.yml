@@ -17,3 +17,5 @@ jobs:
         run: node scripts/test-catalog.mjs
       - name: Unit tests (recommandation)
         run: node scripts/test-recommendation.mjs
+      - name: Unit tests (i18n)
+        run: node scripts/test-i18n.mjs

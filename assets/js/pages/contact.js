@@ -3,16 +3,16 @@
  * préparation de l'e-mail par le service de devis et affichage du résultat.
  *
  * Les textes (erreurs, résumé, retours de copie) sont dans le HTML de la
- * page : ce script ne fait qu'afficher ou masquer. Aucune donnée n'est
+ * page : ce script ne fait qu'afficher ou masquer. Le message pré-rempli
+ * vient des dictionnaires i18n (contact.solutionMessage), l'e-mail est
+ * rédigé dans la langue de la page (quote-service.js). Aucune donnée n'est
  * conservée (ni localStorage, ni cookie).
  */
 import '../main.js';
 import { submitQuote } from '../services/quote-service.js';
 import { getSolutionBySlug, localized } from '../services/catalog-service.js';
 import { getQuestionnaire, findQuestion, optionLabel } from '../services/questionnaire-service.js';
-
-// Message pré-rempli depuis une fiche (?solution=<slug>) ; {name} = nom de la solution
-const SOLUTION_MESSAGE = 'Je suis intéressé(e) par la solution : {name}.';
+import { t } from '../i18n/index.js';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -82,7 +82,7 @@ async function prefillFromSolution(quoteForm) {
     if (!name) return;
 
     const message = quoteForm.elements.message;
-    if (message && !message.value.trim()) message.value = SOLUTION_MESSAGE.replace('{name}', name);
+    if (message && !message.value.trim()) message.value = t('contact.solutionMessage', { name });
 
     const needs = Array.isArray(solution.match?.needs) ? solution.match.needs : [];
     const need = quoteForm.elements.need;

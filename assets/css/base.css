@@ -23,14 +23,15 @@ ul, ol { list-style: none; padding: 0; }
 svg { display: block; }
 :focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 4px; }
 
-.skip { position: absolute; left: -9999px; top: 8px; z-index: 30; background: var(--ink); color: var(--bg); padding: 8px 14px; }
-.skip:focus { left: 8px; }
+.skip { position: absolute; inset-inline-start: -9999px; top: 8px; z-index: 30; background: var(--ink); color: var(--bg); padding: 8px 14px; }
+.skip:focus { inset-inline-start: 8px; }
 
 .progress {
     position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 25;
     background: var(--accent);
     transform: scaleX(var(--scroll, 0)); transform-origin: left;
 }
+[dir="rtl"] .progress { transform-origin: right; }
 
 /* Petites capitales espacées, reprises partout (chaque feuille déclare ses propres classes) */
 .link-arrow, .btn {
@@ -84,6 +85,10 @@ button.link-arrow:hover > .arrow { transform: translateX(8px); }
 /* Flèche retournée (« Précédent ») : pointe vers le début de la ligne */
 .arrow-back { scale: -1 1; }
 button.link-arrow:hover > .arrow-back { transform: translateX(8px); }
+/* Droite à gauche : les flèches sont retournées. `scale` s'applique après
+   `transform`, donc le décalage au survol suit le sens de la flèche. */
+[dir="rtl"] .arrow { scale: -1 1; }
+[dir="rtl"] .arrow-back { scale: 1 1; }
 button.btn:disabled { cursor: not-allowed; opacity: .45; }
 button.btn:disabled::before { display: none; }
 button.link-arrow:disabled { cursor: not-allowed; color: var(--muted); }
@@ -106,6 +111,13 @@ h2 {
 }
 h2 span, h2 em { display: block; }
 h2 em { font-style: normal; color: var(--accent); }
+
+/* Arabe : Amiri et la coufique ont des jambages et des signes (points,
+   voyelles, chadda) au-dessus et au-dessous de la ligne ; les interlignes
+   serrés des titres latins les feraient se chevaucher ou les couperaient. */
+:root:lang(ar) :is(h1, h2, h3, h4) { line-height: 1.4; }
+/* Mot géant arabe : coufique en graisse 900 (seules 700 à 900 sont chargées) */
+:root:lang(ar) :is(.giant, .page-giant) { font-weight: 900; }
 
 /* En-tête de section : titre, texte, lien */
 .head {

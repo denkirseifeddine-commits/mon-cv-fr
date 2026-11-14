@@ -33,6 +33,8 @@ Source unique : `assets/css/tokens.css`.
 
 Règle de contraste : `--accent` est réservé aux grands textes et aux formes ; pour un texte de petite taille, utiliser `--accent-deep`.
 
+Pages arabes (`ar/`) : sous `:root:lang(ar)`, `--display`, `--serif` et `--sans` pointent vers des polices arabes (voir « Multilingue »). Les valeurs ci-dessus restent celles du français et de l'anglais.
+
 À ajouter quand un composant en a besoin (ne pas les créer par avance) : échelle d'espacements, échelle typographique, états de formulaire (erreur, succès), couleurs des badges de statut.
 
 ## Composants
@@ -46,6 +48,7 @@ Socle (`assets/css/base.css`) :
 
 Partagés (`assets/css/components.css`) :
 - En-tête collant : barre horizontale ou menu compact
+- Sélecteur de langue FR, EN, ع dans l'en-tête (`.lang-link`, langue courante marquée `aria-current`)
 - Pied de page : marque, liens, coordonnées
 - Carte bordée (`.card`) et numéro (`.num`)
 
@@ -87,14 +90,21 @@ Propres à une page :
 
 ## Composants à créer
 - FAQ
-- Sélecteur de langue
 
 ## Multilingue
-- Français, anglais et arabe.
-- L'arabe utilise `dir="rtl"` et une vérification visuelle dédiée.
-- Ne pas simplement inverser tout le layout : vérifier icônes, alignements, espacements et composants. Préférer les propriétés logiques (`margin-inline`, `padding-inline`, `inset-inline`).
-- Anton et Cormorant Garamond ne couvrent pas l'arabe : une police arabe est à choisir pour cette langue.
-- Les contenus doivent être séparés des templates.
+- Français (racine), anglais (`en/`) et arabe (`ar/`). Les pages `cv.html` et `design-system/` restent en français seulement.
+- L'arabe utilise `dir="rtl"` ; une vérification visuelle dédiée reste à faire (lot 6, non cochée).
+- Ne pas simplement inverser tout le layout : vérifier icônes, alignements, espacements et composants. Préférer les propriétés logiques (`margin-inline`, `padding-inline`, `inset-inline`, `border-inline-start`, `text-align: start`). Les rares règles physiques restantes sont inversées sous `[dir="rtl"]` (par exemple `.side-l` dans `editorial.css`).
+- Flèches : sous `[dir="rtl"]`, la flèche `.arrow` (« suivant ») est retournée (`scale: -1 1`) et pointe vers la gauche ; `.arrow-back` (« précédent ») est retournée en français et redressée en arabe, si bien qu'elle pointe toujours vers l'arrière.
+- Polices arabes, chargées seulement sur les pages `ar/` (balise Google Fonts placée après celle des polices latines), définies dans `tokens.css` sous `:root:lang(ar)` :
+  - `--display` : Noto Kufi Arabic (700 à 900), pour le mot géant ;
+  - `--serif` : Amiri (400, 700), pour les titres et citations ;
+  - `--sans` : IBM Plex Sans Arabic (400 à 600), pour le texte courant.
+  Anton, Cormorant Garamond et Montserrat restent utilisées en français et en anglais, et en repli pour les mots en caractères latins.
+- Texte arabe : pas de capitales (`text-transform: none`), pas d'espacement des lettres (`letter-spacing: normal`) ni d'italique (`:lang(ar)` dans `tokens.css`). Les titres arabes ont une hauteur de ligne de 1,4 (`base.css`), pour que les signes au-dessus et au-dessous de la ligne ne se chevauchent pas.
+- Mot géant arabe : écrit en un seul bloc, sans une lettre par `<span>` (voir `assets/js/motion/giant.js` dans `ARCHITECTURE.md`).
+- Chiffres : occidentaux (0-9) en arabe.
+- Les contenus doivent être séparés des templates : les textes d'interface sont dans `assets/js/i18n/messages/`, les données dans `assets/data/` avec `{ fr, en, ar }`.
 - Prévoir les textes plus longs en français et en arabe.
 
 ## Mouvement et accessibilité
