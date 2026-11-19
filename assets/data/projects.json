@@ -27,13 +27,12 @@
       ],
       "media": {
         "desktop": "assets/projets/atdds-desktop.jpg",
-        "mobile": null
+        "mobile": "assets/projets/atdds-mobile.jpg"
       },
       "url": "https://droitalasante.tn/",
       "missing": [
         "role",
-        "period",
-        "media.mobile"
+        "period"
       ]
     },
     {

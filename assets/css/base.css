@@ -25,6 +25,8 @@ svg { display: block; }
 
 .skip { position: absolute; inset-inline-start: -9999px; top: 8px; z-index: 30; background: var(--ink); color: var(--bg); padding: 8px 14px; }
 .skip:focus { inset-inline-start: 8px; }
+/* Cible tactile de 44 px : la zone cliquable déborde sur ::after, l'apparence ne change pas */
+.skip::after { content: ""; position: absolute; inset-inline: 0; top: calc(50% - 22px); bottom: calc(50% - 22px); }
 
 .progress {
     position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 25;
@@ -44,7 +46,9 @@ svg { display: block; }
 .arrow { width: 44px; height: 11px; flex: none; transition: transform .5s var(--ease); }
 a:hover > .arrow { transform: translateX(8px); }
 
-.link-arrow { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; white-space: nowrap; }
+.link-arrow { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; white-space: nowrap; position: relative; }
+/* Cible tactile de 44 px : zone cliquable centrée sur le lien, sans effet sur la mise en page */
+.link-arrow::after { content: ""; position: absolute; inset-inline: 0; top: calc(50% - 22px); bottom: calc(50% - 22px); }
 .link-arrow .arrow { color: var(--accent-deep); }
 
 .btn {
