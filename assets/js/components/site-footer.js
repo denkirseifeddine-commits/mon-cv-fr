@@ -15,6 +15,9 @@ function linkAttrs(item) {
     return `href="${escapeHtml(link.href)}"${hreflang}${link.current ? ' aria-current="page"' : ''}`;
 }
 
+// Page de confidentialité : liée depuis la ligne du bas, hors du menu principal
+const PRIVACY = { href: 'confidentialite/' };
+
 function template() {
     const links = NAV.map((item) => `<li><a ${linkAttrs(item)}><span>${escapeHtml(label(item))}</span></a></li>`).join('');
     // Retour en haut : ancre #top si la page la fournit, sinon haut du document
@@ -42,6 +45,7 @@ function template() {
         </div>
         <div class="footer-bottom">
             <p><bdi>© <span>${new Date().getFullYear()}</span> ${escapeHtml(BRAND.name)}</bdi></p>
+            <a ${linkAttrs(PRIVACY)}>${escapeHtml(t('footer.privacy'))}</a>
             <a href="${topHref}">${escapeHtml(t('footer.backToTop'))}</a>
         </div>`;
 }

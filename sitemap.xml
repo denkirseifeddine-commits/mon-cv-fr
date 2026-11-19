@@ -130,4 +130,25 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/trouver-ma-solution/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/trouver-ma-solution/"/>
   </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/confidentialite/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/confidentialite/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/confidentialite/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/confidentialite/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/confidentialite/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/en/confidentialite/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/confidentialite/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/confidentialite/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/confidentialite/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/confidentialite/"/>
+  </url>
+  <url>
+    <loc>https://mon-cv-fr.vercel.app/ar/confidentialite/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/confidentialite/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/confidentialite/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mon-cv-fr.vercel.app/ar/confidentialite/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mon-cv-fr.vercel.app/confidentialite/"/>
+  </url>
 </urlset>
