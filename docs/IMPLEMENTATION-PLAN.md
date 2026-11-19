@@ -8,7 +8,7 @@ Une pull request par lot, validée avant le lot suivant.
 - [ ] Vérifier les paramètres de déploiement Vercel (tableau de bord).
 - [x] Inventorier les liens et ressources actuels (`docs/AUDIT.md`).
 - [x] Captures d'ATDDS et de Meubles Chabbouh, lien LinkedIn.
-- [ ] Capture mobile d'ATDDS (le site s'affichait sans ses styles au moment des captures).
+- [x] Capture mobile d'ATDDS (lot 8).
 - [ ] Rôle et période pour ATDDS et Meubles Chabbouh (à fournir par le propriétaire).
 
 ## Lot 1 — Fondation non destructive
