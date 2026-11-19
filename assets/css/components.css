@@ -24,10 +24,13 @@
     backdrop-filter: blur(12px);
 }
 .top a { text-decoration: none; }
-.top-brand { display: inline-flex; align-items: center; gap: 14px; white-space: nowrap; }
+.top-brand { display: inline-flex; align-items: center; gap: 14px; white-space: nowrap; position: relative; }
+.top-brand::after { content: ""; position: absolute; inset-inline: 0; top: calc(50% - 22px); bottom: calc(50% - 22px); }
 .star { width: 18px; height: 18px; color: var(--accent); animation: spin 14s linear infinite; }
 .top-nav { display: flex; gap: clamp(18px, 3vw, 40px); }
 .top-nav a { position: relative; padding: 4px 0; white-space: nowrap; }
+/* Cible tactile de 44 px (::after sert au soulignement) */
+.top-nav a::before { content: ""; position: absolute; inset-inline: 0; top: calc(50% - 22px); bottom: calc(50% - 22px); }
 .top-nav a::after {
     content: ""; position: absolute; inset-inline: 0; bottom: 0; height: 1px;
     background: var(--accent);
@@ -37,7 +40,8 @@
 .top-nav a:hover::after, .top-nav a[aria-current="page"]::after { transform: scaleX(1); transform-origin: left; }
 [dir="rtl"] .top-nav a::after { transform-origin: left; }
 [dir="rtl"] .top-nav a:hover::after, [dir="rtl"] .top-nav a[aria-current="page"]::after { transform-origin: right; }
-.top-cta { display: inline-flex; align-items: center; gap: 14px; white-space: nowrap; }
+.top-cta { display: inline-flex; align-items: center; gap: 14px; white-space: nowrap; position: relative; }
+.top-cta::after { content: ""; position: absolute; inset-inline: 0; top: calc(50% - 22px); bottom: calc(50% - 22px); }
 .top-cta .arrow { color: var(--accent-deep); }
 
 /* Sélecteur de langue : FR, EN, ع. Cibles de 44 px ; la marge négative garde
@@ -172,12 +176,16 @@
     display: inline-flex; align-items: center; gap: 14px;
     font-family: var(--serif); font-size: clamp(1.875rem, 3vw, 2.375rem); line-height: 1.05;
     color: var(--ink);
+    position: relative;
 }
+.footer-brand-link::after { content: ""; position: absolute; inset-inline: 0; top: calc(50% - 22px); bottom: calc(50% - 22px); }
 .footer-role { margin-top: 12px; }
 .footer-title { color: var(--accent-deep); font-weight: 600; margin-bottom: 12px; }
 .footer-links, .footer-contact { display: grid; gap: 2px; }
 .footer-links a, .footer-contact a, .footer-contact span { display: inline-flex; align-items: center; min-height: 32px; }
-.footer-links a, .footer-contact a { color: var(--ink); }
+.footer-links a, .footer-contact a { color: var(--ink); position: relative; }
+/* Zone cliquable : remplit l'écart de 2 px entre deux liens (espacement inchangé ; 44 px exigerait d'espacer davantage les lignes) */
+.footer-links a::after, .footer-contact a::after { content: ""; position: absolute; inset-inline: 0; top: -1px; bottom: -1px; }
 .footer-links a span, .footer-contact a span {
     background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0 1px no-repeat;
     transition: background-size .5s var(--ease);
@@ -189,6 +197,11 @@
 .footer-contact svg { width: 18px; height: 18px; color: var(--accent-deep); flex: none; }
 .footer-contact a, .footer-contact span { overflow-wrap: anywhere; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 16px; }
+/* Cibles tactiles de 44 px pour les liens de la ligne du bas (zone qui déborde, sans effet sur la mise en page) */
+.footer-bottom a { position: relative; }
+/* Sur téléphone, la ligne du bas est empilée : le premier lien déborde vers le haut (texte non cliquable) et jusqu'à l'écart de 16 px, le dernier vers le bas */
+.footer-bottom a::after { content: ""; position: absolute; inset-inline: 0; top: -10px; bottom: -16px; }
+.footer-bottom a:last-child::after { top: 0; bottom: -26px; }
 .footer-main + .footer-bottom { padding-top: 24px; border-top: 1px solid var(--line); }
 
 /* ---------- Animations ---------- */
