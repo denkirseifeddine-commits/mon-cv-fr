@@ -73,8 +73,10 @@ Une pull request par lot, validée avant le lot suivant.
 
 ## Lot 8 — Backend
 - [ ] Décider si le catalogue justifie une API.
-- [ ] Implémenter Laravel, PostgreSQL et Filament.
-- [ ] Migrer les données JSON.
+- [x] Socle Laravel, PostgreSQL, Redis et Filament dans `backend/` : modèles, administration `/admin`, API de lecture `/api/v1`, `POST /api/v1/quotes`, tests (voir `backend/README.md`).
+- [ ] Choisir l'hébergement PHP, le domaine de l'API et le service d'e-mail, puis déployer.
+- [x] Import et export des données JSON (`php artisan site:import` / `site:export`, aller-retour sans différence).
+- [ ] Brancher le site sur l'API une fois le backoffice déployé.
 - [ ] Ajouter prospects, devis, commandes et paiements par étapes.
 
 ## Critères de sortie de chaque lot

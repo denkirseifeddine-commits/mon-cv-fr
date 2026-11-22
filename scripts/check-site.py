@@ -18,7 +18,7 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parent.parent
 
 # Dossiers ignorés pendant le parcours, à n'importe quel niveau
-DOSSIERS_IGNORES = {".git", "node_modules", "docs"}
+DOSSIERS_IGNORES = {".git", "node_modules", "docs", "backend"}
 
 # Liens externes ou spéciaux (http:, https:, //, mailto:, tel:, data:, javascript:...) :
 # on ignore tout ce qui commence par un schéma, ce qui couvre les préfixes listés.
