@@ -20,6 +20,7 @@ export default {
     'footer.navTitle': 'Navigation',
     'footer.contactTitle': 'Contact',
     'footer.backToTop': 'Back to top',
+    'footer.privacy': 'Privacy',
     'footer.linkedin': 'LinkedIn profile',
     'contact.city': 'Tunis, Tunisia',
 

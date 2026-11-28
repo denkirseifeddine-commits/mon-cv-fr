@@ -18,7 +18,7 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parent.parent
 
 # Dossiers ignorés pendant le parcours, à n'importe quel niveau
-DOSSIERS_IGNORES = {".git", "node_modules", "docs"}
+DOSSIERS_IGNORES = {".git", "node_modules", "docs", "backend"}
 
 # Liens externes ou spéciaux (http:, https:, //, mailto:, tel:, data:, javascript:...) :
 # on ignore tout ce qui commence par un schéma, ce qui couvre les préfixes listés.
@@ -65,6 +65,7 @@ class Analyseur(HTMLParser):
         self.liens = []  # liste de (ligne, valeur)
         self.html = None  # (ligne, attributs) de la balise <html>, None si absente
         self.hreflang = []  # liste de (ligne, code, href)
+        self.og_images = []  # liste de (ligne, url) des <meta property="og:image">
 
     def handle_starttag(self, tag, attrs):
         # Gère aussi les balises auto-fermantes (<use/>, <img/>) via handle_startendtag
@@ -75,6 +76,10 @@ class Analyseur(HTMLParser):
             attributs = {nom: valeur for nom, valeur in attrs if valeur is not None}
             if "alternate" in attributs.get("rel", "").lower().split() and "hreflang" in attributs:
                 self.hreflang.append((ligne, attributs["hreflang"].strip(), attributs.get("href", "").strip()))
+        if tag == "meta":
+            attributs = {nom: valeur for nom, valeur in attrs if valeur is not None}
+            if attributs.get("property", "").strip().lower() == "og:image":
+                self.og_images.append((ligne, attributs.get("content", "").strip()))
         for nom, valeur in attrs:
             if valeur is None:
                 continue
@@ -97,6 +102,7 @@ class Verificateur:
         self.pages_langue = 0  # pages dont la langue a été vérifiée
         self.pages_hreflang = 0  # pages qui déclarent des hreflang
         self.liens_hreflang = 0  # liens <link hreflang> vérifiés
+        self.images_og = 0  # og:image du domaine public vérifiées
         self._cache = {}  # chemin -> Analyseur, pour ne lire chaque fichier qu'une fois
 
     def signaler(self, niveau, chemin, ligne, message):
@@ -333,6 +339,16 @@ class Verificateur:
                               f"réciprocité absente : {cible.relative_to(ROOT).as_posix()} doit annoncer "
                               f"{rel} avec hreflang=\"{lang_source}\"")
 
+    def verifier_og_image(self, source):
+        """Vérifie que chaque og:image du domaine public désigne un fichier local existant."""
+        for ligne, url in self.analyser_complet(source).og_images:
+            if not url.startswith(BASE_PUBLIQUE):
+                continue  # autre domaine : non vérifié
+            self.images_og += 1
+            relatif = unquote(urlsplit(url).path)[1:]
+            if not relatif or not (ROOT / relatif).is_file():
+                self.signaler("ERREUR", source, ligne, f"og:image : fichier local introuvable : {url}")
+
 
 def langue_attendue(rel):
     """Langue attendue d'une page d'après son dossier : en/… → en, ar/… → ar, le reste → fr."""
@@ -384,6 +400,7 @@ def main():
         if page_traduite(fichier):
             verif.verifier_langue(fichier)
         verif.verifier_hreflang(fichier)
+        verif.verifier_og_image(fichier)
 
     verif.verifier_json()
     verif.verifier_entrees()
@@ -400,7 +417,7 @@ def main():
           f"{verif.fichiers_css} fichier(s) CSS, {verif.references_css} référence(s) CSS, "
           f"{erreurs} erreur(s), {avertissements} avertissement(s)")
     print(f"{verif.pages_langue} page(s) à langue vérifiée, {verif.pages_hreflang} page(s) avec hreflang, "
-          f"{verif.liens_hreflang} lien(s) hreflang vérifié(s)")
+          f"{verif.liens_hreflang} lien(s) hreflang vérifié(s), {verif.images_og} og:image vérifiée(s)")
     return 1 if erreurs else 0
 
 

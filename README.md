@@ -49,6 +49,7 @@ vercel.json             en-têtes de cache
 1. Lire `AGENTS.md` et `docs/`.
 2. Servir le dossier en local, par exemple `python3 -m http.server`, puis ouvrir `http://localhost:8000/`. Les scripts sont des modules ES : ils ne se chargent pas en ouvrant `index.html` directement. Aucun build n'est nécessaire.
 3. Avant chaque commit : `python3 scripts/check-site.py` (liens internes, chemins relatifs, imports JavaScript, références CSS, JSON), puis `node scripts/test-catalog.mjs` (tests unitaires du service du catalogue, sans dépendance), `node scripts/test-recommendation.mjs` (tests unitaires du moteur de recommandation du questionnaire, sans dépendance) et `node scripts/test-i18n.mjs` (traductions et textes JSON fr/en/ar, sans dépendance).
+4. Après modification de `cv.html` ou `cv-chef-de-projet.html` : `node scripts/build-cv.mjs` régénère les PDF et Word des CV dans `assets/cv/` (Playwright requis).
 
 Tous les chemins internes sont relatifs : le site est servi à la racine sur Vercel et sous `/mon-cv-fr/` sur GitHub Pages.
 

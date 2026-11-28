@@ -21,6 +21,7 @@ export default {
     'footer.navTitle': 'التنقل',
     'footer.contactTitle': 'التواصل',
     'footer.backToTop': 'العودة إلى الأعلى',
+    'footer.privacy': 'الخصوصية',
     'footer.linkedin': 'الملف الشخصي على LinkedIn',
     'contact.city': 'تونس العاصمة، تونس',
 
