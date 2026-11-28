@@ -23,7 +23,7 @@ const DOSSIER_CV = path.join(RACINE, 'assets', 'cv');
 const SCRIPT_DOCX = path.join(RACINE, 'scripts', 'build-cv-docx.py');
 const AUTEUR = 'Seif Eddine Denkir';
 
-/** Les deux CV : page HTML source, nom de base des fichiers produits, titre des métadonnées. */
+/** Les trois CV : page HTML source, nom de base des fichiers produits, titre des métadonnées. */
 const CV = [
     {
         html: 'cv.html',
@@ -34,6 +34,11 @@ const CV = [
         html: 'cv-chef-de-projet.html',
         fichier: 'cv-chef-de-projet-seif-eddine-denkir',
         titre: 'CV Chef de projet — Seif Eddine Denkir',
+    },
+    {
+        html: 'cv-commercial.html',
+        fichier: 'cv-commercial-seif-eddine-denkir',
+        titre: 'CV Relation client & communication — Seif Eddine Denkir',
     },
 ];
 
