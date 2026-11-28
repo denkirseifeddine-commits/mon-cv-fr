@@ -29,6 +29,9 @@
     <loc>https://mon-cv-fr.vercel.app/cv-chef-de-projet.html</loc>
   </url>
   <url>
+    <loc>https://mon-cv-fr.vercel.app/cv-commercial.html</loc>
+  </url>
+  <url>
     <loc>https://mon-cv-fr.vercel.app/portfolio/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://mon-cv-fr.vercel.app/portfolio/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://mon-cv-fr.vercel.app/en/portfolio/"/>

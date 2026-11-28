@@ -41,8 +41,8 @@ a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
     gap: 0.5rem 1.25rem;
     font-size: 0.9rem;
 }
-.barre li:nth-child(3) { margin-inline-start: auto; }
-.barre li + li:nth-child(n+4) { margin-inline-start: 0; }
+.barre li:nth-child(4) { margin-inline-start: auto; }
+.barre li + li:nth-child(n+5) { margin-inline-start: 0; }
 
 /* Page */
 .cv {
@@ -91,6 +91,9 @@ ul.liste li { margin-bottom: 0.3rem; }
 .poste, .projet, .diplome { margin-bottom: 1.2rem; }
 .meta { margin: 0.1rem 0 0; font-size: 0.92rem; color: var(--encre-douce); }
 
+/* Champ à compléter avant publication (écran uniquement) */
+.a-completer { background: #fff3a3; color: #171512; padding: 0 0.25em; }
+
 /* Impression A4 */
 @page { size: A4; margin: 15mm; }
 
@@ -117,5 +120,5 @@ ul.liste li { margin-bottom: 0.3rem; }
 @media (max-width: 480px) {
     .cv-entete h1 { font-size: 1.6rem; }
     .coordonnees { flex-direction: column; }
-    .barre li:nth-child(3) { margin-inline-start: 0; }
+    .barre li:nth-child(4) { margin-inline-start: 0; }
 }
